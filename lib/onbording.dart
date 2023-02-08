@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
-import 'package:schooolapp/login/mainscreen.dart';
-import 'package:schooolapp/units/media.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:schooolapp/techers/login/mainscreen.dart';
 
 class BoardingPage extends StatefulWidget {
   const BoardingPage({Key? key}) : super(key: key);
@@ -224,7 +221,7 @@ class _BoardingPageState extends State<BoardingPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "continue",
+                                    "Get Started",
                                     style: TextStyle(
                                         fontFamily: "popins",
                                         color: Colors.white,
@@ -253,9 +250,9 @@ class _BoardingPageState extends State<BoardingPage> {
                               child: Center(
                                   child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
+                                children: const [
                                   Text(
-                                    "Get Started",
+                                    "Continue",
                                     style: TextStyle(
                                         fontFamily: "popins",
                                         color: Colors.white,

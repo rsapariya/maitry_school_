@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:schooolapp/student/onlineexam/onemcq.dart';
 
 class viewmcq extends StatefulWidget {
   const viewmcq({Key? key}) : super(key: key);
@@ -15,56 +15,56 @@ class _viewmcqState extends State<viewmcq> {
     {
       "no": "0.1",
       "name":
-      "Loream ipsum is simply dummy text of the printing and industry ?",
+          "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 4",
       "qest": "220 Qestions"
     },
     {
       "no": "0.2",
       "name":
-      "Loream ipsum is simply dummy text of the printing and industry ?",
+          "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 1",
       "qest": "200 Qestions"
     },
     {
       "no": "0.3",
       "name":
-      "Loream ipsum is simply dummy text of the printing and industry ?",
+          "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 3",
       "qest": "210 Qestions"
     },
     {
       "no": "0.4",
       "name":
-      "Loream ipsum is simply dummy text of the printing and industry ?",
+          "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 2",
       "qest": "20 Qestions"
     },
     {
       "no": "0.5",
       "name":
-      "Loream ipsum is simply dummy text of the printing and industry ?",
+          "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 1",
       "qest": "130 Qestions"
     },
     {
       "no": "0.6",
       "name":
-      "Loream ipsum is simply dummy text of the printing and industry ?",
+          "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 2",
       "qest": "100 Qestions"
     },
     {
       "no": "0.7",
       "name":
-      "Loream ipsum is simply dummy text of the printing and industry ?",
+          "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 3 ",
       "qest": "170 Qestions"
     },
     {
       "no": " 0.8",
       "name":
-      "Loream ipsum is simply dummy text of the printing and industry ?",
+          "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 2",
       "qest": "190 Qestions"
     },
@@ -126,7 +126,11 @@ class _viewmcqState extends State<viewmcq> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+
+                      });
+                    },
                     child: Container(
                       height: Get.height / 25,
                       decoration: BoxDecoration(
@@ -230,7 +234,7 @@ class _viewmcqState extends State<viewmcq> {
                                   color: Colors.grey.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(10),
                                   border:
-                                  Border.all(color: Colors.transparent)),
+                                      Border.all(color: Colors.transparent)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: SizedBox(
@@ -262,7 +266,7 @@ class _viewmcqState extends State<viewmcq> {
                                   color: Colors.grey.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(10),
                                   border:
-                                  Border.all(color: Colors.transparent)),
+                                      Border.all(color: Colors.transparent)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: SizedBox(
@@ -295,7 +299,7 @@ class _viewmcqState extends State<viewmcq> {
                                   color: Colors.grey.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(10),
                                   border:
-                                  Border.all(color: Colors.transparent)),
+                                      Border.all(color: Colors.transparent)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: SizedBox(
@@ -327,7 +331,7 @@ class _viewmcqState extends State<viewmcq> {
                                   color: Colors.grey.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(10),
                                   border:
-                                  Border.all(color: Colors.transparent)),
+                                      Border.all(color: Colors.transparent)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: SizedBox(
@@ -359,7 +363,7 @@ class _viewmcqState extends State<viewmcq> {
                                   child: Center(
                                     child: Padding(
                                       padding:
-                                      EdgeInsets.symmetric(horizontal: 20),
+                                          EdgeInsets.symmetric(horizontal: 20),
                                       child: Text(
                                         "Add +",
                                         style: TextStyle(

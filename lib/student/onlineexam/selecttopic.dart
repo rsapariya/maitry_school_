@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../techers/dashboard/bottombar/home/pdf/MCOs.dart';
+import 'mcqs.dart';
 
 class selecttopics extends StatefulWidget {
   const selecttopics({Key? key}) : super(key: key);
@@ -125,6 +126,7 @@ class _selecttopicsState extends State<selecttopics> {
                     splashColor: Colors.transparent,
                     onTap: () {
                       setState(() {
+                        Get.to(()=>const viewmcqs());
                         selectedindex = index;
                       });
                     },

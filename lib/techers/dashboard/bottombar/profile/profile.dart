@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../student/Requestacher.dart';
+import '../../../login/register.dart';
+
 class profile extends StatefulWidget {
   const profile({Key? key}) : super(key: key);
 
@@ -11,6 +14,8 @@ class profile extends StatefulWidget {
 
 class _profileState extends State<profile> {
   @override
+  String selectedItem = '11th';
+  String selectedItem2 = 'Biology';
   bool status = false;
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,12 +117,66 @@ class _profileState extends State<profile> {
                       const SizedBox(
                         height: 15,
                       ),
-                      const Text(
-                        "Account",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontFamily: "popins Medium"),
+                      Row(
+                        children: [
+                          const Text(
+                            "Account",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontFamily: "popins Medium"),
+                          ),
+                          const Spacer(),
+                          student == true
+                              ? Container(
+                                  height: Get.height / 25,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Center(
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: DropdownButton<String>(
+                                            value: selectedItem,
+                                            elevation: 0,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            items: const [
+                                              DropdownMenuItem(
+                                                value: '11th',
+                                                child: Text(
+                                                  '11th',
+                                                  style: TextStyle(
+                                                      color: Colors.blue),
+                                                ),
+                                              ),
+                                              DropdownMenuItem(
+                                                value: '12th',
+                                                child: Text('12th',
+                                                    style: TextStyle(
+                                                        color: Colors.blue)),
+                                              ),
+                                            ],
+                                            icon: const Icon(
+                                              Icons.arrow_drop_down,
+                                              color: Colors.blue,
+                                            ),
+                                            underline: Container(
+                                              height: 0,
+                                              color: Colors.transparent,
+                                            ),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                selectedItem = value!;
+                                              });
+                                            })),
+                                  ),
+                                )
+                              : const SizedBox(
+                                  width: 10,
+                                )
+                        ],
                       ),
                       const SizedBox(
                         height: 10,
@@ -144,8 +203,22 @@ class _profileState extends State<profile> {
                           titel: "Timer",
                           image: "asstes/image/profile/Time Circle.png"),
                       const SizedBox(
-                        height: 15,
+                        height: 10,
                       ),
+                      student == true
+                          ? roww(
+                              onTap: () {
+                                Get.to(() => const Jointeacher(),
+                                    transition: Transition.leftToRight);
+                              },
+                              titel: "Join with Teacher",
+                              image: "asstes/image/Placeholder.png")
+                          : const SizedBox(),
+                      student == true
+                          ? const SizedBox(
+                              height: 15,
+                            )
+                          : const SizedBox(),
                     ],
                   ),
                 ),

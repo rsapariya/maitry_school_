@@ -95,7 +95,7 @@ class _homeState extends State<home> {
                     Spacer(),
                     InkWell(
                       onTap: () {
-                        Get.to(() => notification());
+                        Get.to(() => notification(),transition:Transition.leftToRight);
                       },
                       child: Container(
                         height: 40,
@@ -188,7 +188,7 @@ class _homeState extends State<home> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => pdfgenrat());
+                          Get.to(() => pdfgenrat(),transition:Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -221,7 +221,7 @@ class _homeState extends State<home> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => online());
+                          Get.to(() => online(),transition:Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -255,7 +255,7 @@ class _homeState extends State<home> {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(() => pendingreqest());
+                    Get.to(() => pendingreqest(),transition:Transition.leftToRight);
                   },
                   child: Container(
                     height: Get.height / 6,

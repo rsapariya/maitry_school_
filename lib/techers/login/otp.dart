@@ -127,7 +127,7 @@ class _verificationState extends State<verification> {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(() => const newpass());
+                  Get.to(() => const newpass(),transition:Transition.leftToRight);
                 },
                 child: Container(
                   child: Row(

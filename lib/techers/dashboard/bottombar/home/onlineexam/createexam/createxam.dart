@@ -87,7 +87,7 @@ class _examlistState extends State<examlist> {
                   itemBuilder: (context, index) => InkWell(
                     splashColor: Colors.transparent,
                     onTap: () {
-                      Get.to(() => const qestionpaper());
+                      Get.to(() => const qestionpaper(),transition:Transition.leftToRight);
                     },
                     child: Container(
                       child: Padding(

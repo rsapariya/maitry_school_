@@ -126,7 +126,7 @@ class _selecttopicsState extends State<selecttopics> {
                     splashColor: Colors.transparent,
                     onTap: () {
                       setState(() {
-                        Get.to(()=>const viewmcqs());
+                        Get.to(()=>const viewmcqs(),transition:Transition.leftToRight);
                         selectedindex = index;
                       });
                     },

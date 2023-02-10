@@ -173,7 +173,7 @@ class _selectchaptersState extends State<selectchapters> {
                     splashColor: Colors.transparent,
                     onTap: () {
                       setState(() {
-                        Get.to(selecttopics());
+                        Get.to(selecttopics(),transition:Transition.leftToRight);
                       });
                     },
                     child: Container(

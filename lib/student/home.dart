@@ -1,8 +1,12 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/student/prectice/selectch.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pendingreqest/pendingreqeust.dart';
 import '../techers/dashboard/bottombar/home/notification.dart';
+import 'Materials.dart';
+import 'gujcetpaper.dart';
 import 'onlineexam/onlineexam.dart';
 
 class homes extends StatefulWidget {
@@ -38,26 +42,26 @@ class _homesState extends State<homes> {
                             borderRadius: BorderRadius.circular(30)),
                         child: Center(
                           child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
                               child: DropdownButton<String>(
                                   value: selectedItem,
                                   elevation: 0,
                                   borderRadius: BorderRadius.circular(10),
                                   items: const [
                                     DropdownMenuItem(
+                                      value: '11th',
                                       child: Text(
                                         '11th',
                                         style: TextStyle(color: Colors.blue),
                                       ),
-                                      value: '11th',
                                     ),
                                     DropdownMenuItem(
+                                      value: '12th',
                                       child: Text('12th',
                                           style: TextStyle(color: Colors.blue)),
-                                      value: '12th',
                                     ),
                                   ],
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.arrow_drop_down,
                                     color: Colors.blue,
                                   ),
@@ -87,35 +91,35 @@ class _homesState extends State<homes> {
                             borderRadius: BorderRadius.circular(30)),
                         child: Center(
                           child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
                               child: DropdownButton<String>(
                                   value: selectedItem2,
                                   elevation: 0,
                                   borderRadius: BorderRadius.circular(10),
                                   items: const [
                                     DropdownMenuItem(
+                                      value: 'Biology',
                                       child: Text(
                                         'Biology',
                                         style: TextStyle(color: Colors.blue),
                                       ),
-                                      value: 'Biology',
                                     ),
                                     DropdownMenuItem(
+                                      value: 'Physics',
                                       child: Text('Physics',
                                           style: TextStyle(color: Colors.blue)),
-                                      value: 'Physics',
                                     ),
                                     DropdownMenuItem(
+                                      value: 'Chemistry',
                                       child: Text('Chemistry',
                                           style: TextStyle(color: Colors.blue)),
-                                      value: 'Chemistry',
                                     ),
                                   ],
                                   underline: Container(
                                     height: 0,
                                     color: Colors.transparent,
                                   ),
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.arrow_drop_down,
                                     color: Colors.blue,
                                   ),
@@ -133,7 +137,7 @@ class _homesState extends State<homes> {
                     const Spacer(),
                     InkWell(
                       onTap: () {
-                        Get.to(() => const notification());
+                        Get.to(() => const notification(),transition:Transition.leftToRight);
                       },
                       child: Container(
                         height: 40,
@@ -165,7 +169,7 @@ class _homesState extends State<homes> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: Get.width / 1.85),
-                          child: Container(
+                          child: SizedBox(
                             height: Get.height / 2,
                             width: Get.width / 1.5,
                             child: Image.asset(
@@ -226,7 +230,7 @@ class _homesState extends State<homes> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          // Get.to(() => const pdfgenrat());
+                          Get.to(() => const Gujcetpaper(),transition:Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -260,7 +264,7 @@ class _homesState extends State<homes> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => const selectchapters());
+                          Get.to(() => const selectchapters(),transition:Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -297,7 +301,7 @@ class _homesState extends State<homes> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          // Get.to(() => const pdfgenrat());
+                          Get.to(() => const Materials(),transition:Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -330,7 +334,7 @@ class _homesState extends State<homes> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => const precticechapter());
+                          Get.to(() => const precticechapter(),transition:Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -364,7 +368,7 @@ class _homesState extends State<homes> {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(() => const pendingreqest());
+                    // Get.to(() => const pendingreqest());
                   },
                   child: Container(
                     height: Get.height / 6,

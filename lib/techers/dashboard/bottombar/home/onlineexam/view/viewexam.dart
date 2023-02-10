@@ -26,7 +26,7 @@ class _viewexamState extends State<viewexam> {
       backgroundColor: Colors.white,
       bottomNavigationBar: appButton(
           onTap: () {
-            Get.to(() => selectchapter());
+            Get.to(() => selectchapter(),transition:Transition.leftToRight);
           },
           title: "Save and Continue"),
       body: SafeArea(

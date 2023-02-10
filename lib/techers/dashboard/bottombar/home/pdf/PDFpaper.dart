@@ -22,7 +22,7 @@ class _pdfgenratState extends State<pdfgenrat> {
       backgroundColor: Colors.white,
       bottomNavigationBar: appButton(
           onTap: () {
-            Get.to(() => selectchapter());
+            Get.to(() => selectchapter(),transition:Transition.leftToRight);
           },
           title: "Submit"),
       body: SafeArea(

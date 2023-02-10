@@ -102,7 +102,7 @@ class _mainscreenState extends State<mainscreen> {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(() => const forget());
+                  Get.to(() => const forget(),transition:Transition.leftToRight);
                 },
                 child: const Text(
                   "Forgot your password?",
@@ -117,7 +117,7 @@ class _mainscreenState extends State<mainscreen> {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(() => const bottomt());
+                  Get.to(() => const bottomt(),transition:Transition.leftToRight);
                 },
                 child: Container(
                   height: Get.height / 15,
@@ -161,7 +161,7 @@ class _mainscreenState extends State<mainscreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.to(() => const register());
+                      Get.to(() => const register(),transition:Transition.leftToRight);
                     },
                     child: const Text(
                       "Register",

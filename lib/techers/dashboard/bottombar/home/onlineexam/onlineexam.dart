@@ -56,7 +56,7 @@ class _onlineState extends State<online> {
                     Spacer(),
                     InkWell(
                       onTap: () {
-                        Get.to(() => notification());
+                        Get.to(() => notification(),transition:Transition.leftToRight);
                       },
                       child: Container(
                         height: 40,
@@ -149,7 +149,7 @@ class _onlineState extends State<online> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => const examlist());
+                          Get.to(() => const examlist(),transition:Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -182,7 +182,7 @@ class _onlineState extends State<online> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => viewexam());
+                          Get.to(() => viewexam(),transition:Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -219,7 +219,7 @@ class _onlineState extends State<online> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => createclass());
+                          Get.to(() => createclass(),transition:Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -252,7 +252,7 @@ class _onlineState extends State<online> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => allclass());
+                          Get.to(() => allclass(),transition:Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,

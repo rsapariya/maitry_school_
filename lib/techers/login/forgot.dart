@@ -99,7 +99,7 @@ class _forgetState extends State<forget> {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(() => const verification());
+                  Get.to(() => const verification(),transition:Transition.leftToRight);
                 },
                 child: Container(
                   height: Get.height / 15,

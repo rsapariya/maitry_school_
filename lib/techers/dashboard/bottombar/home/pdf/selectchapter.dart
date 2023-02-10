@@ -121,7 +121,7 @@ class _selectchapterState extends State<selectchapter> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.to(() => selecttopic());
+                      Get.to(() => selecttopic(),transition:Transition.leftToRight);
                     },
                     child: Container(
                       height: Get.height / 25,

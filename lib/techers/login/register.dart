@@ -816,8 +816,8 @@ class _registerState extends State<register> {
               InkWell(
                 onTap: () {
                   student == false
-                      ? Get.to(() => const bottomt())
-                      : Get.to(() => const bottoms());
+                      ? Get.to(() => const bottomt(),transition:Transition.leftToRight)
+                      : Get.to(() => const bottoms(),transition:Transition.leftToRight);
                 },
                 child: Container(
                   height: Get.height / 15,

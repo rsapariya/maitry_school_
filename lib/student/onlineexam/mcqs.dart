@@ -173,7 +173,7 @@ class _viewmcqsState extends State<viewmcqs> {
                           save('MCQ', chapter[select]);
                         });
                         Get.to(() => const OneMcqs(),
-                            transition: Transition.rightToLeft);
+                            transition: Transition.leftToRight);
                       },
                     ),
                   ),

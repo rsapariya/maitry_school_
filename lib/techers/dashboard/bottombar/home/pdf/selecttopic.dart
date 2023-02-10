@@ -120,7 +120,7 @@ class _selecttopicState extends State<selecttopic> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.to(() => mcqs());
+                      Get.to(() => mcqs(),transition:Transition.leftToRight);
                     },
                     child: Container(
                       height: Get.height / 25,

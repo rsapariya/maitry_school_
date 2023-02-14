@@ -38,8 +38,8 @@ class _createclassState extends State<createclass> {
                         Get.back();
                       },
                       child: Container(
-                        height: 40,
-                        width: 40,
+                        height:Get.height/20,
+                        width:Get.width/9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -61,8 +61,8 @@ class _createclassState extends State<createclass> {
                     InkWell(
                       child: SizedBox(
                         child: Container(
-                          height: 40,
-                          width: 40,
+                          height:Get.height/20,
+                          width:Get.width/9,
                         ),
                       ),
                     ),
@@ -159,7 +159,7 @@ class _createclassState extends State<createclass> {
       labelText: lbltext,
       contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
               color: Colors.white,
               width: 0.5,

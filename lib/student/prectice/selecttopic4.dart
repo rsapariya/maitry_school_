@@ -1,33 +1,94 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/createexam/qestionpaper.dart';
+import 'package:schooolapp/student/prectice/prectice.dart';
 
-class examlist extends StatefulWidget {
-  const examlist({Key? key}) : super(key: key);
+class Testtopic extends StatefulWidget {
+  const Testtopic({Key? key}) : super(key: key);
 
   @override
-  State<examlist> createState() => _examlistState();
+  State<Testtopic> createState() => _TesttopicState();
 }
 
-class _examlistState extends State<examlist> {
+class _TesttopicState extends State<Testtopic> {
   int selectedindex = 0;
-  List chapter = [
+  List Topic = [
     {
-      "name": "1st Chapter Ravi",
-      "date": "20/08/2022",
-      "time": "04:30 PM",
-      "no": "01."
+      "no": "0.1",
+      "name": "Topic 01",
+      "topic": "7 topics",
+      "qest": "220 Qestions",
+      "Select": 'false'
     },
     {
-      "name": "2nd Chapter Ravi",
-      "date": "21/08/2022",
-      "time": "04:30 PM",
-      "no": "02."
+      "no": "0.2",
+      "name": "Topic 02",
+      "topic": "19 topics",
+      "qest": "200 Qestions",
+      "Select": 'false'
+    },
+    {
+      "no": "0.3",
+      "name": "Topic 03",
+      "topic": "8 topics",
+      "qest": "210 Qestions",
+      "Select": "false"
+    },
+    {
+      "no": "0.4",
+      "name": "Topic 04",
+      "topic": "6 topics",
+      "qest": "20 Qestions",
+      "Select": "false"
+    },
+    {
+      "no": "0.5",
+      "name": "Topic 05",
+      "topic": "7 topics",
+      "qest": "130 Qestions",
+      "Select": 'false'
+    },
+    {
+      "no": "0.6",
+      "name": "Topic 06",
+      "topic": "10 topics",
+      "qest": "100 Qestions",
+      "Select": 'false'
+    },
+    {
+      "no": "0.7",
+      "name": "Topic 07",
+      "topic": "2 topics",
+      "qest": "170 Qestions",
+      "Select": 'false'
+    },
+    {
+      "no": " 0.8",
+      "name": "Topic 08",
+      "topic": "7 topics",
+      "qest": "190 Qestions",
+      "Select": 'false'
     },
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton:InkWell(
+        onTap:(){
+          Get.to(()=>tacktest(),transition:Transition.leftToRight);
+        },
+        child:Container(
+        height: Get.height / 17,
+        width: Get.width / 4,
+        decoration: BoxDecoration(
+            color: Colors.blue, borderRadius: BorderRadius.circular(60)),
+        child: const Center(
+          child: Text(
+            "Next",
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontFamily: 'Gilroy Medium'),
+          ),
+        ),
+      ),),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -46,8 +107,8 @@ class _examlistState extends State<examlist> {
                         Get.back();
                       },
                       child: Container(
-                        height:Get.height/20,
-                        width:Get.width/9,
+                        height: 40,
+                        width: 40,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -60,36 +121,45 @@ class _examlistState extends State<examlist> {
                       ),
                     ),
                     const Text(
-                      "Exam List",
+                      "Select Topic",
                       style: TextStyle(
                           color: Colors.black,
                           fontFamily: "popins Medium",
                           fontSize: 18),
                     ),
                     InkWell(
-                      child: SizedBox(
-                        child: Container(
-                          height:Get.height/20,
-                          width:Get.width/9,
-                        ),
+                      onTap: () {
+                        Get.back();
+                      },
+                      child:const SizedBox(
+                        height: 40,
+                        width: 40,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: Get.height / 40),
               SizedBox(
                 height: Get.height / 1.3,
                 width: double.infinity,
                 child: ListView.builder(
-                  itemCount: chapter.length,
+                  itemCount: Topic.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => InkWell(
                     splashColor: Colors.transparent,
                     onTap: () {
-                      Get.to(() => const qestionpaper(),transition:Transition.leftToRight);
+                      setState(() {
+                        Topic[index]['Select'] == 'true'
+                            ? Topic[index]['Select'] = 'false'
+                            : Topic[index]['Select'] = 'true';
+                        print(Topic[index]['Select']);
+                      });
                     },
                     child: Container(
+                      // height: Get.height / 13,
+                      // width: Get.width / 3.7,
+                      // color: Colors.grey.shade50,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: Column(
@@ -104,7 +174,7 @@ class _examlistState extends State<examlist> {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 12),
                                     child: Text(
-                                      chapter[index]["no"],
+                                      Topic[index]["no"],
                                       style: const TextStyle(
                                           color: Colors.blue,
                                           fontSize: 20,
@@ -120,7 +190,7 @@ class _examlistState extends State<examlist> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        chapter[index]["name"],
+                                        Topic[index]["name"],
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 18,
@@ -132,7 +202,7 @@ class _examlistState extends State<examlist> {
                                       Row(
                                         children: [
                                           Text(
-                                            chapter[index]["date"],
+                                            Topic[index]["topic"],
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 12,
@@ -146,7 +216,7 @@ class _examlistState extends State<examlist> {
                                             width: 10,
                                           ),
                                           Text(
-                                            chapter[index]["time"],
+                                            Topic[index]["qest"],
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 12,
@@ -162,11 +232,33 @@ class _examlistState extends State<examlist> {
                                   ),
                                   const Spacer(),
                                   InkWell(
-                                      onTap: () {},
-                                      child: Image.asset(
-                                        'asstes/image/profile/delet.png',
-                                        scale: 3.5,
-                                      )),
+                                    onTap: () {},
+                                    child: Container(
+                                      height: 15,
+                                      width: 15,
+                                      child: Topic[index]['Select'] == 'true'
+                                          ? const Center(
+                                              child: Icon(
+                                                Icons.done,
+                                                size: 12,
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                          : const SizedBox(),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Topic[index]['Select'] ==
+                                                      'true'
+                                                  ? Colors.blue
+                                                  : Colors.grey),
+                                          color:
+                                          Topic[index]['Select'] == 'true'
+                                                  ? Colors.blue
+                                                  : Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(2)),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),

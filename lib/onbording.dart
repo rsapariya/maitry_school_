@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:schooolapp/techers/login/mainscreen.dart';
+import 'package:schooolapp/techers/units/storage.dart';
 
 class BoardingPage extends StatefulWidget {
   const BoardingPage({Key? key}) : super(key: key);
@@ -9,13 +11,17 @@ class BoardingPage extends StatefulWidget {
   State<BoardingPage> createState() => _BoardingPageState();
 }
 
+final firebaseInstance = FirebaseFirestore.instance;
+
 class _BoardingPageState extends State<BoardingPage> {
   @override
-
   void initState() {
+    print(
+        "---------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${getdata.read('varsion')}");
+    getDocs();
     super.initState();
-    _currentPage = 0;
 
+    _currentPage = 0;
     _slides = [
       Slide("asstes/image/bussness.png", "Lorean ipsum doller Sit amet",
           "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."),
@@ -34,6 +40,19 @@ class _BoardingPageState extends State<BoardingPage> {
   // the list which contain the build slides
   List<Widget> _buildSlides() {
     return _slides.map(_buildSlide).toList();
+  }
+
+  Future<void> getDocs() async {
+    try {
+      var response = await firebaseInstance
+          .collection('Version')
+          .doc('nfBoCacw3rO9gMO2DESX')
+          .get();
+      setState(() {});
+      save('varsion', response['versionname']);
+    } catch (e) {
+      print("--  ERRORRRRR    -------$e");
+    }
   }
 
   Widget _buildSlide(Slide slide) {

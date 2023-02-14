@@ -45,8 +45,8 @@ class _viewexamState extends State<viewexam> {
                         Get.back();
                       },
                       child: Container(
-                        height: 40,
-                        width: 40,
+                        height:Get.height/20,
+                        width:Get.width/9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -68,8 +68,8 @@ class _viewexamState extends State<viewexam> {
                     InkWell(
                       child: SizedBox(
                         child: Container(
-                          height: 40,
-                          width: 40,
+                          height:Get.height/20,
+                          width:Get.width/9,
                         ),
                       ),
                     ),
@@ -468,7 +468,7 @@ class _viewexamState extends State<viewexam> {
       labelText: lbltext,
       contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
               color: Colors.white,
               width: 0.5,

@@ -198,7 +198,7 @@ class _mainscreenState extends State<mainscreen> {
       labelText: lbltext,
       contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
               color: Colors.white,
               width: 0.5,

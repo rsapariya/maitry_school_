@@ -140,8 +140,8 @@ class _homesState extends State<homes> {
                         Get.to(() => const notification(),transition:Transition.leftToRight);
                       },
                       child: Container(
-                        height: 40,
-                        width: 40,
+                        height:Get.height/20,
+                        width:Get.width/9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),

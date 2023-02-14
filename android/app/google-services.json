@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "259658628879",
+    "project_id": "schoolapp-7b37d",
+    "storage_bucket": "schoolapp-7b37d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259658628879:android:388eea04427796a9e4c87a",
+        "android_client_info": {
+          "package_name": "com.schooolapp.zresthin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259658628879-0e1khmtq9uivcu22uhr3e0d357a9o7f4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.schooolapp.zresthin",
+            "certificate_hash": "014aeee396dec321855b89f0e820fd86f807ee94"
+          }
+        },
+        {
+          "client_id": "259658628879-qol2ik5bnjt36rngkhk4dukb5poa4pni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY-4GqhNxynr2f4GGdvpakI-zdM1-fV4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259658628879-qol2ik5bnjt36rngkhk4dukb5poa4pni.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "259658628879-svlcq5t8kf7luuvn3ubtj5t1llvdr5oj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.schooolapp.zresthin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

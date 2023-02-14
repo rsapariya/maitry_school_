@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:schooolapp/student/persnoldata.dart';
 
 import '../../../../student/Requestacher.dart';
 import '../../../login/register.dart';
@@ -27,10 +28,10 @@ class _profileState extends State<profile> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   SizedBox(
-                    height: 40,
-                    width: 40,
+                    height: Get.height / 20,
+                    width: Get.width / 9,
                   ),
                   Text(
                     "Profile",
@@ -40,8 +41,8 @@ class _profileState extends State<profile> {
                         fontSize: 18),
                   ),
                   SizedBox(
-                    height: 40,
-                    width: 40,
+                    height: Get.height / 20,
+                    width: Get.width / 9,
                   ),
                 ],
               ),
@@ -75,23 +76,29 @@ class _profileState extends State<profile> {
                     ],
                   ),
                   const Spacer(),
-                  Container(
-                    height: Get.height / 25,
-                    width: Get.width / 4.5,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text(
-                          "Edit",
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                      ],
+                  InkWell(
+                    onTap: () {
+                      Get.to(() => Editpro(),
+                          transition: Transition.leftToRight);
+                    },
+                    child: Container(
+                      height: Get.height / 25,
+                      width: Get.width / 4.5,
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            "Edit",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
               const SizedBox(
@@ -116,92 +123,26 @@ class _profileState extends State<profile> {
                     children: [
                       const SizedBox(
                         height: 15,
-                      ),
+                      ), //982226024468
+
                       Row(
-                        children: [
-                          const Text(
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: const [
+                          Text(
                             "Account",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
                                 fontFamily: "popins Medium"),
                           ),
-                          const Spacer(),
-                          student == true
-                              ? Container(
-                                  height: Get.height / 25,
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: Center(
-                                    child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        child: DropdownButton<String>(
-                                            value: selectedItem,
-                                            elevation: 0,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            items: const [
-                                              DropdownMenuItem(
-                                                value: '11th',
-                                                child: Text(
-                                                  '11th',
-                                                  style: TextStyle(
-                                                      color: Colors.blue),
-                                                ),
-                                              ),
-                                              DropdownMenuItem(
-                                                value: '12th',
-                                                child: Text('12th',
-                                                    style: TextStyle(
-                                                        color: Colors.blue)),
-                                              ),
-                                            ],
-                                            icon: const Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.blue,
-                                            ),
-                                            underline: Container(
-                                              height: 0,
-                                              color: Colors.transparent,
-                                            ),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedItem = value!;
-                                              });
-                                            })),
-                                  ),
-                                )
-                              : const SizedBox(
-                                  width: 10,
-                                )
                         ],
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       roww(
-                          titel: "Persnol Deta",
+                          titel: "Personal Data",
                           image: "asstes/image/Placeholder.png"),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      roww(
-                          titel: "Achivement",
-                          image: "asstes/image/profile/Achievement.png"),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      roww(
-                          titel: "Activity History",
-                          image: "asstes/image/profile/Icon-Activity.png"),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      roww(
-                          titel: "Timer",
-                          image: "asstes/image/profile/Time Circle.png"),
                       const SizedBox(
                         height: 10,
                       ),
@@ -326,12 +267,6 @@ class _profileState extends State<profile> {
                       const SizedBox(
                         height: 10,
                       ),
-                      roww(
-                          titel: "Setting",
-                          image: "asstes/image/profile/Icon-Setting.png"),
-                      const SizedBox(
-                        height: 10,
-                      ),
                     ],
                   ),
                 ),
@@ -348,36 +283,35 @@ class _profileState extends State<profile> {
       required String titel,
       void Function()? onTap,
       Widget? darkmode}) {
-    return Row(
-      children: [
-        SizedBox(
-          child: Row(
-            children: [
-              Image.asset(
-                image,
-                scale: 2.5,
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                titel,
-                style: const TextStyle(
-                    color: Colors.grey, fontSize: 14, fontFamily: "popins"),
-              ),
-            ],
-          ),
-        ),
-        const Spacer(),
-        darkmode ??
-            InkWell(
-              onTap: onTap,
-              child: const Icon(
-                Icons.navigate_next_outlined,
-                color: Colors.grey,
+    return InkWell(
+        onTap: onTap,
+        child: Row(
+          children: [
+            SizedBox(
+              child: Row(
+                children: [
+                  Image.asset(
+                    image,
+                    scale: 2.5,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    titel,
+                    style: const TextStyle(
+                        color: Colors.grey, fontSize: 14, fontFamily: "popins"),
+                  ),
+                ],
               ),
             ),
-      ],
-    );
+            const Spacer(),
+            darkmode ??
+                Icon(
+                  Icons.navigate_next_outlined,
+                  color: Colors.grey,
+                )
+          ],
+        ));
   }
 }

@@ -22,7 +22,7 @@ class _walletState extends State<wallet> {
   bool langauge = true;
   var options;
   List notifi = [
-    {"a": "Loream ipsum", "b": "About 1 min ago"},
+    {"a": "Loream ipsum", "b": "About 1 min ago", "isselect": true},
     {"a": "Ralaable contante page", "b": "About 12 min ago"},
     {"a": "Loream ipsum is not a contant", "b": "About 29 min ago"},
     {"a": "Browse other questions tagged", "b": "29 August"},
@@ -41,10 +41,10 @@ class _walletState extends State<wallet> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const InkWell(
+                   InkWell(
                     child: SizedBox(
-                      height: 40,
-                      width: 40,
+                      height:Get.height/20,
+                      width:Get.width/9,
                     ),
                   ),
                   const Text(
@@ -236,7 +236,6 @@ class _walletState extends State<wallet> {
                                     };
                                     print("))))))))))))))))))");
                                     print(options);
-
                                     try {
                                       _razorpay.open(options);
                                     } catch (e) {

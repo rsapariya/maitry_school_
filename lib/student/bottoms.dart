@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:launch_review/launch_review.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/profile/profile.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/wallet/wallet.dart';
 
 import '../techers/dashboard/bottombar/about/about.dart';
+import '../techers/units/storage.dart';
 import 'home.dart';
 
 int selectedIndex = 0;
@@ -24,7 +27,55 @@ class _bottomstState extends State<bottoms> {
   ];
   @override
   void initState() {
+    getInfo();
     super.initState();
+  }
+
+  void getInfo() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String packageName = packageInfo.version;
+    setState(() {});
+
+    if (packageName != getdata.read('varsion')) {
+      _showMyDialogg();
+    }
+  }
+
+  Future<void> _showMyDialogg() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Maitry App New version 0.0.${getdata.read('varsion')} is available',
+            style: TextStyle(fontFamily: "popins"),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  setState(() {});
+                  Get.back();
+                },
+                child: const Text(
+                  'Later',
+                  style: TextStyle(fontFamily: "popins", color: Colors.black),
+                )),
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    LaunchReview.launch(androidAppId: "com.jciindiazone8.app");
+                    Get.back();
+                  });
+                },
+                child: const Text(
+                  'Update Now',
+                  style: TextStyle(color: Colors.blue, fontFamily: "popins"),
+                )),
+          ],
+        );
+      },
+    );
   }
 
   @override

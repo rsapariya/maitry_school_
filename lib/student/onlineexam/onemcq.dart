@@ -45,8 +45,8 @@ class _OneMcqsState extends State<OneMcqs> {
                         Get.back();
                       },
                       child: Container(
-                        height: 40,
-                        width: 40,
+                        height:Get.height/20,
+                        width:Get.width/9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -73,8 +73,8 @@ class _OneMcqsState extends State<OneMcqs> {
                         _dialogBuilder(context);
                       },
                       child: Container(
-                        height: 40,
-                        width: 40,
+                        height:Get.height/20,
+                        width:Get.width/9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -275,8 +275,8 @@ class _OneMcqsState extends State<OneMcqs> {
                                       });
                                     },
                                     child: Container(
-                                      height: 40,
-                                      width: 40,
+                                      height:Get.height/20,
+                                      width:Get.width/9,
                                       decoration: BoxDecoration(
                                           color: Colors.blue,
                                           borderRadius:
@@ -290,8 +290,8 @@ class _OneMcqsState extends State<OneMcqs> {
                                     ),
                                   )
                                 : Container(
-                                    height: 40,
-                                    width: 40,
+                              height:Get.height/20,
+                              width:Get.width/9,
                                     decoration: BoxDecoration(
                                         color: Colors.blue.withOpacity(0.2),
                                         borderRadius:
@@ -311,8 +311,8 @@ class _OneMcqsState extends State<OneMcqs> {
                                       save('MCQ', chapter[select]);
                                     },
                                     child: Container(
-                                      height: 40,
-                                      width: 40,
+                                      height:Get.height/20,
+                                      width:Get.width/9,
                                       decoration: BoxDecoration(
                                           color: Colors.blue,
                                           borderRadius:
@@ -326,8 +326,8 @@ class _OneMcqsState extends State<OneMcqs> {
                                     ),
                                   )
                                 : Container(
-                                    height: 40,
-                                    width: 40,
+                              height:Get.height/20,
+                              width:Get.width/9,
                                     decoration: BoxDecoration(
                                         color: Colors.blue.withOpacity(0.2),
                                         borderRadius:

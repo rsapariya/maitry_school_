@@ -84,8 +84,8 @@ class _selecttopicsState extends State<selecttopics> {
                         Get.back();
                       },
                       child: Container(
-                        height: 40,
-                        width: 40,
+                        height:Get.height/20,
+                        width:Get.width/9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -107,8 +107,8 @@ class _selecttopicsState extends State<selecttopics> {
                     InkWell(
                       child: SizedBox(
                         child: Container(
-                          height: 40,
-                          width: 40,
+                          height:Get.height/20,
+                          width:Get.width/9,
                         ),
                       ),
                     ),

@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:schooolapp/onbording.dart';
+import 'package:schooolapp/techers/units/api.dart';
+import 'package:schooolapp/techers/units/storage.dart';
 
 import '../../student/bottoms.dart';
 import '../dashboard/bottombar/bottombar.dart';
@@ -14,6 +20,15 @@ class register extends StatefulWidget {
 }
 
 class _registerState extends State<register> {
+  TextEditingController fullname = TextEditingController();
+  TextEditingController phonenumber = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController cpassword = TextEditingController();
+  TextEditingController schoolname = TextEditingController();
+  TextEditingController city = TextEditingController();
+  TextEditingController district = TextEditingController();
+  TextEditingController taluko = TextEditingController();
+
   @override
   bool npaas = true;
   bool cpaas = true;
@@ -23,861 +38,919 @@ class _registerState extends State<register> {
   bool hide = true;
   bool turms = false;
   String gender = "male";
+  String usertype = "Student";
+  bool loding = false;
+
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: Get.height / 10,
-              ),
-              Center(
-                child: Image.asset(
-                  "asstes/image/logo.png",
-                  scale: 3,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: Get.height / 10,
                 ),
-              ),
-              SizedBox(
-                height: Get.height / 20,
-              ),
-              const Text(
-                "Hey there,",
-                style: TextStyle(
-                    fontFamily: "popins", color: Colors.black, fontSize: 22),
-              ),
-              const Text(
-                "Create an Account",
-                style: TextStyle(
-                    fontFamily: "popins Medium",
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24),
-              ),
-              SizedBox(
-                height: Get.height / 20,
-              ),
-              const Text(
-                "Register",
-                style: TextStyle(
-                    fontFamily: "popins", color: Colors.blue, fontSize: 18),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
-                ),
-                // controller: code,
-                autofocus: false,
-                decoration: buildInputDecoration(
-                  hintText: "Enter Your Full Name",
-                  prifix: Image.asset(
-                    'asstes/image/Placeholder.png',
-                    scale: 2.5,
+                Center(
+                  child: Image.asset(
+                    "asstes/image/logo.png",
+                    scale: 3,
                   ),
-                  lbltext: "Enter Your Full Name",
                 ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
+                SizedBox(
+                  height: Get.height / 20,
                 ),
-                // controller: code,
-                autofocus: false,
-                decoration: buildInputDecoration(
-                    hintText: "Enter Phone Number",
-                    lbltext: "Enter Phone Number",
-                    prifix: Image.asset(
-                      'asstes/image/Placeholder (2).png',
-                      scale: 2.5,
-                    )),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
+                const Text(
+                  "Hey there,",
+                  style: TextStyle(
+                      fontFamily: "popins", color: Colors.black, fontSize: 22),
                 ),
-                // controller: code,
-                autofocus: false,
-                obscureText: npaas,
-                decoration: buildInputDecoration(
-                    hintText: "Your Password",
-                    surfix: InkWell(
-                      onTap: () {
-                        setState(() {
-                          npaas = !npaas;
-                        });
-                      },
-                      child: const Icon(Icons.remove_red_eye_outlined),
-                    ),
-                    lbltext: "Your Password",
-                    prifix: Image.asset(
-                      'asstes/image/Lock.png',
-                      scale: 2.5,
-                    )),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
+                const Text(
+                  "Create an Account",
+                  style: TextStyle(
+                      fontFamily: "popins Medium",
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24),
                 ),
-                // controller: code,
-                autofocus: false,
-                obscureText: cpaas,
-                decoration: buildInputDecoration(
-                    hintText: "Your Password",
-                    surfix: InkWell(
-                      onTap: () {
-                        setState(() {
-                          cpaas = !cpaas;
-                        });
-                      },
-                      child: const Icon(Icons.remove_red_eye_outlined),
-                    ),
-                    lbltext: "Your Password",
-                    prifix: Image.asset(
-                      'asstes/image/Lock.png',
-                      scale: 2.5,
-                    )),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "I am a",
-                  style: TextStyle(fontFamily: "popins", fontSize: 18),
+                SizedBox(
+                  height: Get.height / 20,
                 ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          student = true;
-                          hide = true;
-                        });
-                      },
-                      child: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                                height: 14,
-                                width: 14,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        width: 1, color: Colors.blue)),
-                                child: student == true
-                                    ? const Center(
-                                        child: Icon(
-                                          Icons.circle,
-                                          size: 10,
-                                          color: Colors.blue,
-                                        ),
-                                      )
-                                    : const SizedBox()),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Text(
-                              "Student",
-                              style:
-                                  TextStyle(fontFamily: "popins", fontSize: 14),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          student = false;
-                          hide = false;
-                        });
-                      },
-                      child: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                                height: 14,
-                                width: 14,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        width: 1, color: Colors.blue)),
-                                child: student == false
-                                    ? const Center(
-                                        child: Icon(
-                                          Icons.circle,
-                                          size: 10,
-                                          color: Colors.blue,
-                                        ),
-                                      )
-                                    : const SizedBox()),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Text(
-                              "Teacher",
-                              style:
-                                  TextStyle(fontFamily: "popins", fontSize: 14),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                  ],
+                const Text(
+                  "Register",
+                  style: TextStyle(
+                      fontFamily: "popins", color: Colors.blue, fontSize: 18),
                 ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              hide
-                  ? Container(
-                      height: Get.height / 10,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey.withOpacity(0.1)),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      medium = true;
-                                    });
-                                  },
-                                  child: Container(
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: Get.width / 6,
-                                          child: const Text(
-                                            "Medium",
-                                            style:
-                                                TextStyle(fontFamily: "popins"),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                            height: 14,
-                                            width: 14,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                    width: 1,
-                                                    color: Colors.blue)),
-                                            child: medium == true
-                                                ? const Center(
-                                                    child: Icon(
-                                                      Icons.circle,
-                                                      size: 10,
-                                                      color: Colors.blue,
-                                                    ),
-                                                  )
-                                                : const SizedBox()),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        SizedBox(
-                                          width: Get.width / 6,
-                                          child: const Text(
-                                            "Student",
-                                            style: TextStyle(
-                                                fontFamily: "popins",
-                                                fontSize: 14),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      medium = false;
-                                    });
-                                  },
-                                  child: Container(
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            height: 14,
-                                            width: 14,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                    width: 1,
-                                                    color: Colors.blue)),
-                                            child: medium == false
-                                                ? const Center(
-                                                    child: Icon(
-                                                      Icons.circle,
-                                                      size: 10,
-                                                      color: Colors.blue,
-                                                    ),
-                                                  )
-                                                : const SizedBox()),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        SizedBox(
-                                          width: Get.width / 6,
-                                          child: const Text(
-                                            "Teacher",
-                                            style: TextStyle(
-                                                fontFamily: "popins",
-                                                fontSize: 14),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      group = true;
-                                    });
-                                  },
-                                  child: Container(
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: Get.width / 6,
-                                          child: const Text(
-                                            "Group",
-                                            style:
-                                                TextStyle(fontFamily: "popins"),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                            height: 14,
-                                            width: 14,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                    width: 1,
-                                                    color: Colors.blue)),
-                                            child: group == true
-                                                ? const Center(
-                                                    child: Icon(
-                                                      Icons.circle,
-                                                      size: 10,
-                                                      color: Colors.blue,
-                                                    ),
-                                                  )
-                                                : const SizedBox()),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        SizedBox(
-                                          width: Get.width / 6,
-                                          child: const Text(
-                                            "A",
-                                            style: TextStyle(
-                                                fontFamily: "popins",
-                                                fontSize: 14),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      group = false;
-                                    });
-                                  },
-                                  child: Container(
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            height: 14,
-                                            width: 14,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                    width: 1,
-                                                    color: Colors.blue)),
-                                            child: group == false
-                                                ? const Center(
-                                                    child: Icon(
-                                                      Icons.circle,
-                                                      size: 10,
-                                                      color: Colors.blue,
-                                                    ),
-                                                  )
-                                                : const SizedBox()),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        SizedBox(
-                                          width: Get.width / 6,
-                                          child: const Text(
-                                            "B",
-                                            style: TextStyle(
-                                                fontFamily: "popins",
-                                                fontSize: 14),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  : Container(
-                      height: Get.height / 10,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey.withOpacity(0.1)),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      sub = "a";
-                                    });
-                                  },
-                                  child: Container(
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            height: 14,
-                                            width: 14,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                    width: 1,
-                                                    color: Colors.blue)),
-                                            child: sub == "a"
-                                                ? const Center(
-                                                    child: Icon(
-                                                      Icons.circle,
-                                                      size: 10,
-                                                      color: Colors.blue,
-                                                    ),
-                                                  )
-                                                : const SizedBox()),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        SizedBox(
-                                          width: Get.width / 5,
-                                          child: const Text(
-                                            "Biology",
-                                            style: TextStyle(
-                                                fontFamily: "popins",
-                                                fontSize: 14),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      sub = "b";
-                                    });
-                                  },
-                                  child: Container(
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            height: 14,
-                                            width: 14,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                    width: 1,
-                                                    color: Colors.blue)),
-                                            child: sub == "b"
-                                                ? const Center(
-                                                    child: Icon(
-                                                      Icons.circle,
-                                                      size: 10,
-                                                      color: Colors.blue,
-                                                    ),
-                                                  )
-                                                : const SizedBox()),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        SizedBox(
-                                          width: Get.width / 5,
-                                          child: const Text(
-                                            "Physics",
-                                            style: TextStyle(
-                                                fontFamily: "popins",
-                                                fontSize: 14),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      sub = "c";
-                                    });
-                                  },
-                                  child: Container(
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            height: 14,
-                                            width: 14,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                    width: 1,
-                                                    color: Colors.blue)),
-                                            child: sub == "c"
-                                                ? const Center(
-                                                    child: Icon(
-                                                      Icons.circle,
-                                                      size: 10,
-                                                      color: Colors.blue,
-                                                    ),
-                                                  )
-                                                : const SizedBox()),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        SizedBox(
-                                          width: Get.width / 5,
-                                          child: const Text(
-                                            "Chemistry",
-                                            style: TextStyle(
-                                                fontFamily: "popins",
-                                                fontSize: 14),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      sub = "d";
-                                    });
-                                  },
-                                  child: Container(
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            height: 14,
-                                            width: 14,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                    width: 1,
-                                                    color: Colors.blue)),
-                                            child: sub == "d"
-                                                ? const Center(
-                                                    child: Icon(
-                                                      Icons.circle,
-                                                      size: 10,
-                                                      color: Colors.blue,
-                                                    ),
-                                                  )
-                                                : const SizedBox()),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        SizedBox(
-                                          width: Get.width / 5,
-                                          child: const Text(
-                                            "Maths",
-                                            style: TextStyle(
-                                                fontFamily: "popins",
-                                                fontSize: 14),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
+                const SizedBox(
+                  height: 15,
                 ),
-                // controller: code,
-                autofocus: false,
-
-                decoration: buildInputDecoration(
-                    hintText: "School name",
-                    lbltext: "School name",
-                    prifix: Image.asset(
-                      'asstes/image/ep_school.png',
-                      scale: 2.5,
-                    )),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
-                ),
-                // controller: code,
-                autofocus: false,
-
-                decoration: buildInputDecoration(
-                    hintText: "City/Village",
-                    lbltext: "City/Village",
-                    prifix: Image.asset(
-                      'asstes/image/Home.png',
-                      scale: 2.5,
-                    )),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
-                ),
-                // controller: code,
-                autofocus: false,
-
-                decoration: buildInputDecoration(
-                    hintText: "District",
-                    lbltext: "District",
-                    prifix: Image.asset(
-                      'asstes/image/Location.png',
-                      scale: 2.5,
-                    )),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
-                ),
-                // controller: code,
-                autofocus: false,
-
-                decoration: buildInputDecoration(
-                    hintText: "Taluka",
-                    lbltext: "Taluka",
-                    prifix: Image.asset(
-                      'asstes/image/Location.png',
-                      scale: 2.5,
-                    )),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        turms = !turms;
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Container(
-                        height: 15,
-                        width: 15,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color:
-                                    turms == true ? Colors.blue : Colors.grey),
-                            color: turms == true ? Colors.blue : Colors.white,
-                            borderRadius: BorderRadius.circular(2)),
-                        child: turms == true
-                            ? const Center(
-                                child: Icon(
-                                  Icons.done,
-                                  size: 12,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : const SizedBox(),
-                      ),
-                    ),
+                TextFormField(
+                  controller: fullname,
+                  validator: (value) =>
+                      GetUtils.isUsername(value!) ? null : "Enter Name",
+                  style: const TextStyle(
+                    fontFamily: "popins",
                   ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  SizedBox(
-                    width: Get.width / 1.3,
-                    child: const Text(
-                      "By Countinuing you accept our Privecy policy and turms of use.",
-                      maxLines: 2,
-                      style: TextStyle(
-                        fontFamily: "popins",
-                        fontSize: 12,
-                      ),
+                  autofocus: false,
+                  decoration: buildInputDecoration(
+                    hintText: "Enter Your Full Name",
+                    prifix: Image.asset(
+                      'asstes/image/Placeholder.png',
+                      scale: 2.5,
                     ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: Get.height / 40,
-              ),
-              InkWell(
-                onTap: () {
-                  student == false
-                      ? Get.to(() => const bottomt(),transition:Transition.leftToRight)
-                      : Get.to(() => const bottoms(),transition:Transition.leftToRight);
-                },
-                child: Container(
-                  height: Get.height / 15,
-                  width: Get.width / 1.8,
-                  decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(40)),
+                    lbltext: "Enter Your Full Name",
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.phone,
+                  validator: (value) =>
+                      GetUtils.isPhoneNumber(value!) || GetUtils.isNull(value)
+                          ? null
+                          : "Please Enter valid number",
+                  style: const TextStyle(
+                    fontFamily: "popins",
+                  ),
+                  controller: phonenumber,
+                  autofocus: false,
+                  decoration: buildInputDecoration(
+                      hintText: "Enter Phone Number",
+                      lbltext: "Enter Phone Number",
+                      prifix: Image.asset(
+                        'asstes/image/Placeholder (2).png',
+                        scale: 2.5,
+                      )),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value != cpassword.text) {
+                      return "Password don't match";
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(
+                    fontFamily: "popins",
+                  ),
+                  controller: password,
+                  autofocus: false,
+                  obscureText: npaas,
+                  decoration: buildInputDecoration(
+                      hintText: "Your Password",
+                      surfix: InkWell(
+                        onTap: () {
+                          setState(() {
+                            npaas = !npaas;
+                          });
+                        },
+                        child: const Icon(Icons.remove_red_eye_outlined),
+                      ),
+                      lbltext: "Your Password",
+                      prifix: Image.asset(
+                        'asstes/image/Lock.png',
+                        scale: 2.5,
+                      )),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value != password.text) {
+                      return "Password don't match";
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(
+                    fontFamily: "popins",
+                  ),
+                  controller: cpassword,
+                  autofocus: false,
+                  obscureText: cpaas,
+                  decoration: buildInputDecoration(
+                      hintText: "Your Password",
+                      surfix: InkWell(
+                        onTap: () {
+                          setState(() {
+                            cpaas = !cpaas;
+                          });
+                        },
+                        child: const Icon(Icons.remove_red_eye_outlined),
+                      ),
+                      lbltext: "Your Password",
+                      prifix: Image.asset(
+                        'asstes/image/Lock.png',
+                        scale: 2.5,
+                      )),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "I am a",
+                    style: TextStyle(fontFamily: "popins", fontSize: 18),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        "asstes/image/Login.png",
-                        scale: 4,
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            usertype = 'Student';
+                            hide = true;
+                          });
+                        },
+                        child: Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                  height: 14,
+                                  width: 14,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                          width: 1, color: Colors.blue)),
+                                  child: usertype == 'Student'
+                                      ? const Center(
+                                          child: Icon(
+                                            Icons.circle,
+                                            size: 10,
+                                            color: Colors.blue,
+                                          ),
+                                        )
+                                      : const SizedBox()),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                "Student",
+                                style: TextStyle(
+                                    fontFamily: "popins", fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      SizedBox(
-                        width: Get.width / 40,
+                      const SizedBox(
+                        width: 15,
                       ),
-                      const Text(
-                        "Register",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: "popins"),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            usertype = 'Teacher';
+                            hide = false;
+                          });
+                        },
+                        child: Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                  height: 14,
+                                  width: 14,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                          width: 1, color: Colors.blue)),
+                                  child: usertype == 'Teacher'
+                                      ? const Center(
+                                          child: Icon(
+                                            Icons.circle,
+                                            size: 10,
+                                            color: Colors.blue,
+                                          ),
+                                        )
+                                      : const SizedBox()),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                "Teacher",
+                                style: TextStyle(
+                                    fontFamily: "popins", fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 15,
                       ),
                     ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: Get.height / 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Allredy have an account?",
-                    style: TextStyle(
-                      fontFamily: "popins",
-                      fontSize: 14,
-                    ),
+                const SizedBox(
+                  height: 15,
+                ),
+                hide
+                    ? Container(
+                        height: Get.height / 10,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey.withOpacity(0.1)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        medium = true;
+                                      });
+                                    },
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                            width: Get.width / 6,
+                                            child: const Text(
+                                              "Medium",
+                                              style: TextStyle(
+                                                  fontFamily: "popins"),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Container(
+                                              height: 14,
+                                              width: 14,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.blue)),
+                                              child: medium == true
+                                                  ? const Center(
+                                                      child: Icon(
+                                                        Icons.circle,
+                                                        size: 10,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )
+                                                  : const SizedBox()),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: Get.width / 6,
+                                            child: const Text(
+                                              "Student",
+                                              style: TextStyle(
+                                                  fontFamily: "popins",
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        medium = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              height: 14,
+                                              width: 14,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.blue)),
+                                              child: medium == false
+                                                  ? const Center(
+                                                      child: Icon(
+                                                        Icons.circle,
+                                                        size: 10,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )
+                                                  : const SizedBox()),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: Get.width / 6,
+                                            child: const Text(
+                                              "Teacher",
+                                              style: TextStyle(
+                                                  fontFamily: "popins",
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        group = true;
+                                      });
+                                    },
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                            width: Get.width / 6,
+                                            child: const Text(
+                                              "Group",
+                                              style: TextStyle(
+                                                  fontFamily: "popins"),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Container(
+                                              height: 14,
+                                              width: 14,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.blue)),
+                                              child: group == true
+                                                  ? const Center(
+                                                      child: Icon(
+                                                        Icons.circle,
+                                                        size: 10,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )
+                                                  : const SizedBox()),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: Get.width / 6,
+                                            child: const Text(
+                                              "A",
+                                              style: TextStyle(
+                                                  fontFamily: "popins",
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        group = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              height: 14,
+                                              width: 14,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.blue)),
+                                              child: group == false
+                                                  ? const Center(
+                                                      child: Icon(
+                                                        Icons.circle,
+                                                        size: 10,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )
+                                                  : const SizedBox()),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: Get.width / 6,
+                                            child: const Text(
+                                              "B",
+                                              style: TextStyle(
+                                                  fontFamily: "popins",
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    : Container(
+                        height: Get.height / 10,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey.withOpacity(0.1)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        sub = "a";
+                                      });
+                                    },
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              height: 14,
+                                              width: 14,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.blue)),
+                                              child: sub == "a"
+                                                  ? const Center(
+                                                      child: Icon(
+                                                        Icons.circle,
+                                                        size: 10,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )
+                                                  : const SizedBox()),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: Get.width / 5,
+                                            child: const Text(
+                                              "Biology",
+                                              style: TextStyle(
+                                                  fontFamily: "popins",
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        sub = "b";
+                                      });
+                                    },
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              height: 14,
+                                              width: 14,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.blue)),
+                                              child: sub == "b"
+                                                  ? const Center(
+                                                      child: Icon(
+                                                        Icons.circle,
+                                                        size: 10,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )
+                                                  : const SizedBox()),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: Get.width / 5,
+                                            child: const Text(
+                                              "Physics",
+                                              style: TextStyle(
+                                                  fontFamily: "popins",
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        sub = "c";
+                                      });
+                                    },
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              height: 14,
+                                              width: 14,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.blue)),
+                                              child: sub == "c"
+                                                  ? const Center(
+                                                      child: Icon(
+                                                        Icons.circle,
+                                                        size: 10,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )
+                                                  : const SizedBox()),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: Get.width / 5,
+                                            child: const Text(
+                                              "Chemistry",
+                                              style: TextStyle(
+                                                  fontFamily: "popins",
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        sub = "d";
+                                      });
+                                    },
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              height: 14,
+                                              width: 14,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.blue)),
+                                              child: sub == "d"
+                                                  ? const Center(
+                                                      child: Icon(
+                                                        Icons.circle,
+                                                        size: 10,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )
+                                                  : const SizedBox()),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: Get.width / 5,
+                                            child: const Text(
+                                              "Maths",
+                                              style: TextStyle(
+                                                  fontFamily: "popins",
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter school';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(
+                    fontFamily: "popins",
                   ),
-                  InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: const Text(
-                      "Login",
+                  controller: schoolname,
+                  autofocus: false,
+                  decoration: buildInputDecoration(
+                      hintText: "School name",
+                      lbltext: "School name",
+                      prifix: Image.asset(
+                        'asstes/image/ep_school.png',
+                        scale: 2.5,
+                      )),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter city';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(
+                    fontFamily: "popins",
+                  ),
+                  controller: city,
+                  autofocus: false,
+                  decoration: buildInputDecoration(
+                      hintText: "City/Village",
+                      lbltext: "City/Village",
+                      prifix: Image.asset(
+                        'asstes/image/Home.png',
+                        scale: 2.5,
+                      )),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter district';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(
+                    fontFamily: "popins",
+                  ),
+                  controller: district,
+                  autofocus: false,
+                  decoration: buildInputDecoration(
+                      hintText: "District",
+                      lbltext: "District",
+                      prifix: Image.asset(
+                        'asstes/image/Location.png',
+                        scale: 2.5,
+                      )),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(
+                    fontFamily: "popins",
+                  ),
+                  controller: taluko,
+                  autofocus: false,
+                  decoration: buildInputDecoration(
+                      hintText: "Taluka",
+                      lbltext: "Taluka",
+                      prifix: Image.asset(
+                        'asstes/image/Location.png',
+                        scale: 2.5,
+                      )),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          turms = !turms;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Container(
+                          height: 15,
+                          width: 15,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: turms == true
+                                      ? Colors.blue
+                                      : Colors.grey),
+                              color: turms == true ? Colors.blue : Colors.white,
+                              borderRadius: BorderRadius.circular(2)),
+                          child: turms == true
+                              ? const Center(
+                                  child: Icon(
+                                    Icons.done,
+                                    size: 12,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    SizedBox(
+                      width: Get.width / 1.3,
+                      child: const Text(
+                        "By Countinuing you accept our Privecy policy and turms of use.",
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontFamily: "popins",
+                          fontSize: 12,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: Get.height / 40,
+                ),
+                InkWell(
+                  onTap: () {
+                    if (loding == false) {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          loding = true;
+                        });
+                        Registerapi();
+                      }
+                    }
+                  },
+                  child: Container(
+                    height: Get.height / 15,
+                    width: Get.width / 1.8,
+                    decoration: BoxDecoration(
+                        color: Colors.blueAccent,
+                        borderRadius: BorderRadius.circular(40)),
+                    child: loding == false
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "asstes/image/Login.png",
+                                scale: 4,
+                              ),
+                              SizedBox(
+                                width: Get.width / 40,
+                              ),
+                              const Text(
+                                "Register",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: "popins"),
+                              ),
+                            ],
+                          )
+                        : Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                  ),
+                ),
+                SizedBox(
+                  height: Get.height / 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Allredy have an account?",
                       style: TextStyle(
                         fontFamily: "popins",
                         fontSize: 14,
-                        color: Colors.blue,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: Get.height / 20,
-              ),
-            ],
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(
+                          fontFamily: "popins",
+                          fontSize: 14,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: Get.height / 20,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -914,5 +987,61 @@ class _registerState extends State<register> {
       filled: true,
       fillColor: Colors.grey.withOpacity(0.1),
     );
+  }
+
+  Registerapi() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Signup));
+    request.fields.addAll({
+      'user_name': fullname.text.toString(),
+      'user_mobile': phonenumber.text.toString(),
+      'user_type': usertype.toString(),
+      'user_password': password.text.toString(),
+      'user_standard_id': '1',
+      'user_school_name': schoolname.text.toString(),
+      'user_token': token.toString(),
+      'user_reference_number': ''
+    });
+
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      print("----");
+      print(val);
+      if (val['success'] == true) {
+        setState(() {
+          save('islogin', true);
+          loding = false;
+        });
+        print(val);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(val['message']),
+          ),
+        );
+        val['Result']['user_type'] == 'Teacher'
+            ? Get.to(() => const bottomt(), transition: Transition.leftToRight)
+            : Get.to(() => const bottoms(), transition: Transition.leftToRight);
+      } else {
+        setState(() {
+          loding = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            val['message'],
+          ),
+        ));
+      }
+    } else {
+      setState(() {
+        loding = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(val['message']),
+        ),
+      );
+    }
   }
 }

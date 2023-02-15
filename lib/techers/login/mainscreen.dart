@@ -1,8 +1,13 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:schooolapp/onbording.dart';
 import 'package:schooolapp/techers/login/register.dart';
-
+import 'package:http/http.dart' as http;
+import '../../student/bottoms.dart';
 import '../dashboard/bottombar/bottombar.dart';
+import '../units/api.dart';
+import '../units/storage.dart';
 import 'forgot.dart';
 
 class mainscreen extends StatefulWidget {
@@ -13,168 +18,211 @@ class mainscreen extends StatefulWidget {
 }
 
 class _mainscreenState extends State<mainscreen> {
+  TextEditingController phone = TextEditingController();
+  TextEditingController password = TextEditingController();
+  bool npaas = true;
+  bool loding = false;
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: Get.height / 10,
-              ),
-              Center(
-                child: Image.asset(
-                  "asstes/image/logo.png",
-                  scale: 3,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: Get.height / 10,
                 ),
-              ),
-              SizedBox(
-                height: Get.height / 20,
-              ),
-              const Text(
-                "Hey there,",
-                style: TextStyle(
-                    fontFamily: "popins", color: Colors.black, fontSize: 22),
-              ),
-              const Text(
-                "Welcome back",
-                style: TextStyle(
-                    fontFamily: "popins Medium",
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24),
-              ),
-              SizedBox(
-                height: Get.height / 20,
-              ),
-              const Text(
-                "Login",
-                style: TextStyle(
-                    fontFamily: "popins", color: Colors.blue, fontSize: 18),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
+                Center(
+                  child: Image.asset(
+                    "asstes/image/logo.png",
+                    scale: 3,
+                  ),
                 ),
-                // controller: code,
-                autofocus: false,
-                decoration: buildInputDecoration(
-                    hintText: "Phone number",
+                SizedBox(
+                  height: Get.height / 20,
+                ),
+                const Text(
+                  "Hey there,",
+                  style: TextStyle(
+                      fontFamily: "popins", color: Colors.black, fontSize: 22),
+                ),
+                const Text(
+                  "Welcome back",
+                  style: TextStyle(
+                      fontFamily: "popins Medium",
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24),
+                ),
+                SizedBox(
+                  height: Get.height / 20,
+                ),
+                const Text(
+                  "Login",
+                  style: TextStyle(
+                      fontFamily: "popins", color: Colors.blue, fontSize: 18),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Enter Phone number";
+                    } else if (value.isPhoneNumber) {
+                      return null;
+                    } else {
+                      return "Enter valid number";
+                    }
+                  },
+                  style: const TextStyle(
+                    fontFamily: "popins",
+                  ),
+                  controller: phone,
+                  autofocus: false,
+                  decoration: buildInputDecoration(
+                      hintText: "Enter Phone number",
+                      lbltext: "Enter Phone number",
+                      prifix: Image.asset(
+                        'asstes/image/Placeholder (2).png',
+                        scale: 2.5,
+                      )),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter password!";
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(
+                    fontFamily: "popins",
+                  ),
+                  controller: password,
+                  autofocus: false,
+                  obscureText: npaas,
+                  decoration: buildInputDecoration(
+                    hintText: "Password",
+                    lbltext: "Password",
                     prifix: Image.asset(
-                      'asstes/image/Placeholder (2).png',
+                      'asstes/image/Lock.png',
                       scale: 2.5,
                     ),
-                    lbltext: "Phone number",
-                    surfix: const Icon(
-                      Icons.remove_red_eye_outlined,
-                      color: Colors.red,
-                    )),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
-                ),
-                // controller: code,
-                autofocus: false,
-
-                decoration: buildInputDecoration(
-                  hintText: "Password",
-                  lbltext: "Password",
-                  prifix: Image.asset(
-                    'asstes/image/Lock.png',
-                    scale: 2.5,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              InkWell(
-                onTap: () {
-                  Get.to(() => const forget(),transition:Transition.leftToRight);
-                },
-                child: const Text(
-                  "Forgot your password?",
-                  style: TextStyle(
-                      fontFamily: "popins",
-                      fontSize: 14,
-                      decoration: TextDecoration.underline),
-                ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              InkWell(
-                onTap: () {
-                  Get.to(() => const bottomt(),transition:Transition.leftToRight);
-                },
-                child: Container(
-                  height: Get.height / 15,
-                  width: Get.width / 1.8,
-                  decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(40)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "asstes/image/Login.png",
-                        scale: 4,
-                      ),
-                      SizedBox(
-                        width: Get.width / 40,
-                      ),
-                      const Text(
-                        "Login",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: "popins"),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: Get.height / 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Don't have an account yet?",
-                    style: TextStyle(
-                      fontFamily: "popins",
-                      fontSize: 14,
+                    surfix: InkWell(
+                      onTap: () {
+                        setState(() {
+                          npaas = !npaas;
+                        });
+                      },
+                      child: const Icon(Icons.remove_red_eye_outlined),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Get.to(() => const register(),transition:Transition.leftToRight);
-                    },
-                    child: const Text(
-                      "Register",
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                InkWell(
+                  onTap: () {
+                    Get.to(() => const forget(),
+                        transition: Transition.leftToRight);
+                  },
+                  child: const Text(
+                    "Forgot your password?",
+                    style: TextStyle(
+                        fontFamily: "popins",
+                        fontSize: 14,
+                        decoration: TextDecoration.underline),
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                InkWell(
+                  onTap: () {
+                    if (loding == false) {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          loding = true;
+                        });
+                        loginapi();
+                      }
+                    }
+                  },
+                  child: Container(
+                    height: Get.height / 15,
+                    width: Get.width / 1.8,
+                    decoration: BoxDecoration(
+                        color: Colors.blueAccent,
+                        borderRadius: BorderRadius.circular(40)),
+                    child: loding == false
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "asstes/image/Login.png",
+                                scale: 4,
+                              ),
+                              SizedBox(
+                                width: Get.width / 40,
+                              ),
+                              const Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: "popins"),
+                              ),
+                            ],
+                          )
+                        : Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                  ),
+                ),
+                SizedBox(
+                  height: Get.height / 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Don't have an account yet?",
                       style: TextStyle(
                         fontFamily: "popins",
                         fontSize: 14,
-                        color: Colors.blue,
                       ),
                     ),
-                  ),
-                ],
-              )
-            ],
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => const register(),
+                            transition: Transition.leftToRight);
+                      },
+                      child: const Text(
+                        "Register",
+                        style: TextStyle(
+                          fontFamily: "popins",
+                          fontSize: 14,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -191,9 +239,7 @@ class _mainscreenState extends State<mainscreen> {
       prefixIcon: prifix,
       suffix: surfix,
       hintText: hintText,
-      hintStyle: const TextStyle(
-        fontFamily: "popins",fontSize: 14
-      ),
+      hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
       labelStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
       labelText: lbltext,
       contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -213,5 +259,50 @@ class _mainscreenState extends State<mainscreen> {
       filled: true,
       fillColor: Colors.grey.withOpacity(0.1),
     );
+  }
+
+  loginapi() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.login));
+    request.fields.addAll({
+      'user_mobile': phone.text.toString(),
+      'user_password': password.text.toString(),
+      'user_token': token.toString()
+    });
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          save('islogin',true);
+          loding = false;
+        });
+        print('--sssss->>$val');
+        setState(() {
+          save('logindata', val);
+        });
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(val['message'])));
+
+        val['Result']['user_type'] == 'Teacher'
+            ? Get.to(() => const bottomt(), transition: Transition.leftToRight)
+            : Get.to(() => const bottoms(), transition: Transition.leftToRight);
+      } else {
+        setState(() {
+          loding = false;
+        });
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(val['message'])));
+      }
+      print('--->>$val');
+    } else {
+      setState(() {
+        loding = false;
+      });
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(val['message'])));
+      print(response.reasonPhrase);
+    }
   }
 }

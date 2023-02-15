@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:schooolapp/techers/login/mainscreen.dart';
 import 'package:schooolapp/techers/units/storage.dart';
+
+String? token;
 
 class BoardingPage extends StatefulWidget {
   const BoardingPage({Key? key}) : super(key: key);
@@ -15,7 +18,31 @@ final firebaseInstance = FirebaseFirestore.instance;
 
 class _BoardingPageState extends State<BoardingPage> {
   @override
+  void request() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      provisional: false,
+      sound: true,
+    );
+  }
+
   void initState() {
+    FirebaseMessaging.instance.getToken().then((value) {
+      setState(() {
+        token = value;
+        save('token', value);
+        save('Open',true);
+      });
+      print("------ddddddddddddddddd--------------------------");
+
+      print(token);
+    });
+
     print(
         "---------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${getdata.read('varsion')}");
     getDocs();

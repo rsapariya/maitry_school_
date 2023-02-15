@@ -1,3 +1,5 @@
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/PDFpaper.dart';
@@ -14,6 +16,34 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  String? token;
+  @override
+  void initState() {
+    request();
+    FirebaseMessaging.instance.getToken().then((value) {
+      setState(() {
+        token = value;
+      });
+      print("------ddddddddddddddddd--------------------------");
+
+      print(token);
+    });
+    super.initState();
+  }
+
+  void request() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      provisional: false,
+      sound: true,
+    );
+  }
+
   @override
   bool langauge = true;
   Widget build(BuildContext context) {
@@ -95,11 +125,12 @@ class _homeState extends State<home> {
                     Spacer(),
                     InkWell(
                       onTap: () {
-                        Get.to(() => notification(),transition:Transition.leftToRight);
+                        Get.to(() => notification(),
+                            transition: Transition.leftToRight);
                       },
                       child: Container(
-                        height:Get.height/20,
-                        width:Get.width/9,
+                        height: Get.height / 20,
+                        width: Get.width / 9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -188,7 +219,8 @@ class _homeState extends State<home> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => pdfgenrat(),transition:Transition.leftToRight);
+                          Get.to(() => pdfgenrat(),
+                              transition: Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -221,7 +253,8 @@ class _homeState extends State<home> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => online(),transition:Transition.leftToRight);
+                          Get.to(() => online(),
+                              transition: Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -255,7 +288,8 @@ class _homeState extends State<home> {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(() => pendingreqest(),transition:Transition.leftToRight);
+                    Get.to(() => pendingreqest(),
+                        transition: Transition.leftToRight);
                   },
                   child: Container(
                     height: Get.height / 6,

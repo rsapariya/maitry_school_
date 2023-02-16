@@ -1,8 +1,14 @@
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
-
-import 'newpassword.dart';
+import 'package:pinput/pinput.dart';
+import 'package:schooolapp/techers/units/storage.dart';
+import 'package:http/http.dart' as http;
+import '../../student/bottoms.dart';
+import '../dashboard/bottombar/bottombar.dart';
+import '../units/api.dart';
 
 class verification extends StatefulWidget {
   const verification({Key? key}) : super(key: key);
@@ -12,7 +18,10 @@ class verification extends StatefulWidget {
 }
 
 class _verificationState extends State<verification> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
   @override
+  var SMS = "";
+  bool loding = false;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -20,7 +29,7 @@ class _verificationState extends State<verification> {
         leading: null,
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "Verification",
           style: TextStyle(fontFamily: "popins", color: Colors.black),
         ),
@@ -36,8 +45,8 @@ class _verificationState extends State<verification> {
               SizedBox(
                 height: Get.height / 15,
               ),
-              Text(
-                "We have sent a 4 digit OTP to",
+              const Text(
+                "We have sent a 6 digit OTP to",
                 style: TextStyle(
                   fontFamily: "popins",
                   fontSize: 18,
@@ -47,8 +56,8 @@ class _verificationState extends State<verification> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "+91 9714909089",
-                    style: TextStyle(
+                    getdata.read('Register')['phonenumber'],
+                    style: const TextStyle(
                       fontFamily: "popins Medium",
                       fontSize: 18,
                     ),
@@ -57,7 +66,7 @@ class _verificationState extends State<verification> {
                     onTap: () {
                       Get.back();
                     },
-                    child: Text(
+                    child: const Text(
                       " Edit number",
                       style: TextStyle(
                         fontFamily: "popins Medium",
@@ -71,36 +80,52 @@ class _verificationState extends State<verification> {
               SizedBox(
                 height: Get.height / 30,
               ),
-              PinCodeFields(
-                length: 4,
-                fieldBorderStyle: FieldBorderStyle.square,
-                responsive: false,
-                fieldHeight: Get.height / 15,
-                fieldWidth: Get.width / 7,
-                borderWidth: 1.0,
-                // activeBorderColor: Colors.pink,
-                // activeBackgroundColor: Colors.pink.shade100,
-                borderRadius: BorderRadius.circular(10.0),
-                keyboardType: TextInputType.number,
-                autoHideKeyboard: false,
-                fieldBackgroundColor: Colors.grey.withOpacity(0.1),
-                borderColor: Colors.transparent,
-                textStyle: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
+              Pinput(
+                length: 6,
+                focusedPinTheme: PinTheme(
+                  width: Get.width / 7,
+                  height: Get.height / 15,
                 ),
-                onComplete: (output) {
-                  // Your logic with pin code
-                  print(output);
+                showCursor: true,
+                onChanged: (value) {
+                  setState(() {
+                    SMS = value.toString();
+                  });
                 },
+                onCompleted: (value) {},
               ),
-              SizedBox(
+              // PinCodeFields(
+              //   length: 4,
+              //   fieldBorderStyle: FieldBorderStyle.square,
+              //   responsive: false,
+              //   fieldHeight: Get.height / 15,
+              //   fieldWidth: Get.width / 7,
+              //   borderWidth: 1.0,
+              //   // activeBorderColor: Colors.pink,
+              //   // activeBackgroundColor: Colors.pink.shade100,
+              //   borderRadius: BorderRadius.circular(10.0),
+              //   keyboardType: TextInputType.number,
+              //   autoHideKeyboard: false,
+              //   fieldBackgroundColor: Colors.grey.withOpacity(0.1),
+              //   borderColor: Colors.transparent,
+              //   textStyle: const TextStyle(
+              //     fontSize: 30.0,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              //   onChange: (value) {
+              //     setState(() {
+              //       SMS = value.toString();
+              //     });
+              //   },
+              //   onComplete: (value) {},
+              // ),
+              const SizedBox(
                 height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "If you don't recive code",
                     style: TextStyle(
                       fontFamily: "popins",
@@ -111,7 +136,7 @@ class _verificationState extends State<verification> {
                     onTap: () {
                       Get.back();
                     },
-                    child: Text(
+                    child: const Text(
                       "Recend",
                       style: TextStyle(
                         fontFamily: "popins",
@@ -122,33 +147,56 @@ class _verificationState extends State<verification> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               InkWell(
-                onTap: () {
-                  Get.to(() => const newpass(),transition:Transition.leftToRight);
+                onTap: () async {
+                  try {
+                    print(
+                        "SSSSSSS----------SSSSSSSSSSSSSSS${getdata.read('verification')}");
+                    PhoneAuthCredential credential =
+                        PhoneAuthProvider.credential(
+                            verificationId: getdata.read('verification'),
+                            smsCode: SMS.toString());
+                    await auth.signInWithCredential(credential);
+                    setState(() {
+                      loding = true;
+                    });
+
+                    Registerapi();
+                  } catch (e) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text('Wrong OTP!!')));
+                    print(e);
+                  }
                 },
                 child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "asstes/image/Login.png",
-                        scale: 4,
-                      ),
-                      SizedBox(
-                        width: Get.width / 40,
-                      ),
-                      Text(
-                        "Submit",
-                        style: TextStyle(
+                  child: loding == false
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "asstes/image/Login.png",
+                              scale: 4,
+                            ),
+                            SizedBox(
+                              width: Get.width / 40,
+                            ),
+                            const Text(
+                              "Submit",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: "popins"),
+                            ),
+                          ],
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(
                             color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: "popins"),
-                      ),
-                    ],
-                  ),
+                          ),
+                        ),
                   height: Get.height / 15,
                   width: Get.width / 1.8,
                   decoration: BoxDecoration(
@@ -176,27 +224,86 @@ class _verificationState extends State<verification> {
       prefixIcon: Icon(icon, color: Colors.blue),
       suffix: surfix,
       hintText: hintText,
-      hintStyle: TextStyle(
-        fontFamily: "popins",fontSize: 14
-      ),
-      labelStyle: TextStyle(fontFamily: "popins", fontSize: 14),
+      hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
+      labelStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
       labelText: lbltext,
-      contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+      contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
               color: Colors.white,
               width: 0.5,
               strokeAlign: StrokeAlign.center)),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: Colors.transparent,
-          width:1,
+          width: 1,
         ),
       ),
       filled: true,
       fillColor: Colors.grey.withOpacity(0.1),
     );
+  }
+
+  Registerapi() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Signup));
+    request.fields.addAll({
+      'user_name': getdata.read('Register')['fullname'],
+      'user_mobile': getdata.read('Register')['phonenumber'],
+      'user_type': getdata.read('Register')['usertype'],
+      'user_password': getdata.read('Register')['password'],
+      'user_standard_id': '1',
+      'user_school_name': getdata.read('Register')['schoolname'],
+      'user_token': getdata.read('Register')['token'],
+      'user_reference_number': '',
+      "user_taluko": getdata.read('Register')['taluko'],
+      "user_gam": getdata.read('Register')['district'],
+      "user_jillo": getdata.read('Register')['city'],
+    });
+
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      print("----");
+      print(val);
+      if (val['success'] == true) {
+        setState(() {
+          loding = false;
+          save('islogin', true);
+        });
+        print(val);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(val['message']),
+          ),
+        );
+        val['Result']['user_type'] == 'Teacher'
+            ? Get.offAll(() => const bottomt(),
+                transition: Transition.leftToRight)
+            : Get.offAll(() => const bottoms(),
+                transition: Transition.leftToRight);
+      } else {
+        setState(() {
+          loding = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            val['message'],
+          ),
+        ));
+      }
+    } else {
+      setState(() {
+        loding = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(val['message']),
+        ),
+      );
+    }
   }
 }

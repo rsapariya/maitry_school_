@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/onbording.dart';
 import 'package:schooolapp/techers/login/register.dart';
 import 'package:http/http.dart' as http;
+import '../../detabse.dart';
 import '../../student/bottoms.dart';
 import '../dashboard/bottombar/bottombar.dart';
 import '../units/api.dart';
@@ -18,10 +21,13 @@ class mainscreen extends StatefulWidget {
 }
 
 class _mainscreenState extends State<mainscreen> {
+  final Connectivity _connectivity = Connectivity();
+  final dbhelper = Databasehalper.instance;
   TextEditingController phone = TextEditingController();
   TextEditingController password = TextEditingController();
   bool npaas = true;
   bool loding = false;
+
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
@@ -149,7 +155,7 @@ class _mainscreenState extends State<mainscreen> {
                   height: 25,
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     if (loding == false) {
                       if (_formKey.currentState!.validate()) {
                         setState(() {
@@ -229,6 +235,15 @@ class _mainscreenState extends State<mainscreen> {
     );
   }
 
+  Future<bool> checkInternetConnection() async {
+    final ConnectivityResult connectivityResult =
+        await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      return false;
+    }
+    return true;
+  }
+
   InputDecoration buildInputDecoration({
     String? hintText,
     prifix,
@@ -237,7 +252,7 @@ class _mainscreenState extends State<mainscreen> {
   }) {
     return InputDecoration(
       prefixIcon: prifix,
-      suffix: surfix,
+      suffixIcon: surfix,
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
       labelStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
@@ -275,7 +290,7 @@ class _mainscreenState extends State<mainscreen> {
     if (response.statusCode == 200) {
       if (val['success'] == true) {
         setState(() {
-          save('islogin',true);
+          save('islogin', true);
           loding = false;
         });
         print('--sssss->>$val');
@@ -286,8 +301,10 @@ class _mainscreenState extends State<mainscreen> {
             .showSnackBar(SnackBar(content: Text(val['message'])));
 
         val['Result']['user_type'] == 'Teacher'
-            ? Get.to(() => const bottomt(), transition: Transition.leftToRight)
-            : Get.to(() => const bottoms(), transition: Transition.leftToRight);
+            ? Get.offAll(() => const bottomt(),
+                transition: Transition.leftToRight)
+            : Get.offAll(() => const bottoms(),
+                transition: Transition.leftToRight);
       } else {
         setState(() {
           loding = false;
@@ -295,7 +312,7 @@ class _mainscreenState extends State<mainscreen> {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(val['message'])));
       }
-      print('--->>$val');
+      // print('--->>$val');
     } else {
       setState(() {
         loding = false;

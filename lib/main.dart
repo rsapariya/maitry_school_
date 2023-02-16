@@ -5,7 +5,6 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:schooolapp/techers/units/color.dart';
-
 import 'onbording.dart';
 
 void main() async {
@@ -20,7 +19,7 @@ void main() async {
 }
 
 class provider extends StatelessWidget {
-  const provider({Key? key}) : super(key: key);
+   provider({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

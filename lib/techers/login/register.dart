@@ -1,14 +1,13 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:schooolapp/onbording.dart';
+import 'package:schooolapp/techers/login/otp.dart';
 import 'package:schooolapp/techers/units/api.dart';
 import 'package:schooolapp/techers/units/storage.dart';
-
-import '../../student/bottoms.dart';
-import '../dashboard/bottombar/bottombar.dart';
 
 bool student = true;
 
@@ -30,6 +29,7 @@ class _registerState extends State<register> {
   TextEditingController taluko = TextEditingController();
 
   @override
+  String OTPnum = '';
   bool npaas = true;
   bool cpaas = true;
   bool medium = true;
@@ -92,8 +92,13 @@ class _registerState extends State<register> {
                 ),
                 TextFormField(
                   controller: fullname,
-                  validator: (value) =>
-                      GetUtils.isUsername(value!) ? null : "Enter Name",
+                  validator: (value) {
+                    if (fullname.text.isEmpty) {
+                      return "Enter Full Name";
+                    } else {
+                      return null;
+                    }
+                  },
                   style: const TextStyle(
                     fontFamily: "popins",
                   ),
@@ -134,10 +139,11 @@ class _registerState extends State<register> {
                 ),
                 TextFormField(
                   validator: (value) {
-                    if (value != cpassword.text) {
-                      return "Password don't match";
+                    if (cpassword.text.isEmpty) {
+                      return "Enter password";
+                    } else {
+                      return null;
                     }
-                    return null;
                   },
                   style: const TextStyle(
                     fontFamily: "popins",
@@ -166,7 +172,9 @@ class _registerState extends State<register> {
                 ),
                 TextFormField(
                   validator: (value) {
-                    if (value != password.text) {
+                    if (password.text.isEmpty) {
+                      return "Enter password";
+                    } else if (value != password.text) {
                       return "Password don't match";
                     }
                     return null;
@@ -875,13 +883,53 @@ class _registerState extends State<register> {
                   height: Get.height / 40,
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     if (loding == false) {
                       if (_formKey.currentState!.validate()) {
                         setState(() {
+                          if (phonenumber.text.length == 9) {
+                            OTPnum = "+91" + phonenumber.text.toString();
+                          } else {
+                            OTPnum = phonenumber.text.toString();
+                          }
+                          var data = {
+                            "fullname": fullname.text.toString(),
+                            "phonenumber": OTPnum.toString(),
+                            "password": password.text.toString(),
+                            "cpassword": cpassword.text.toString(),
+                            "schoolname": schoolname.text.toString(),
+                            "city": city.text.toString(),
+                            "district": district.text.toString(),
+                            "taluko": taluko.text.toString(),
+                            "usertype": usertype.toString(),
+                            "token": token.toString(),
+                          };
+                          save('Register', data);
                           loding = true;
                         });
-                        Registerapi();
+                        await FirebaseAuth.instance.verifyPhoneNumber(
+                          phoneNumber: OTPnum,
+                          verificationCompleted: (phoneAuthCredential) {},
+                          verificationFailed: (error) {
+                            setState(() {
+                              loding = false;
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Please chek number')));
+                          },
+                          codeSent: (verificationId, forceResendingToken) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Code sent.')));
+                            setState(() {
+                              save("verification", verificationId);
+                              loding = false;
+                            });
+                            Get.to(() => verification());
+                          },
+                          codeAutoRetrievalTimeout: (verificationId) {},
+                        );
+
+                        // Registerapi();
                       }
                     }
                   },
@@ -989,59 +1037,60 @@ class _registerState extends State<register> {
     );
   }
 
-  Registerapi() async {
-    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Signup));
-    request.fields.addAll({
-      'user_name': fullname.text.toString(),
-      'user_mobile': phonenumber.text.toString(),
-      'user_type': usertype.toString(),
-      'user_password': password.text.toString(),
-      'user_standard_id': '1',
-      'user_school_name': schoolname.text.toString(),
-      'user_token': token.toString(),
-      'user_reference_number': ''
-    });
-
-    final response = await request.send();
-    final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
-
-    if (response.statusCode == 200) {
-      print("----");
-      print(val);
-      if (val['success'] == true) {
-        setState(() {
-          save('islogin', true);
-          loding = false;
-        });
-        print(val);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(val['message']),
-          ),
-        );
-        val['Result']['user_type'] == 'Teacher'
-            ? Get.to(() => const bottomt(), transition: Transition.leftToRight)
-            : Get.to(() => const bottoms(), transition: Transition.leftToRight);
-      } else {
-        setState(() {
-          loding = false;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-            val['message'],
-          ),
-        ));
-      }
-    } else {
-      setState(() {
-        loding = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(val['message']),
-        ),
-      );
-    }
-  }
+  // Registerapi() async {
+  //   var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Signup));
+  //   request.fields.addAll({
+  //     'user_name': fullname.text.toString(),
+  //     'user_mobile': phonenumber.text.toString(),
+  //     'user_type': usertype.toString(),
+  //     'user_password': password.text.toString(),
+  //     'user_standard_id': '1',
+  //     'user_school_name': schoolname.text.toString(),
+  //     'user_token': token.toString(),
+  //     'user_reference_number': ''
+  //   });
+  //
+  //   final response = await request.send();
+  //   final respStr = await response.stream.bytesToString();
+  //   var val = jsonDecode(respStr);
+  //
+  //   if (response.statusCode == 200) {
+  //     print("----");
+  //     print(val);
+  //     if (val['success'] == true) {
+  //       setState(() {
+  //         save('islogin', true);
+  //         loding = false;
+  //       });
+  //       print(val);
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text(val['message']),
+  //         ),
+  //       );
+  //
+  //       // val['Result']['user_type'] == 'Teacher'
+  //       //     ? Get.to(() => const bottomt(), transition: Transition.leftToRight)
+  //       //     : Get.to(() => const bottoms(), transition: Transition.leftToRight);
+  //     } else {
+  //       setState(() {
+  //         loding = false;
+  //       });
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //         content: Text(
+  //           val['message'],
+  //         ),
+  //       ));
+  //     }
+  //   } else {
+  //     setState(() {
+  //       loding = false;
+  //     });
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text(val['message']),
+  //       ),
+  //     );
+  //   }
+  // }
 }

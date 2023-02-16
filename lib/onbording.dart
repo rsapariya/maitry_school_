@@ -36,7 +36,7 @@ class _BoardingPageState extends State<BoardingPage> {
       setState(() {
         token = value;
         save('token', value);
-        save('Open',true);
+        save('Open', true);
       });
       print("------ddddddddddddddddd--------------------------");
 
@@ -90,10 +90,10 @@ class _BoardingPageState extends State<BoardingPage> {
         child: Stack(
           children: [
             Container(
-              decoration: BoxDecoration(color: Colors.blue),
+              decoration: const BoxDecoration(color: Colors.blue),
               child: Container(
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 100),
+                  padding: const EdgeInsets.only(bottom: 100),
                   child: Image.asset(
                     "asstes/image/back.png",
                     fit: BoxFit.cover,
@@ -102,10 +102,10 @@ class _BoardingPageState extends State<BoardingPage> {
               ),
             ),
             Container(
-              decoration: BoxDecoration(color: Colors.transparent),
+              decoration: const BoxDecoration(color: Colors.transparent),
               child: Container(
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 50),
+                  padding: const EdgeInsets.only(bottom: 50),
                   child: Image.asset(
                     "asstes/image/shadow.png",
                     fit: BoxFit.cover,
@@ -114,7 +114,7 @@ class _BoardingPageState extends State<BoardingPage> {
               ),
             ),
             Container(
-              decoration: BoxDecoration(color: Colors.transparent),
+              decoration: const BoxDecoration(color: Colors.transparent),
               child: Padding(
                 padding:
                     EdgeInsets.only(top: Get.height / 8, left: 20, right: 20),
@@ -131,8 +131,13 @@ class _BoardingPageState extends State<BoardingPage> {
               child: Container(
                 height: Get.height / 2.3,
                 width: double.infinity,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))),
                 child: Padding(
-                  padding: EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
                       SizedBox(
@@ -140,14 +145,14 @@ class _BoardingPageState extends State<BoardingPage> {
                         child: Text(
                           slide.heading,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               // overflow: TextOverflow.ellipsis,
                               color: Colors.black,
                               fontFamily: "popins",
                               fontSize: 26),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SizedBox(
@@ -155,7 +160,7 @@ class _BoardingPageState extends State<BoardingPage> {
                         child: Text(
                           slide.subtitel,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               // overflow: TextOverflow.ellipsis,
                               color: Colors.black,
                               fontFamily: "popins",
@@ -165,11 +170,6 @@ class _BoardingPageState extends State<BoardingPage> {
                     ],
                   ),
                 ),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20))),
               ),
             )
 
@@ -192,7 +192,7 @@ class _BoardingPageState extends State<BoardingPage> {
       row.children.add(_buildPageIndicatorItem(i));
       if (i != _slides.length - 1)
         // ignore: curly_braces_in_flow_control_structures
-        row.children.add(SizedBox(
+        row.children.add(const SizedBox(
           width: 10,
         ));
     }
@@ -220,7 +220,6 @@ class _BoardingPageState extends State<BoardingPage> {
           PageView(
             controller: _pageController,
             onPageChanged: _handlingOnPageChanged,
-            physics: BouncingScrollPhysics(),
             children: _buildSlides(),
           ),
           Positioned(
@@ -238,12 +237,12 @@ class _BoardingPageState extends State<BoardingPage> {
                     ),
                 _currentPage == 2
                     ? Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: GestureDetector(
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                Get.off(() => mainscreen());
+                                Get.off(() => const mainscreen());
                               });
                             },
                             child: Container(
@@ -256,7 +255,7 @@ class _BoardingPageState extends State<BoardingPage> {
                                   child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Get Started",
                                     style: TextStyle(
                                         fontFamily: "popins",
@@ -269,7 +268,7 @@ class _BoardingPageState extends State<BoardingPage> {
                           ),
                         ))
                     : Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: GestureDetector(
                           child: GestureDetector(
                             onTap: () {

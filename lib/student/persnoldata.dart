@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../techers/units/storage.dart';
+
 class Editpro extends StatefulWidget {
   const Editpro({Key? key}) : super(key: key);
 
@@ -9,12 +11,18 @@ class Editpro extends StatefulWidget {
 }
 
 class _EditproState extends State<Editpro> {
-  TextEditingController fullname = TextEditingController(text: "Ravi Sapariya");
-  TextEditingController mobile = TextEditingController(text: "9715247896");
-  TextEditingController school = TextEditingController(text: "Ashadeep vidhyalay");
-  TextEditingController city =   TextEditingController(text: "Surat");
-  TextEditingController district=TextEditingController(text: "Surat");
-  TextEditingController taluka = TextEditingController(text: "Surat");
+  TextEditingController fullname = TextEditingController(
+      text: getdata.read('logindata')['Result']['user_name'] ?? "");
+  TextEditingController mobile = TextEditingController(
+      text: getdata.read('logindata')['Result']['user_mobile'] ?? "");
+  TextEditingController school = TextEditingController(
+      text: getdata.read('logindata')['Result']['school_name'] ?? "");
+  TextEditingController city = TextEditingController(
+      text: getdata.read('logindata')['Result']['user_gam'] ?? "");
+  TextEditingController district = TextEditingController(
+      text: getdata.read('logindata')['Result']['user_taluko'] ?? "");
+  TextEditingController taluka = TextEditingController(
+      text: getdata.read('logindata')['Result']['user_jillo'] ?? "");
 
   @override
   Widget build(BuildContext context) {

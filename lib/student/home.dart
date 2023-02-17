@@ -282,7 +282,7 @@ class _homesState extends State<homes> {
                                 height: 10,
                               ),
                               const Text(
-                                'Online Exam',
+                                'View MCQ',
                                 style: TextStyle(
                                     fontFamily: 'popins', fontSize: 13),
                               )

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:schooolapp/student/bottoms.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/profile/profile.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/wallet/wallet.dart';
 
@@ -28,6 +29,7 @@ class _bottomtState extends State<bottomt> {
   // late ColorNotifire notifire;
   @override
   void initState() {
+    Xapi = getdata.read('logindata')['Result']['user_api'].toString();
     getInfo();
     super.initState();
   }

@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:schooolapp/student/persnoldata.dart';
 
 import '../../../../student/Requestacher.dart';
+import '../../../login/mainscreen.dart';
 import '../../../login/register.dart';
+import '../../../units/storage.dart';
 
 class profile extends StatefulWidget {
   const profile({Key? key}) : super(key: key);
@@ -58,16 +60,16 @@ class _profileState extends State<profile> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children:  [
                       Text(
-                        "Ravi Sapariya",
+                        getdata.read('logindata')['Result']['user_name']??"",
                         style: TextStyle(
                             fontFamily: 'popins',
                             color: Colors.black,
                             fontSize: 16),
                       ),
                       Text(
-                        "Teacher",
+                        getdata.read('logindata')['Result']['user_type']??"",
                         style: TextStyle(
                             fontFamily: 'popins Medium',
                             color: Colors.grey,
@@ -263,6 +265,18 @@ class _profileState extends State<profile> {
                       ),
                       roww(
                           titel: "Privacy Policy",
+                          image: "asstes/image/profile/Icon-Privacy.png"),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      roww(
+                          onTap: () {
+                            setState(() {
+                              save('islogin', false);
+                            });
+                            Get.offAll(() => mainscreen());
+                          },
+                          titel: "Log out",
                           image: "asstes/image/profile/Icon-Privacy.png"),
                       const SizedBox(
                         height: 10,

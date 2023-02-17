@@ -887,7 +887,7 @@ class _registerState extends State<register> {
                     if (loding == false) {
                       if (_formKey.currentState!.validate()) {
                         setState(() {
-                          if (phonenumber.text.length == 9) {
+                          if (phonenumber.text.length == 10) {
                             OTPnum = "+91" + phonenumber.text.toString();
                           } else {
                             OTPnum = phonenumber.text.toString();
@@ -911,6 +911,8 @@ class _registerState extends State<register> {
                           phoneNumber: OTPnum,
                           verificationCompleted: (phoneAuthCredential) {},
                           verificationFailed: (error) {
+                            print('====>>>>$error');
+                            print('====>>>>$OTPnum');
                             setState(() {
                               loding = false;
                             });

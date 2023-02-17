@@ -4,8 +4,11 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 
+import '../../student/bottoms.dart';
+
+var headers = {'X-Authorization':Xapi.toString()};
+
 class ApiWrapper {
-  static var headers = {'X-Authorization': 'e562823edfaadbef52b6f5b91616645b'};
   static doImageUpload(
       String endpoint, Map<String, String> params, List imgs) async {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.baseurl));
@@ -74,4 +77,7 @@ class AppUrl {
   static const String baseurl = 'https://maitriapp.in/api/v1';
   static const String login = baseurl + '/login';
   static const String Signup = baseurl + '/signup';
+  static const String Chapter = baseurl + '/chapter/1';
+  static const String Tpoic = baseurl + '/topic';
+  static const String MCqs = baseurl + '/mcqs';
 }

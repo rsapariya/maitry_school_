@@ -10,6 +10,7 @@ import '../techers/units/storage.dart';
 import 'home.dart';
 
 int selectedIndex = 0;
+var Xapi = '';
 
 class bottoms extends StatefulWidget {
   const bottoms({Key? key}) : super(key: key);
@@ -27,6 +28,7 @@ class _bottomstState extends State<bottoms> {
   ];
   @override
   void initState() {
+    Xapi = getdata.read('logindata')['Result']['user_api'].toString();
     getInfo();
     super.initState();
   }

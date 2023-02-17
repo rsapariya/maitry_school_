@@ -94,31 +94,6 @@ class _verificationState extends State<verification> {
                 },
                 onCompleted: (value) {},
               ),
-              // PinCodeFields(
-              //   length: 4,
-              //   fieldBorderStyle: FieldBorderStyle.square,
-              //   responsive: false,
-              //   fieldHeight: Get.height / 15,
-              //   fieldWidth: Get.width / 7,
-              //   borderWidth: 1.0,
-              //   // activeBorderColor: Colors.pink,
-              //   // activeBackgroundColor: Colors.pink.shade100,
-              //   borderRadius: BorderRadius.circular(10.0),
-              //   keyboardType: TextInputType.number,
-              //   autoHideKeyboard: false,
-              //   fieldBackgroundColor: Colors.grey.withOpacity(0.1),
-              //   borderColor: Colors.transparent,
-              //   textStyle: const TextStyle(
-              //     fontSize: 30.0,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              //   onChange: (value) {
-              //     setState(() {
-              //       SMS = value.toString();
-              //     });
-              //   },
-              //   onComplete: (value) {},
-              // ),
               const SizedBox(
                 height: 15,
               ),

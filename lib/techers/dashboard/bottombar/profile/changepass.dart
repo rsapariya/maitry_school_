@@ -1,40 +1,35 @@
 import 'dart:convert';
-import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schooolapp/onbording.dart';
-import 'package:schooolapp/techers/login/register.dart';
 import 'package:http/http.dart' as http;
-import '../../detabse.dart';
-import '../../student/bottoms.dart';
-import '../dashboard/bottombar/bottombar.dart';
-import '../units/api.dart';
-import '../units/storage.dart';
-import 'forgot.dart';
 
-class mainscreen extends StatefulWidget {
-  const mainscreen({Key? key}) : super(key: key);
+import '../../../units/api.dart';
 
+class changepasswoed extends StatefulWidget {
+  const changepasswoed({Key? key}) : super(key: key);
   @override
-  State<mainscreen> createState() => _mainscreenState();
+  State<changepasswoed> createState() => _changepasswoedState();
 }
 
-class _mainscreenState extends State<mainscreen> {
-  final Connectivity _connectivity = Connectivity();
-  final dbhelper = Databasehalper.instance;
-  TextEditingController phone = TextEditingController();
-  TextEditingController password = TextEditingController();
-  bool npaas = true;
+class _changepasswoedState extends State<changepasswoed> {
+  TextEditingController Oldpass = TextEditingController();
+  TextEditingController Npass = TextEditingController();
+  TextEditingController Cpass = TextEditingController();
+  // bool opass = true;
+  // bool npaas = true;
+  // bool cpas = true;
   bool loding = false;
 
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-
-    return Scaffold(
+    return SafeArea(
+        child: Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
+        padding: EdgeInsets.symmetric(
+            horizontal: Get.width / 30, vertical: Get.height / 80),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -42,65 +37,43 @@ class _mainscreenState extends State<mainscreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: Get.height / 10,
-                ),
-                Center(
-                  child: Image.asset(
-                    "asstes/image/logo.png",
-                    scale: 3,
-                  ),
-                ),
-                SizedBox(
-                  height: Get.height / 20,
-                ),
-                const Text(
-                  "Hey there,",
-                  style: TextStyle(
-                      fontFamily: "popins", color: Colors.black, fontSize: 22),
-                ),
-                const Text(
-                  "Welcome back",
-                  style: TextStyle(
-                      fontFamily: "popins Medium",
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24),
-                ),
-                SizedBox(
-                  height: Get.height / 20,
-                ),
-                const Text(
-                  "Login",
-                  style: TextStyle(
-                      fontFamily: "popins", color: Colors.blue, fontSize: 18),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Enter Phone number";
-                    } else if (value.isPhoneNumber) {
-                      return null;
-                    } else {
-                      return "Enter valid number";
-                    }
-                  },
-                  style: const TextStyle(
-                    fontFamily: "popins",
-                  ),
-                  controller: phone,
-                  autofocus: false,
-                  keyboardType:TextInputType.phone,
-                  decoration: buildInputDecoration(
-                      hintText: "Enter Phone number",
-                      lbltext: "Enter Phone number",
-                      prifix: Image.asset(
-                        'asstes/image/Placeholder (2).png',
-                        scale: 2.5,
-                      )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: Get.height / 20,
+                        width: Get.width / 9,
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Image.asset(
+                            "asstes/image/backwrrow.png",
+                            scale: 1.5,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      "Change password",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "popins Medium",
+                          fontSize: 18),
+                    ),
+                    InkWell(
+                      child: SizedBox(
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 15,
@@ -115,12 +88,12 @@ class _mainscreenState extends State<mainscreen> {
                   style: const TextStyle(
                     fontFamily: "popins",
                   ),
-                  controller: password,
+                  controller: Oldpass,
                   autofocus: false,
-                  obscureText: npaas,
+                  // obscureText: opass,
                   decoration: buildInputDecoration(
-                    hintText: "Password",
-                    lbltext: "Password",
+                    hintText: "Old password",
+                    lbltext: "Old password",
                     prifix: Image.asset(
                       'asstes/image/Lock.png',
                       scale: 2.5,
@@ -128,7 +101,7 @@ class _mainscreenState extends State<mainscreen> {
                     surfix: InkWell(
                       onTap: () {
                         setState(() {
-                          npaas = !npaas;
+                          // opass = !opass;
                         });
                       },
                       child: const Icon(Icons.remove_red_eye_outlined),
@@ -136,19 +109,72 @@ class _mainscreenState extends State<mainscreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 25,
                 ),
-                InkWell(
-                  onTap: () {
-                    Get.to(() => const forget(),
-                        transition: Transition.leftToRight);
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter password!";
+                    }
+                    return null;
                   },
-                  child: const Text(
-                    "Forgot your password?",
-                    style: TextStyle(
-                        fontFamily: "popins",
-                        fontSize: 14,
-                        decoration: TextDecoration.underline),
+                  style: const TextStyle(
+                    fontFamily: "popins",
+                  ),
+                  controller: Npass,
+                  autofocus: false,
+                  // obscureText: npaas,
+                  decoration: buildInputDecoration(
+                    hintText: "New password",
+                    lbltext: "New password",
+                    prifix: Image.asset(
+                      'asstes/image/Lock.png',
+                      scale: 2.5,
+                    ),
+                    surfix: InkWell(
+                      onTap: () {
+                        setState(() {
+                          // npaas = !npaas;
+                        });
+                      },
+                      child: const Icon(Icons.remove_red_eye_outlined),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter password!";
+                    } else if (Cpass.text == Npass.text) {
+                      return null;
+                    } else {
+                      return "Password don't metch";
+                    }
+                  },
+                  style: const TextStyle(
+                    fontFamily: "popins",
+                  ),
+                  controller: Cpass,
+                  autofocus: false,
+                  // obscureText: cpas,
+                  decoration: buildInputDecoration(
+                    hintText: "Confirm password",
+                    lbltext: "Confirm password",
+                    prifix: Image.asset(
+                      'asstes/image/Lock.png',
+                      scale: 2.5,
+                    ),
+                    surfix: InkWell(
+                      onTap: () {
+                        setState(() {
+                          // cpas = !cpas;
+                        });
+                      },
+                      child: const Icon(Icons.remove_red_eye_outlined),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -161,7 +187,7 @@ class _mainscreenState extends State<mainscreen> {
                         setState(() {
                           loding = true;
                         });
-                        loginapi();
+                        changeAPI();
                       }
                     }
                   },
@@ -183,7 +209,7 @@ class _mainscreenState extends State<mainscreen> {
                                 width: Get.width / 40,
                               ),
                               const Text(
-                                "Login",
+                                "Update",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
@@ -201,47 +227,12 @@ class _mainscreenState extends State<mainscreen> {
                 SizedBox(
                   height: Get.height / 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Don't have an account yet?",
-                      style: TextStyle(
-                        fontFamily: "popins",
-                        fontSize: 14,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Get.to(() => const register(),
-                            transition: Transition.leftToRight);
-                      },
-                      child: const Text(
-                        "Register",
-                        style: TextStyle(
-                          fontFamily: "popins",
-                          fontSize: 14,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-
-  Future<bool> checkInternetConnection() async {
-    final ConnectivityResult connectivityResult =
-        await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      return false;
-    }
-    return true;
+    ));
   }
 
   InputDecoration buildInputDecoration({
@@ -276,41 +267,36 @@ class _mainscreenState extends State<mainscreen> {
     );
   }
 
-  loginapi() async {
-    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.login));
+  changeAPI() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.chagepass));
     request.fields.addAll({
-      'user_mobile': phone.text.toString(),
-      'user_password': password.text.toString(),
-      'user_token': token.toString()
+      'old_password': Oldpass.text.toString(),
+      'new_password': Npass.text.toString(),
+      'confirm_password': Cpass.toString()
     });
+    request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
     var val = jsonDecode(respStr);
-
+    print(Oldpass.text.toString());
+    print(Npass.text.toString());
+    print(Cpass.text.toString());
     if (response.statusCode == 200) {
       if (val['success'] == true) {
         setState(() {
-          save('islogin', true);
           loding = false;
         });
         print('--sssss->>$val');
-        setState(() {
-          save('logindata', val);
-        });
+
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(val['message'])));
-
-        val['Result']['user_type'] == 'Teacher'
-            ? Get.offAll(() => const bottomt(),
-                transition: Transition.leftToRight)
-            : Get.offAll(() => const bottoms(),
-                transition: Transition.leftToRight);
       } else {
         setState(() {
           loding = false;
         });
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(val['message'])));
+        print('--sssss->>$val');
       }
       // print('--->>$val');
     } else {
@@ -319,7 +305,7 @@ class _mainscreenState extends State<mainscreen> {
       });
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(val['message'])));
-      print(response.reasonPhrase);
+      print('--sssss->>$val');
     }
   }
 }

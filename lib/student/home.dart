@@ -1,13 +1,18 @@
 // ignore_for_file: camel_case_types
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/student/prectice/selectch.dart';
-import 'package:schooolapp/techers/dashboard/bottombar/home/pendingreqest/pendingreqeust.dart';
+import 'package:http/http.dart' as http;
 import '../techers/dashboard/bottombar/home/notification.dart';
+import '../techers/units/api.dart';
 import 'Materials.dart';
 import 'gujcetpaper.dart';
 import 'onlineexam/onlineexam.dart';
+
+List subscribplanse = [];
 
 class homes extends StatefulWidget {
   const homes({Key? key}) : super(key: key);
@@ -16,6 +21,12 @@ class homes extends StatefulWidget {
 }
 
 class _homesState extends State<homes> {
+  @override
+  void initState() {
+    getsubsribtionS();
+    super.initState();
+  }
+
   String selectedItem = '11th';
   String selectedItem2 = 'Biology';
   @override
@@ -42,7 +53,8 @@ class _homesState extends State<homes> {
                             borderRadius: BorderRadius.circular(30)),
                         child: Center(
                           child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               child: DropdownButton<String>(
                                   value: selectedItem,
                                   elevation: 0,
@@ -91,7 +103,8 @@ class _homesState extends State<homes> {
                             borderRadius: BorderRadius.circular(30)),
                         child: Center(
                           child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               child: DropdownButton<String>(
                                   value: selectedItem2,
                                   elevation: 0,
@@ -137,11 +150,12 @@ class _homesState extends State<homes> {
                     const Spacer(),
                     InkWell(
                       onTap: () {
-                        Get.to(() => const notification(),transition:Transition.leftToRight);
+                        Get.to(() => const notification(),
+                            transition: Transition.leftToRight);
                       },
                       child: Container(
-                        height:Get.height/20,
-                        width:Get.width/9,
+                        height: Get.height / 20,
+                        width: Get.width / 9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -230,7 +244,8 @@ class _homesState extends State<homes> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => const Gujcetpaper(),transition:Transition.leftToRight);
+                          Get.to(() => const Gujcetpaper(),
+                              transition: Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -264,7 +279,8 @@ class _homesState extends State<homes> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => const selectchapters(),transition:Transition.leftToRight);
+                          Get.to(() => const selectchapters(),
+                              transition: Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -301,7 +317,8 @@ class _homesState extends State<homes> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => const Materials(),transition:Transition.leftToRight);
+                          Get.to(() => const Materials(),
+                              transition: Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -334,7 +351,8 @@ class _homesState extends State<homes> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => const precticechapter(),transition:Transition.leftToRight);
+                          Get.to(() => const precticechapter(),
+                              transition: Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
@@ -404,5 +422,31 @@ class _homesState extends State<homes> {
         ),
       ),
     );
+  }
+
+  getsubsribtionS() async {
+    var request = http.MultipartRequest('GET', Uri.parse(AppUrl.getsubscribeS));
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          subscribplanse.clear();
+          val['Result'].forEach((e) {
+            subscribplanse.add(e);
+          });
+        });
+        print('--000000000000000000000000000000000->>$val');
+        setState(() {});
+      } else {
+        print('--0000->>$val');
+      }
+      // print('--->>$val');
+    } else {
+      print('--00000->>$val');
+    }
   }
 }

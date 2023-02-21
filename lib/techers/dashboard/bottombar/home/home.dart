@@ -1,12 +1,17 @@
+import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/PDFpaper.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pendingreqest/pendingreqeust.dart';
+import '../../../units/api.dart';
 import '../../../units/cusomewidget.dart';
 import 'notification.dart';
 import 'onlineexam/onlineexam.dart';
+import 'package:http/http.dart' as http;
+
+List subscibePlan = [];
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -19,12 +24,13 @@ class _homeState extends State<home> {
   String? token;
   @override
   void initState() {
+    getsubsribtion();
+    getallreq();
     request();
     FirebaseMessaging.instance.getToken().then((value) {
       setState(() {
         token = value;
       });
-      print("------ddddddddddddddddd--------------------------");
 
       print(token);
     });
@@ -75,7 +81,7 @@ class _homeState extends State<home> {
                             borderRadius: BorderRadius.circular(30)),
                         child: Center(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
                               "Gujarati",
                               style: TextStyle(
@@ -88,7 +94,7 @@ class _homeState extends State<home> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     InkWell(
@@ -106,7 +112,7 @@ class _homeState extends State<home> {
                             borderRadius: BorderRadius.circular(30)),
                         child: Center(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
                               "English",
                               style: TextStyle(
@@ -119,13 +125,13 @@ class _homeState extends State<home> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     InkWell(
                       onTap: () {
-                        Get.to(() => notification(),
+                        Get.to(() => const notification(),
                             transition: Transition.leftToRight);
                       },
                       child: Container(
@@ -144,13 +150,16 @@ class _homeState extends State<home> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Stack(children: [
                   Container(
                     width: double.infinity,
                     height: Get.height / 4.5,
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(10)),
                     child: Stack(
                       children: [
                         Padding(
@@ -168,12 +177,12 @@ class _homeState extends State<home> {
                           "asstes/image/Mask group (1).png",
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 15),
+                          padding: const EdgeInsets.only(left: 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 "Lorem ipsum doller\nsit amet",
                                 style: TextStyle(
                                     fontFamily: 'popins',
@@ -193,7 +202,7 @@ class _homeState extends State<home> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Read more",
                                       style: TextStyle(
                                           color: Colors.blue, fontSize: 16),
@@ -206,12 +215,9 @@ class _homeState extends State<home> {
                         )
                       ],
                     ),
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10)),
                   ),
                 ]),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -219,11 +225,14 @@ class _homeState extends State<home> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => pdfgenrat(),
+                          Get.to(() => const pdfgenrat(),
                               transition: Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
+                          decoration: BoxDecoration(
+                              color: Colors.deepOrange.withOpacity(0.10),
+                              borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -231,33 +240,33 @@ class _homeState extends State<home> {
                                 'asstes/image/pdf 1.png',
                                 scale: 3,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
-                              Text(
+                              const Text(
                                 'PDF Paper Genrate',
                                 style: TextStyle(
                                     fontFamily: 'popins', fontSize: 14),
                               )
                             ],
                           ),
-                          decoration: BoxDecoration(
-                              color: Colors.deepOrange.withOpacity(0.10),
-                              borderRadius: BorderRadius.circular(10)),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => online(),
+                          Get.to(() => const online(),
                               transition: Transition.leftToRight);
                         },
                         child: Container(
                           height: Get.height / 6,
+                          decoration: BoxDecoration(
+                              color: Colors.blue.withOpacity(0.10),
+                              borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -265,34 +274,34 @@ class _homeState extends State<home> {
                                 'asstes/image/exam 2.png',
                                 scale: 3,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
-                              Text(
+                              const Text(
                                 'Online Exam',
                                 style: TextStyle(
                                     fontFamily: 'popins', fontSize: 14),
                               )
                             ],
                           ),
-                          decoration: BoxDecoration(
-                              color: Colors.blue.withOpacity(0.10),
-                              borderRadius: BorderRadius.circular(10)),
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(() => pendingreqest(),
+                    Get.to(() => const pendingreqest(),
                         transition: Transition.leftToRight);
                   },
                   child: Container(
                     height: Get.height / 6,
+                    decoration: BoxDecoration(
+                        color: Colors.brown.withOpacity(0.10),
+                        borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -300,10 +309,10 @@ class _homeState extends State<home> {
                           'asstes/image/profile/patient.png',
                           scale: 12,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15),
                           child: Text(
                             'View Panding Request',
@@ -313,9 +322,6 @@ class _homeState extends State<home> {
                         )
                       ],
                     ),
-                    decoration: BoxDecoration(
-                        color: Colors.brown.withOpacity(0.10),
-                        borderRadius: BorderRadius.circular(10)),
                   ),
                 )
               ],
@@ -324,5 +330,57 @@ class _homeState extends State<home> {
         ),
       ),
     );
+  }
+
+  getallreq() async {
+    var request = http.MultipartRequest('GET', Uri.parse(AppUrl.getrequest));
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          requestlist.clear();
+          val['Result'].forEach((e) {
+            requestlist.add(e);
+          });
+        });
+        print('--sssss->>$val');
+        setState(() {});
+      } else {
+        print('--sssss->>$val');
+      }
+      // print('--->>$val');
+    } else {
+      print('--sssss->>$val');
+    }
+  }
+
+  getsubsribtion() async {
+    var request = http.MultipartRequest('GET', Uri.parse(AppUrl.getsubscribeT));
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          subscibePlan.clear();
+          val['Result'].forEach((e) {
+            subscibePlan.add(e);
+          });
+        });
+        print('--000000000000000000000000000000000->>$val');
+        setState(() {});
+      } else {
+        print('--0000->>$val');
+      }
+      // print('--->>$val');
+    } else {
+      print('--00000->>$val');
+    }
   }
 }

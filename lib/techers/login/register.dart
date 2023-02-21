@@ -1,12 +1,9 @@
-import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:schooolapp/onbording.dart';
 import 'package:schooolapp/techers/login/otp.dart';
-import 'package:schooolapp/techers/units/api.dart';
 import 'package:schooolapp/techers/units/storage.dart';
 
 bool student = true;
@@ -1039,60 +1036,4 @@ class _registerState extends State<register> {
     );
   }
 
-  // Registerapi() async {
-  //   var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Signup));
-  //   request.fields.addAll({
-  //     'user_name': fullname.text.toString(),
-  //     'user_mobile': phonenumber.text.toString(),
-  //     'user_type': usertype.toString(),
-  //     'user_password': password.text.toString(),
-  //     'user_standard_id': '1',
-  //     'user_school_name': schoolname.text.toString(),
-  //     'user_token': token.toString(),
-  //     'user_reference_number': ''
-  //   });
-  //
-  //   final response = await request.send();
-  //   final respStr = await response.stream.bytesToString();
-  //   var val = jsonDecode(respStr);
-  //
-  //   if (response.statusCode == 200) {
-  //     print("----");
-  //     print(val);
-  //     if (val['success'] == true) {
-  //       setState(() {
-  //         save('islogin', true);
-  //         loding = false;
-  //       });
-  //       print(val);
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(
-  //           content: Text(val['message']),
-  //         ),
-  //       );
-  //
-  //       // val['Result']['user_type'] == 'Teacher'
-  //       //     ? Get.to(() => const bottomt(), transition: Transition.leftToRight)
-  //       //     : Get.to(() => const bottoms(), transition: Transition.leftToRight);
-  //     } else {
-  //       setState(() {
-  //         loding = false;
-  //       });
-  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //         content: Text(
-  //           val['message'],
-  //         ),
-  //       ));
-  //     }
-  //   } else {
-  //     setState(() {
-  //       loding = false;
-  //     });
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text(val['message']),
-  //       ),
-  //     );
-  //   }
-  // }
 }

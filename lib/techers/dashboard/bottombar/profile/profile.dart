@@ -5,8 +5,8 @@ import 'package:schooolapp/student/persnoldata.dart';
 
 import '../../../../student/Requestacher.dart';
 import '../../../login/mainscreen.dart';
-import '../../../login/register.dart';
 import '../../../units/storage.dart';
+import 'changepass.dart';
 
 class profile extends StatefulWidget {
   const profile({Key? key}) : super(key: key);
@@ -60,16 +60,21 @@ class _profileState extends State<profile> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children:  [
-                      Text(
-                        getdata.read('logindata')['Result']['user_name']??"",
-                        style: TextStyle(
-                            fontFamily: 'popins',
-                            color: Colors.black,
-                            fontSize: 16),
+                    children: [
+                      SizedBox(
+                        width: Get.width / 2,
+                        child: Text(
+                          getdata.read('logindata')['Result']['user_name'] ??
+                              "",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontFamily: 'popins',
+                              color: Colors.black,
+                              fontSize: 16),
+                        ),
                       ),
                       Text(
-                        getdata.read('logindata')['Result']['user_type']??"",
+                        getdata.read('logindata')['Result']['user_type'] ?? "",
                         style: TextStyle(
                             fontFamily: 'popins Medium',
                             color: Colors.grey,
@@ -148,7 +153,10 @@ class _profileState extends State<profile> {
                       const SizedBox(
                         height: 10,
                       ),
-                      student == true
+                      getdata
+                                  .read('logindata')['Result']['user_type']
+                                  .toString() !=
+                              "Teacher"
                           ? roww(
                               onTap: () {
                                 Get.to(() => const Jointeacher(),
@@ -157,7 +165,10 @@ class _profileState extends State<profile> {
                               titel: "Join with Teacher",
                               image: "asstes/image/Placeholder.png")
                           : const SizedBox(),
-                      student == true
+                      getdata
+                                  .read('logindata')['Result']['user_type']
+                                  .toString() !=
+                              "Teacher"
                           ? const SizedBox(
                               height: 15,
                             )
@@ -271,13 +282,19 @@ class _profileState extends State<profile> {
                       ),
                       roww(
                           onTap: () {
-                            setState(() {
-                              save('islogin', false);
-                            });
-                            Get.offAll(() => mainscreen());
+                            dialogBuilder(context);
                           },
                           titel: "Log out",
                           image: "asstes/image/profile/Icon-Privacy.png"),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      roww(
+                          onTap: () {
+                            Get.to(() => changepasswoed());
+                          },
+                          titel: "Change password",
+                          image: "asstes/image/Lock.png"),
                       const SizedBox(
                         height: 10,
                       ),
@@ -289,6 +306,109 @@ class _profileState extends State<profile> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierColor: Colors.blue.withOpacity(0.2),
+      builder: (BuildContext context) {
+        return Padding(
+            padding: EdgeInsets.symmetric(vertical: Get.height / 3),
+            child: Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Container(
+                  child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Log Out",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "popins Bold",
+                          fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: Get.height / 40,
+                    ),
+                    Text(
+                      "Are you sure you want to Log Out this app ?",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "popins",
+                          fontSize: 16),
+                    ),
+                    SizedBox(
+                      height: Get.height / 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              Get.back();
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(30)),
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width / 20,
+                                    vertical: Get.height / 120),
+                                child: Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                      fontFamily: 'popins',
+                                      color: Colors.black),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.back();
+                            setState(() {
+                              save('islogin', false);
+                            });
+                            Get.offAll(() => mainscreen());
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.blue),
+                                borderRadius: BorderRadius.circular(30)),
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width / 20,
+                                    vertical: Get.height / 120),
+                                child: Text(
+                                  "Yes i'am sure",
+                                  style: TextStyle(
+                                      fontFamily: 'popins', color: Colors.blue),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )),
+            ));
+      },
     );
   }
 

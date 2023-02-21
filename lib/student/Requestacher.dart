@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+
+import '../techers/units/api.dart';
+import 'bottoms.dart';
 
 class Jointeacher extends StatefulWidget {
   const Jointeacher({Key? key}) : super(key: key);
@@ -13,112 +19,306 @@ class _JointeacherState extends State<Jointeacher> {
   bool langauge = true;
   List notifi = ['11', '22'];
   int sselectedindex = 0;
+  bool loding = false;
+  TextEditingController numbre = TextEditingController();
+  TextEditingController surname = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController fatherfname = TextEditingController();
+  TextEditingController Std = TextEditingController();
 
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: Get.width / 30, vertical: Get.height / 80),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Container(
-                      height:Get.height/20,
-                      width:Get.width/9,
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(
-                        child: Image.asset(
-                          "asstes/image/backwrrow.png",
-                          scale: 1.5,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: Get.height / 20,
+                          width: Get.width / 9,
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Image.asset(
+                              "asstes/image/backwrrow.png",
+                              scale: 1.5,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      const Text(
+                        "Join with Teacher",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "popins Medium",
+                            fontSize: 18),
+                      ),
+                      InkWell(
+                        child: SizedBox(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  const Text(
-                    "Join with Teacher",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: "popins Medium",
-                        fontSize: 18),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    style: const TextStyle(
+                      fontFamily: "popins",
+                    ),
+                    controller: numbre,
+                    validator: (value) {
+                      if (numbre.text.isEmpty) {
+                        return "Enter number";
+                      } else if (numbre.text.isPhoneNumber) {
+                        return null;
+                      } else {
+                        return "Enter valid number";
+                      }
+                    },
+                    autofocus: false,
+                    keyboardType: TextInputType.phone,
+                    decoration: buildInputDecoration(
+                        hintText: "Enter the Teacher’s Mobile Number",
+                        // lbltext: "Enter Phone Number",
+                        prifix: Image.asset(
+                          'asstes/image/Placeholder (2).png',
+                          scale: 2.5,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    style: const TextStyle(
+                      fontFamily: "popins",
+                    ),
+                    controller: surname,
+                    validator: (value) {
+                      if (surname.text.isEmpty) {
+                        return "Enter username";
+                      } else {}
+                    },
+                    autofocus: false,
+                    decoration: buildInputDecoration(
+                        hintText: "Enter username",
+                        // lbltext: "Enter Phone Number",
+                        prifix: Image.asset(
+                          'asstes/image/Placeholder (2).png',
+                          scale: 2.5,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    style: const TextStyle(
+                      fontFamily: "popins",
+                    ),
+                    controller: name,
+                    validator: (value) {
+                      if (name.text.isEmpty) {
+                        return "Enter studentname";
+                      } else {}
+                    },
+                    autofocus: false,
+                    decoration: buildInputDecoration(
+                        hintText: "Enter studentname",
+                        // lbltext: "Enter Phone Number",
+                        prifix: Image.asset(
+                          'asstes/image/Placeholder (2).png',
+                          scale: 2.5,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    style: const TextStyle(
+                      fontFamily: "popins",
+                    ),
+                    controller: fatherfname,
+                    validator: (value) {
+                      if (fatherfname.text.isEmpty) {
+                        return "Enter fathername";
+                      } else {}
+                    },
+                    autofocus: false,
+                    decoration: buildInputDecoration(
+                        hintText: "Enter fathername",
+                        // lbltext: "Enter Phone Number",
+                        prifix: Image.asset(
+                          'asstes/image/Placeholder (2).png',
+                          scale: 2.5,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    style: const TextStyle(
+                      fontFamily: "popins",
+                    ),
+                    controller: Std,
+                    validator: (value) {
+                      if (Std.text.isEmpty) {
+                        return "Enter standard";
+                      } else {}
+                    },
+                    autofocus: false,
+                    keyboardType: TextInputType.number,
+                    decoration: buildInputDecoration(
+                        hintText: "Enter standard",
+                        // lbltext: "Enter Phone Number",
+                        prifix: Image.asset(
+                          'asstes/image/Placeholder (2).png',
+                          scale: 2.5,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   InkWell(
-                    child: SizedBox(
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                      ),
-                    ),
-                  ),
+                      onTap: () async {
+                        if (_formKey.currentState!.validate()) {
+                          print('------------');
+                          setState(() {
+                            loding = true;
+                          });
+                          Requesrtpi();
+                        }
+                      },
+                      child: Center(
+                        child: loding == false
+                            ? Container(
+                                height: Get.height / 20,
+                                width: Get.width / 1.5,
+                                decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Center(
+                                  child: const Text(
+                                    "Request to Join with Teacher",
+                                    style: TextStyle(
+                                        fontFamily: 'popins',
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              )
+                            : CircularProgressIndicator(
+                                color: Colors.blue,
+                              ),
+                      )),
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                "Enter number",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: "popins Medium",
-                    fontSize: 14),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
-                ),
-                // controller: code,
-                autofocus: false,
-                decoration: buildInputDecoration(
-                    hintText: "Enter the Teacher’s Mobile Number",
-                    // lbltext: "Enter Phone Number",
-                    prifix: Image.asset(
-                      'asstes/image/Placeholder (2).png',
-                      scale: 2.5,
-                    )),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() {});
-                },
-                child: Center(
-                  child: Container(
-                    height: Get.height / 25,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Get.width / 30,
-                          vertical: Get.height / 150),
-                      child: const Text(
-                        "Request to Join with Teacher",
-                        style: TextStyle(
-                            fontFamily: 'popins', color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierColor: Colors.blue.withOpacity(0.2),
+      builder: (BuildContext context) {
+        return Padding(
+            padding: EdgeInsets.symmetric(vertical: Get.height / 4),
+            child: Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Container(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: Get.height / 30,
+                    ),
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.blue.withOpacity(0.2),
+                      child: const Center(
+                        child: Icon(
+                          Icons.done_all,
+                          size: 50,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: Get.height / 30,
+                    ),
+                    const Text(
+                      "Congratulations!",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontFamily: "popins Bold",
+                          fontSize: 18),
+                    ),
+                    SizedBox(
+                      width: Get.width / 1.5,
+                      child: const Text(
+                        "Your request has send to your teacher.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontFamily: "popins",
+                            fontSize: 14),
+                      ),
+                    ),
+                    SizedBox(
+                      height: Get.height / 40,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          Get.back();
+                          Get.off(() => const bottoms(),
+                              transition: Transition.leftToRight);
+                        });
+                      },
+                      child: Container(
+                        height: Get.height / 25,
+                        width: Get.width / 4,
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: const Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              "Done",
+                              style: TextStyle(
+                                  fontFamily: 'popins', color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ));
+      },
     );
   }
 
@@ -212,5 +412,46 @@ class _JointeacherState extends State<Jointeacher> {
       filled: true,
       fillColor: Colors.grey.withOpacity(0.1),
     );
+  }
+
+  Requesrtpi() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Sendrequest));
+    request.fields.addAll({
+      'mobile_number': numbre.text.toString(),
+      'surname': surname.text.toString(),
+      'studentname': name.text.toString(),
+      'fathername': fatherfname.text.toString(),
+      'standard': Std.text.toString(),
+    });
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      print("----");
+      print(val);
+      if (val['success'] == true) {
+        setState(() {
+          loding = false;
+        });
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(val['message'])));
+        _dialogBuilder(context);
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(val['message'])));
+        setState(() {
+          loding = false;
+        });
+      }
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(val['message'])));
+      print("---else-->>> ${val}");
+      setState(() {
+        loding = false;
+      });
+    }
   }
 }

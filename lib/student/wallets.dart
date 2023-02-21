@@ -1,22 +1,19 @@
-// ignore_for_file: camel_case_types
-
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import 'package:http/http.dart' as http;
-import '../../../units/api.dart';
-import '../home/home.dart';
+import '../techers/units/api.dart';
+import 'home.dart';
 
-class wallet extends StatefulWidget {
-  const wallet({Key? key}) : super(key: key);
+class wallets extends StatefulWidget {
+  const wallets({Key? key}) : super(key: key);
 
   @override
-  State<wallet> createState() => _walletState();
+  State<wallets> createState() => _walletsState();
 }
 
-class _walletState extends State<wallet> {
+class _walletsState extends State<wallets> {
   final _razorpay = Razorpay();
   @override
   void initState() {
@@ -36,7 +33,6 @@ class _walletState extends State<wallet> {
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: Get.height / 80),
           child: RefreshIndicator(
-            onRefresh: regresher,
             child: Column(
               children: [
                 Row(
@@ -55,9 +51,9 @@ class _walletState extends State<wallet> {
                           fontFamily: "popins Medium",
                           fontSize: 18),
                     ),
-                    const InkWell(
+                    InkWell(
                       child: SizedBox(
-                        child: SizedBox(
+                        child: Container(
                           height: 40,
                           width: 40,
                         ),
@@ -65,11 +61,10 @@ class _walletState extends State<wallet> {
                     ),
                   ],
                 ),
-                subscibePlan.isNotEmpty
+                subscribplanse.isNotEmpty
                     ? Expanded(
                         child: ListView.builder(
-                          // controller: controller,
-                          itemCount: subscibePlan.length,
+                          itemCount: subscribplanse.length,
                           itemBuilder: (_, index) {
                             return Padding(
                               padding: EdgeInsets.symmetric(
@@ -97,17 +92,17 @@ class _walletState extends State<wallet> {
                                       ),
                                       Row(
                                         children: [
-                                          const Text(
+                                          Text(
                                             "Sr.Number",
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 18,
                                                 fontFamily: "popins Medium"),
                                           ),
-                                          const Spacer(),
+                                          Spacer(),
                                           Text(
                                             index.toString(),
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14,
                                                 fontFamily: "popins"),
@@ -130,7 +125,7 @@ class _walletState extends State<wallet> {
                                                   width: 5,
                                                 ),
                                                 const Text(
-                                                  "Student Limit",
+                                                  "Name",
                                                   style: TextStyle(
                                                       color: Colors.grey,
                                                       fontSize: 14,
@@ -141,9 +136,10 @@ class _walletState extends State<wallet> {
                                           ),
                                           const Spacer(),
                                           Text(
-                                            subscibePlan[index]['student_limit']
+                                            subscribplanse[index]
+                                                    ['payment_name']
                                                 .toString(),
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14,
                                                 fontFamily: "popins"),
@@ -177,8 +173,8 @@ class _walletState extends State<wallet> {
                                           ),
                                           const Spacer(),
                                           Text(
-                                            "₹ ${subscibePlan[index]['amount'].toString()}",
-                                            style: const TextStyle(
+                                            "₹ ${subscribplanse[index]['amount'].toString()}",
+                                            style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14,
                                                 fontFamily: "popins"),
@@ -212,7 +208,7 @@ class _walletState extends State<wallet> {
                                           ),
                                           const Spacer(),
                                           Text(
-                                            subscibePlan[index]['last_date']
+                                            subscribplanse[index]['last_date']
                                                 .toString(),
                                             style: const TextStyle(
                                                 color: Colors.grey,
@@ -238,7 +234,6 @@ class _walletState extends State<wallet> {
                                                 'email': 'test@razorpay.com'
                                               }
                                             };
-                                            print("))))))))))))))))))");
                                             print(options);
                                             try {
                                               _razorpay.open(options);
@@ -289,10 +284,41 @@ class _walletState extends State<wallet> {
                       ),
               ],
             ),
+            onRefresh: regresher,
           ),
         ),
       ),
     );
+  }
+
+  Future<void> regresher() async {
+    getsubsribtionS();
+  }
+
+  getsubsribtionS() async {
+    var request = http.MultipartRequest('GET', Uri.parse(AppUrl.getsubscribeS));
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          subscribplanse.clear();
+          val['Result'].forEach((e) {
+            subscribplanse.add(e);
+          });
+        });
+        print('--000000000000000000000000000000000->>$val');
+        setState(() {});
+      } else {
+        print('--0000->>$val');
+      }
+      // print('--->>$val');
+    } else {
+      print('--00000->>$val');
+    }
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
@@ -322,104 +348,76 @@ class _walletState extends State<wallet> {
             child: Dialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: Get.height / 30,
-                  ),
-                  CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.green.withOpacity(0.2),
-                      child: const Center(
-                        child: Icon(
-                          Icons.done_all,
-                          size: 50,
-                          color: Colors.green,
-                        ),
-                      )),
-                  SizedBox(
-                    height: Get.height / 30,
-                  ),
-                  const Text(
-                    "SUCCESS",
-                    style: TextStyle(
-                        color: Colors.green,
-                        fontFamily: "popins Bold",
-                        fontSize: 18),
-                  ),
-                  SizedBox(
-                    width: Get.width / 1.5,
-                    child: const Text(
-                      "Dear Saumil Vekariya your STD 11&12 Neet 2022 subscription has been subscribed.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontFamily: "popins",
-                          fontSize: 12),
+              child: Container(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: Get.height / 30,
                     ),
-                  ),
-                  SizedBox(
-                    height: Get.height / 40,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        Get.back();
-                      });
-                    },
-                    child: Container(
-                      height: Get.height / 25,
-                      width: Get.width / 4,
-                      decoration: BoxDecoration(
+                    CircleAvatar(
+                        radius: 50,
+                        backgroundColor: Colors.green.withOpacity(0.2),
+                        child: const Center(
+                          child: Icon(
+                            Icons.done_all,
+                            size: 50,
+                            color: Colors.green,
+                          ),
+                        )),
+                    SizedBox(
+                      height: Get.height / 30,
+                    ),
+                    const Text(
+                      "SUCCESS",
+                      style: TextStyle(
                           color: Colors.green,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: const Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Text(
-                            "Done",
-                            style: TextStyle(
-                                fontFamily: 'popins', color: Colors.white),
+                          fontFamily: "popins Bold",
+                          fontSize: 18),
+                    ),
+                    SizedBox(
+                      width: Get.width / 1.5,
+                      child: const Text(
+                        "Dear Saumil Vekariya your STD 11&12 Neet 2022 subscription has been subscribed.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: "popins",
+                            fontSize: 12),
+                      ),
+                    ),
+                    SizedBox(
+                      height: Get.height / 40,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          Get.back();
+                        });
+                      },
+                      child: Container(
+                        height: Get.height / 25,
+                        width: Get.width / 4,
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: const Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              "Done",
+                              style: TextStyle(
+                                  fontFamily: 'popins', color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ));
       },
     );
-  }
-
-  Future<void> regresher() async {
-    getsubsribtion();
-  }
-
-  getsubsribtion() async {
-    var request = http.MultipartRequest('GET', Uri.parse(AppUrl.getsubscribeT));
-    request.headers.addAll(headers);
-    final response = await request.send();
-    final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
-
-    if (response.statusCode == 200) {
-      if (val['success'] == true) {
-        setState(() {
-          subscibePlan.clear();
-          val['Result'].forEach((e) {
-            subscibePlan.add(e);
-          });
-        });
-        print('--000000000000000000000000000000000->>$val');
-        setState(() {});
-      } else {
-        print('--0000->>$val');
-      }
-      // print('--->>$val');
-    } else {
-      print('--00000->>$val');
-    }
   }
 
   Future<void> dialogBuilder(BuildContext context) {
@@ -442,7 +440,7 @@ class _walletState extends State<wallet> {
                             onPressed: () {
                               Get.back();
                             },
-                            icon: const Icon(Icons.close))
+                            icon: Icon(Icons.close))
                       ],
                     ),
                     Image.asset(
@@ -450,7 +448,7 @@ class _walletState extends State<wallet> {
                       scale: 4.5,
                       color: Colors.red,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 10,
                     ),
                     const Text(

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 import '../../student/bottoms.dart';
 
-var headers = {'X-Authorization':Xapi.toString()};
+var headers = {'X-Authorization': Xapi.toString()};
 
 class ApiWrapper {
   static doImageUpload(
@@ -80,4 +80,10 @@ class AppUrl {
   static const String Chapter = baseurl + '/chapter/1';
   static const String Tpoic = baseurl + '/topic';
   static const String MCqs = baseurl + '/mcqs';
+  static const String Sendrequest = baseurl + '/send_request';
+  static const String getrequest = baseurl + '/allrequest';
+  static const String chagepass = baseurl + '/change_password';
+  static const String decline = baseurl + '/request_decline';
+  static const String getsubscribeT = baseurl + '/getsubscriptionplan?type=Teacher';
+  static const String getsubscribeS = baseurl + '/getsubscriptionplan?type=Student';
 }

@@ -141,8 +141,7 @@ class _verificationState extends State<verification> {
 
                     Registerapi();
                   } catch (e) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text('Wrong OTP!!')));
+                    ApiWrapper.fluttertosat('Wrong OTP!!');
                     print(e);
                   }
                 },
@@ -250,11 +249,7 @@ class _verificationState extends State<verification> {
           save('islogin', true);
         });
         print(val);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(val['message']),
-          ),
-        );
+        ApiWrapper.fluttertosat(val['message'].toString());
         val['Result']['user_type'] == 'Teacher'
             ? Get.offAll(() => const bottomt(),
                 transition: Transition.leftToRight)
@@ -264,21 +259,14 @@ class _verificationState extends State<verification> {
         setState(() {
           loding = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-            val['message'],
-          ),
-        ));
+        ApiWrapper.fluttertosat(val['message'].toString());
+
       }
     } else {
       setState(() {
         loding = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(val['message']),
-        ),
-      );
+      ApiWrapper.fluttertosat(val['message'].toString());
     }
   }
 }

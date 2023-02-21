@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 import '../../student/bottoms.dart';
@@ -9,6 +11,16 @@ import '../../student/bottoms.dart';
 var headers = {'X-Authorization': Xapi.toString()};
 
 class ApiWrapper {
+  static fluttertosat(msj) async {
+    Fluttertoast.showToast(
+        msg: msj,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black.withOpacity(0.5),
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
   static doImageUpload(
       String endpoint, Map<String, String> params, List imgs) async {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.baseurl));
@@ -84,6 +96,11 @@ class AppUrl {
   static const String getrequest = baseurl + '/allrequest';
   static const String chagepass = baseurl + '/change_password';
   static const String decline = baseurl + '/request_decline';
-  static const String getsubscribeT = baseurl + '/getsubscriptionplan?type=Teacher';
-  static const String getsubscribeS = baseurl + '/getsubscriptionplan?type=Student';
+  static const String getsubscribeT =
+      baseurl + '/getsubscriptionplan?type=Teacher';
+  static const String getsubscribeS =
+      baseurl + '/getsubscriptionplan?type=Student';
+  static const String getclass = baseurl + '/allclass';
+  static const String Creatclass = baseurl + '/create_class';
+  static const String Deleteclass = baseurl + '/class_delete/';
 }

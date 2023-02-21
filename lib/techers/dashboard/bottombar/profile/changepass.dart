@@ -288,14 +288,12 @@ class _changepasswoedState extends State<changepasswoed> {
         });
         print('--sssss->>$val');
 
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(val['message'])));
+        ApiWrapper.fluttertosat(val['message'].toString());
       } else {
         setState(() {
           loding = false;
         });
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(val['message'])));
+        ApiWrapper.fluttertosat(val['message'].toString());
         print('--sssss->>$val');
       }
       // print('--->>$val');
@@ -303,8 +301,7 @@ class _changepasswoedState extends State<changepasswoed> {
       setState(() {
         loding = false;
       });
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(val['message'])));
+      ApiWrapper.fluttertosat(val['message'].toString());
       print('--sssss->>$val');
     }
   }

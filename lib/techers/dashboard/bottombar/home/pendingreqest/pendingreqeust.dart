@@ -387,18 +387,15 @@ class _pendingreqestState extends State<pendingreqest> {
       if (val['success'] == true) {
         setState(() {});
         getallreq();
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(val['message'])));
+        ApiWrapper.fluttertosat(val['message'].toString());
       } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(val['message'])));
+        ApiWrapper.fluttertosat(val['message'].toString());
         setState(() {
           loding = false;
         });
       }
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(val['message'])));
+      ApiWrapper.fluttertosat(val['message'].toString());
       print("---else-->>> ${val}");
       setState(() {
         loding = false;

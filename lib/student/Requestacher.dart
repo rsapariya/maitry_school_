@@ -435,19 +435,16 @@ class _JointeacherState extends State<Jointeacher> {
         setState(() {
           loding = false;
         });
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(val['message'])));
+        ApiWrapper.fluttertosat(val['message'].toString());
         _dialogBuilder(context);
       } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(val['message'])));
+        ApiWrapper.fluttertosat(val['message'].toString());
         setState(() {
           loding = false;
         });
       }
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(val['message'])));
+      ApiWrapper.fluttertosat(val['message'].toString());
       print("---else-->>> ${val}");
       setState(() {
         loding = false;

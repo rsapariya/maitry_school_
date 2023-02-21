@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/onbording.dart';
 import 'package:schooolapp/techers/login/register.dart';
@@ -93,7 +94,7 @@ class _mainscreenState extends State<mainscreen> {
                   ),
                   controller: phone,
                   autofocus: false,
-                  keyboardType:TextInputType.phone,
+                  keyboardType: TextInputType.phone,
                   decoration: buildInputDecoration(
                       hintText: "Enter Phone number",
                       lbltext: "Enter Phone number",
@@ -297,8 +298,7 @@ class _mainscreenState extends State<mainscreen> {
         setState(() {
           save('logindata', val);
         });
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(val['message'])));
+        ApiWrapper.fluttertosat(val['message'].toString());
 
         val['Result']['user_type'] == 'Teacher'
             ? Get.offAll(() => const bottomt(),
@@ -309,16 +309,13 @@ class _mainscreenState extends State<mainscreen> {
         setState(() {
           loding = false;
         });
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(val['message'])));
+        ApiWrapper.fluttertosat(val['message'].toString());
       }
-      // print('--->>$val');
     } else {
       setState(() {
         loding = false;
       });
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(val['message'])));
+      ApiWrapper.fluttertosat(val['message'].toString());
       print(response.reasonPhrase);
     }
   }

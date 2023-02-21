@@ -6,6 +6,8 @@ import 'package:schooolapp/onbording.dart';
 import 'package:schooolapp/techers/login/otp.dart';
 import 'package:schooolapp/techers/units/storage.dart';
 
+import '../units/api.dart';
+
 bool student = true;
 
 class register extends StatefulWidget {
@@ -913,12 +915,11 @@ class _registerState extends State<register> {
                             setState(() {
                               loding = false;
                             });
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Please chek number')));
+                            ApiWrapper.fluttertosat('Please chek number');
+
                           },
                           codeSent: (verificationId, forceResendingToken) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Code sent.')));
+                            ApiWrapper.fluttertosat('Code sent.');
                             setState(() {
                               save("verification", verificationId);
                               loding = false;

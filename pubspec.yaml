@@ -57,8 +57,8 @@ dependencies:
   cloud_firestore: ^4.3.1
   launch_review: ^3.0.1
   firebase_messaging: ^14.2.2
-  fluttertoast: ^8.0.9
   html_unescape: ^2.0.0
+  fluttertoast: any
 
 dev_dependencies:
   flutter_test:

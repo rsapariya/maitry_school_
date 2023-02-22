@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:schooolapp/techers/units/storage.dart';
 
 import '../../../../units/api.dart';
+import '../onlineexam/onlineexam.dart';
 
 List requestlist = [];
 
@@ -166,7 +167,7 @@ class _pendingreqestState extends State<pendingreqest> {
                                                       fontFamily: "popins"),
                                                 ),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               Row(
@@ -176,7 +177,10 @@ class _pendingreqestState extends State<pendingreqest> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () {
-                                                      dialogBuilder(context);
+                                                      setState(() {});
+                                                      save('Rid',
+                                                          requestlist[index]);
+                                                      classdailog(context);
                                                     },
                                                     child: Container(
                                                         decoration: BoxDecoration(
@@ -261,9 +265,12 @@ class _pendingreqestState extends State<pendingreqest> {
                                 },
                               ),
                             )
-                      : Padding(padding:EdgeInsets.only(top:Get.height/2.2),child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),),
+                      : Padding(
+                          padding: EdgeInsets.only(top: Get.height / 2.2),
+                          child: const CircularProgressIndicator(
+                            color: Colors.blue,
+                          ),
+                        ),
                 ],
               ),
             )),
@@ -274,65 +281,6 @@ class _pendingreqestState extends State<pendingreqest> {
   Future<void> regresher() async {
     getallreq();
   }
-  // Future<void> _showMyDialog() async {
-  //   return showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: false, // user must tap button!
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text('Select Class'),
-  //         content: SingleChildScrollView(
-  //           child: ListView.separated(
-  //               shrinkWrap: true,
-  //               itemBuilder: (context, index) {
-  //                 return Padding(
-  //                   padding: const EdgeInsets.all(8.0),
-  //                   child: InkWell(
-  //                     onTap: () {
-  //                       print('----');
-  //                       setState(() {});
-  //                       Navigator.of(context).pop();
-  //                       sselectedindex == index;
-  //                       print(sselectedindex.toString());
-  //                     },
-  //                     child: Row(
-  //                       children: [
-  //                         Container(
-  //                             height: 14,
-  //                             width: 14,
-  //                             decoration: BoxDecoration(
-  //                                 shape: BoxShape.circle,
-  //                                 border:
-  //                                     Border.all(width: 1, color: Colors.blue)),
-  //                             child: sselectedindex == index
-  //                                 ? Center(
-  //                                     child: Icon(
-  //                                       Icons.circle,
-  //                                       size: 10,
-  //                                       color: Colors.blue,
-  //                                     ),
-  //                                   )
-  //                                 : SizedBox()),
-  //                         SizedBox(
-  //                           width: 10,
-  //                         ),
-  //                         Text(notifi[index]),
-  //                       ],
-  //                     ),
-  //                   ),
-  //                 );
-  //               },
-  //               separatorBuilder: (context, index) {
-  //                 return Divider(
-  //                   color: Colors.white,
-  //                 );
-  //               },
-  //               itemCount: notifi.length),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 
   getallreq() async {
     var request = http.MultipartRequest('GET', Uri.parse(AppUrl.getrequest));
@@ -384,7 +332,76 @@ class _pendingreqestState extends State<pendingreqest> {
     if (response.statusCode == 200) {
       print("----");
       print(val);
-      if (val['success'] == true) {
+      if (val['success'].toString() == true) {
+        setState(() {});
+        getallreq();
+        ApiWrapper.fluttertosat(val['message'].toString());
+      } else {
+        ApiWrapper.fluttertosat(val['message'].toString());
+        setState(() {
+          loding = false;
+        });
+      }
+    } else {
+      ApiWrapper.fluttertosat(val['message'].toString());
+      print("---else-->>> ${val}");
+      setState(() {
+        loding = false;
+      });
+    }
+  }
+
+  acceptrequest() async {
+    var request =
+        http.MultipartRequest('POST', Uri.parse(AppUrl.Acceptrequets));
+    request.fields.addAll({
+      "request_id": getdata.read('Rid')['request_id'].toString(),
+      "student_id": getdata.read('Rid')['ref_student_id'].toString()
+    });
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      print("----");
+      print(val);
+      if (val['success'].toString() == true) {
+        setState(() {});
+        Addinclass();
+        ApiWrapper.fluttertosat(val['message'].toString());
+      } else {
+        ApiWrapper.fluttertosat(val['message'].toString());
+        setState(() {
+          loding = false;
+        });
+      }
+    } else {
+      ApiWrapper.fluttertosat(val['message'].toString());
+      print("---else-->>> ${val}");
+      setState(() {
+        loding = false;
+      });
+    }
+  }
+
+  Addinclass() async {
+    var request =
+        http.MultipartRequest('POST', Uri.parse(AppUrl.Acceptrequets));
+    request.fields.addAll({
+      "request_id": getdata.read('Rid')['request_id'].toString(),
+      "student_id": getdata.read('Rid')['ref_student_id'].toString(),
+      "class_id": getdata.read('classid').toString(),
+    });
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      print("----");
+      print(val);
+      if (val['success'].toString() == true) {
         setState(() {});
         getallreq();
         ApiWrapper.fluttertosat(val['message'].toString());
@@ -419,20 +436,20 @@ class _pendingreqestState extends State<pendingreqest> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text(
+                    const Text(
                       "Warning",
                       style: TextStyle(
                           color: Colors.black,
-                          fontFamily: "popins Bold",
+                          fontFamily: "popins medium",
                           fontSize: 20),
                     ),
                     SizedBox(
                       height: Get.height / 40,
                     ),
-                    Text(
+                    const Text(
                       "Are you sure you want to Cancel this Request ?",
                       style: TextStyle(
                           color: Colors.black,
@@ -460,7 +477,7 @@ class _pendingreqestState extends State<pendingreqest> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: Get.width / 20,
                                     vertical: Get.height / 120),
-                                child: Text(
+                                child: const Text(
                                   "Cancel",
                                   style: TextStyle(
                                       fontFamily: 'popins',
@@ -487,7 +504,7 @@ class _pendingreqestState extends State<pendingreqest> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: Get.width / 20,
                                     vertical: Get.height / 120),
-                                child: Text(
+                                child: const Text(
                                   "Yes i'am sure",
                                   style: TextStyle(
                                       fontFamily: 'popins', color: Colors.blue),
@@ -498,6 +515,111 @@ class _pendingreqestState extends State<pendingreqest> {
                         ),
                       ],
                     ),
+                  ],
+                ),
+              )),
+            ));
+      },
+    );
+  }
+
+  Future<void> classdailog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierColor: Colors.blue.withOpacity(0.2),
+      builder: (BuildContext context) {
+        return Padding(
+            padding: EdgeInsets.symmetric(vertical: Get.height / 4),
+            child: Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Container(
+                  child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      "Select class",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "popins medium",
+                          fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: Get.height / 40,
+                    ),
+                    Class.isNotEmpty
+                        ? SizedBox(
+                            height: Get.height / 3.5,
+                            child: ListView.builder(
+                              // controller: controller,
+                              itemCount: Class.length,
+                              itemBuilder: (_, index) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: Get.width / 40),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            loding = true;
+                                            save(
+                                                'classid',
+                                                Class[index]
+                                                    ['student_class_id']);
+                                            acceptrequest();
+                                          });
+                                          Get.back();
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  Class[index]
+                                                      ["student_class_name"],
+                                                  style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily:
+                                                          "popins Medium",
+                                                      fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
+                                            const Spacer(),
+                                          ],
+                                        ),
+                                      ),
+                                      const Divider(
+                                        color: Colors.blue,
+                                        thickness: 1,
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        : Padding(
+                            padding: EdgeInsets.only(top: Get.height / 2.2),
+                            child: const Center(
+                              child: Text(
+                                "Class not found",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "popins Medium",
+                                    fontSize: 18),
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               )),

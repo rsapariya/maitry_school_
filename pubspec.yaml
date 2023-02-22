@@ -45,8 +45,10 @@ dependencies:
   sqflite:
   path_provider: ^2.0.12
   another_flushbar: ^1.12.29
+  url_launcher: ^6.1.7
   get_storage: ^2.0.3
   get: ^4.6.5
+  share: any
   intl: ^0.17.0
   firebase_analytics: ^10.0.7
   razorpay_flutter: ^1.3.0

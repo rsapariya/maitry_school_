@@ -103,4 +103,7 @@ class AppUrl {
   static const String getclass = baseurl + '/allclass';
   static const String Creatclass = baseurl + '/create_class';
   static const String Deleteclass = baseurl + '/class_delete/';
+  static const String Aboutapp = baseurl + '/aboutapp';
+  static const String Acceptrequets = baseurl + '/request_accept';
+  static const String addstuclass = baseurl + '/addstudent_inclass';
 }

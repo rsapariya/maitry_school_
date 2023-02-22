@@ -16,9 +16,9 @@ class _changepasswoedState extends State<changepasswoed> {
   TextEditingController Oldpass = TextEditingController();
   TextEditingController Npass = TextEditingController();
   TextEditingController Cpass = TextEditingController();
-  // bool opass = true;
-  // bool npaas = true;
-  // bool cpas = true;
+  bool one = true;
+  bool two = true;
+  bool three = true;
   bool loding = false;
 
   @override
@@ -90,7 +90,7 @@ class _changepasswoedState extends State<changepasswoed> {
                   ),
                   controller: Oldpass,
                   autofocus: false,
-                  // obscureText: opass,
+                  obscureText: one,
                   decoration: buildInputDecoration(
                     hintText: "Old password",
                     lbltext: "Old password",
@@ -101,7 +101,7 @@ class _changepasswoedState extends State<changepasswoed> {
                     surfix: InkWell(
                       onTap: () {
                         setState(() {
-                          // opass = !opass;
+                          one = !one;
                         });
                       },
                       child: const Icon(Icons.remove_red_eye_outlined),
@@ -123,7 +123,7 @@ class _changepasswoedState extends State<changepasswoed> {
                   ),
                   controller: Npass,
                   autofocus: false,
-                  // obscureText: npaas,
+                  obscureText: two,
                   decoration: buildInputDecoration(
                     hintText: "New password",
                     lbltext: "New password",
@@ -134,7 +134,7 @@ class _changepasswoedState extends State<changepasswoed> {
                     surfix: InkWell(
                       onTap: () {
                         setState(() {
-                          // npaas = !npaas;
+                          two = !two;
                         });
                       },
                       child: const Icon(Icons.remove_red_eye_outlined),
@@ -159,7 +159,7 @@ class _changepasswoedState extends State<changepasswoed> {
                   ),
                   controller: Cpass,
                   autofocus: false,
-                  // obscureText: cpas,
+                  obscureText: three,
                   decoration: buildInputDecoration(
                     hintText: "Confirm password",
                     lbltext: "Confirm password",
@@ -170,7 +170,7 @@ class _changepasswoedState extends State<changepasswoed> {
                     surfix: InkWell(
                       onTap: () {
                         setState(() {
-                          // cpas = !cpas;
+                          three = !three;
                         });
                       },
                       child: const Icon(Icons.remove_red_eye_outlined),
@@ -272,7 +272,7 @@ class _changepasswoedState extends State<changepasswoed> {
     request.fields.addAll({
       'old_password': Oldpass.text.toString(),
       'new_password': Npass.text.toString(),
-      'confirm_password': Cpass.toString()
+      'confirm_password': Cpass.text.toString()
     });
     request.headers.addAll(headers);
     final response = await request.send();

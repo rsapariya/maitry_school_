@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/student/persnoldata.dart';
+import 'package:share/share.dart';
 
 import '../../../../student/Requestacher.dart';
 import '../../../login/mainscreen.dart';
@@ -285,16 +286,27 @@ class _profileState extends State<profile> {
                             dialogBuilder(context);
                           },
                           titel: "Log out",
-                          image: "asstes/image/profile/Icon-Privacy.png"),
+                          image: "asstes/image/profile/log.png"),
                       const SizedBox(
                         height: 10,
                       ),
                       roww(
                           onTap: () {
-                            Get.to(() => changepasswoed());
+                            Get.to(() => const changepasswoed(),
+                                transition: Transition.leftToRight);
                           },
                           titel: "Change password",
                           image: "asstes/image/Lock.png"),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      roww(
+                          onTap: () {
+                            Share.share(
+                                'http://play.google.com/store/apps/details?id=com.rajbhakta.maitribiologyapp');
+                          },
+                          titel: "Share app",
+                          image: "asstes/image/profile/share.png"),
                       const SizedBox(
                         height: 10,
                       ),
@@ -424,9 +436,13 @@ class _profileState extends State<profile> {
             SizedBox(
               child: Row(
                 children: [
-                  Image.asset(
-                    image,
-                    scale: 2.5,
+                  SizedBox(
+                    height: Get.height / 35,
+                    width: Get.width / 15,
+                    child: Image.asset(
+                      image,
+                      color: Colors.blue,
+                    ),
                   ),
                   const SizedBox(
                     width: 5,

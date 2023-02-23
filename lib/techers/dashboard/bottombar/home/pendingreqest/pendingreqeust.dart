@@ -301,7 +301,10 @@ class _pendingreqestState extends State<pendingreqest> {
         setState(() {
           loding = false;
         });
+        print('-------------------- GET ALL REQ _______________$val');
       } else {
+        print('-ELSE 1 ----------- GET ALL REQ __________________$val');
+
         setState(() {
           loding = false;
           requestlist.clear();
@@ -310,6 +313,8 @@ class _pendingreqestState extends State<pendingreqest> {
       }
       // print('--->>$val');
     } else {
+      print('-ELSE 2 ----------- GET ALL REQ __________________$val');
+
       setState(() {
         loding = false;
         requestlist.clear();
@@ -337,6 +342,7 @@ class _pendingreqestState extends State<pendingreqest> {
         getallreq();
         ApiWrapper.fluttertosat(val['message'].toString());
       } else {
+        getallreq();
         ApiWrapper.fluttertosat(val['message'].toString());
         setState(() {
           loding = false;
@@ -366,17 +372,21 @@ class _pendingreqestState extends State<pendingreqest> {
     if (response.statusCode == 200) {
       print("----");
       print(val);
-      if (val['success'].toString() == true) {
+      if (val['success'] == true) {
         setState(() {});
-        Addinclass();
+        print('--------------------ACCEPT ______________$val');
+
+        getallreq();
         ApiWrapper.fluttertosat(val['message'].toString());
       } else {
         ApiWrapper.fluttertosat(val['message'].toString());
+        print('-----ELSE 1 --------ACCEPT _____________${val['success']}');
         setState(() {
           loding = false;
         });
       }
     } else {
+      print('--ELSE 2 ----------ACCEPT _______________$val');
       ApiWrapper.fluttertosat(val['message'].toString());
       print("---else-->>> ${val}");
       setState(() {
@@ -401,17 +411,23 @@ class _pendingreqestState extends State<pendingreqest> {
     if (response.statusCode == 200) {
       print("----");
       print(val);
-      if (val['success'].toString() == true) {
+      if (val['success'] == true) {
         setState(() {});
-        getallreq();
+        print('--------------------ADD IN CLASS _______________$val');
+        acceptrequest();
+
         ApiWrapper.fluttertosat(val['message'].toString());
       } else {
         ApiWrapper.fluttertosat(val['message'].toString());
+        print('--ELSE 1 ------------ADD IN CLASS ______________$val');
+
         setState(() {
           loding = false;
         });
       }
     } else {
+      print('--ELSE 2 ------------ADD IN CLASS ______________$val');
+
       ApiWrapper.fluttertosat(val['message'].toString());
       print("---else-->>> ${val}");
       setState(() {
@@ -569,11 +585,12 @@ class _pendingreqestState extends State<pendingreqest> {
                                         onTap: () {
                                           setState(() {
                                             loding = true;
+                                            print("--------ONTAP________");
                                             save(
                                                 'classid',
                                                 Class[index]
                                                     ['student_class_id']);
-                                            acceptrequest();
+                                            Addinclass();
                                           });
                                           Get.back();
                                         },
@@ -609,7 +626,7 @@ class _pendingreqestState extends State<pendingreqest> {
                             ),
                           )
                         : Padding(
-                            padding: EdgeInsets.only(top: Get.height / 2.2),
+                            padding: EdgeInsets.only(top: Get.height / 8),
                             child: const Center(
                               child: Text(
                                 "Class not found",

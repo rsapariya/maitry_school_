@@ -24,6 +24,7 @@ class _homeState extends State<home> {
   String? token;
   @override
   void initState() {
+    Getclass();
     getsubsribtion();
     getallreq();
     request();
@@ -330,6 +331,36 @@ class _homeState extends State<home> {
         ),
       ),
     );
+  }
+
+  Getclass() async {
+    var request = http.MultipartRequest('GET', Uri.parse(AppUrl.getclass));
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          Class.clear();
+          val['Result'].forEach((e) {
+            Class.add(e);
+          });
+        });
+        print('--Getclass->>$val');
+        setState(() {});
+      } else {
+        setState(() {
+          Class.clear();
+        });
+        print('--Getclass->>$val');
+      }
+      // print('--->>$val');
+    } else {
+      setState(() {});
+      print('--Getclass->>$val');
+    }
   }
 
   getallreq() async {

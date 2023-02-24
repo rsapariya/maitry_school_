@@ -10,10 +10,12 @@ import 'package:schooolapp/techers/units/storage.dart';
 import '../techers/dashboard/bottombar/home/notification.dart';
 import '../techers/units/api.dart';
 import 'Materials.dart';
+import 'Onlinetest/test.dart';
 import 'gujcetpaper.dart';
 import 'onlineexam/onlineexam.dart';
 
 List subscribplanse = [];
+List ExamList = [];
 
 class homes extends StatefulWidget {
   const homes({Key? key}) : super(key: key);
@@ -389,7 +391,8 @@ class _homesState extends State<homes> {
                 ),
                 InkWell(
                   onTap: () {
-                    // Get.to(() => const pendingreqest());
+                    Get.to(() => const onlinetest(),
+                        transition: Transition.leftToRight);
                   },
                   child: Container(
                     height: Get.height / 6,
@@ -489,6 +492,10 @@ class _homesState extends State<homes> {
       if (val['success'] == true) {
         setState(() {
           save('offers', val);
+          ExamList.clear();
+          val['Result'].forEach((e) {
+            ExamList.add(e);
+          });
         });
         print('--   EXAM     ->>$val');
         setState(() {});

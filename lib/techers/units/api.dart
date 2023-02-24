@@ -108,4 +108,6 @@ class AppUrl {
   static const String addstuclass = baseurl + '/addstudent_inclass';
   static const String getoffers = baseurl + '/getoffers';
   static const String getexam = baseurl + '/allexam_bystudent/';
+  static const String getstudntbyclass = baseurl + '/student_byclass/';
+  static const String deletestudent = baseurl + '/stud_delete_inclass/';
 }

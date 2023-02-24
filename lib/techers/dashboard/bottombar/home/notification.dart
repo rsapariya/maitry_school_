@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../units/cusomewidget.dart';
-
 class notification extends StatefulWidget {
   const notification({Key? key}) : super(key: key);
 
@@ -39,8 +37,8 @@ class _notificationState extends State<notification> {
                       Get.back();
                     },
                     child: Container(
-                      height:Get.height/20,
-                      width:Get.width/9,
+                      height: Get.height / 20,
+                      width: Get.width / 9,
                       decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(10)),
@@ -62,8 +60,8 @@ class _notificationState extends State<notification> {
                   InkWell(
                     child: SizedBox(
                       child: Container(
-                        height:Get.height/20,
-                        width:Get.width/9,
+                        height: Get.height / 20,
+                        width: Get.width / 9,
                       ),
                     ),
                   ),

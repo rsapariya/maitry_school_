@@ -1,26 +1,29 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/allclass/studentlist.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/onlineexam.dart';
 import 'package:http/http.dart' as http;
+import 'package:schooolapp/techers/login/register.dart';
 import '../../../../../units/api.dart';
 import '../../../../../units/storage.dart';
-import '../../home.dart';
 
-class allclass extends StatefulWidget {
-  const allclass({Key? key}) : super(key: key);
+List Student = [];
+
+class studentlsi extends StatefulWidget {
+  const studentlsi({Key? key}) : super(key: key);
 
   @override
-  State<allclass> createState() => _allclassState();
+  State<studentlsi> createState() => _studentlsiState();
 }
 
-class _allclassState extends State<allclass> {
+class _studentlsiState extends State<studentlsi> {
   @override
-  bool langauge = true;
-  bool loding = false;
-  String student = "13";
-  var totel = 0;
+  void initState() {
+    Gestudent();
+    super.initState();
+  }
+
+  bool loding = true;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +59,7 @@ class _allclassState extends State<allclass> {
                         ),
                       ),
                       const Text(
-                        "All Class",
+                        "Student",
                         style: TextStyle(
                             color: Colors.black,
                             fontFamily: "popins Medium",
@@ -76,12 +79,12 @@ class _allclassState extends State<allclass> {
                     height: 25,
                   ),
                   loding == false
-                      ? Class.isNotEmpty
+                      ? Student.isNotEmpty
                           ? SizedBox(
                               height: Get.height / 1.2,
                               child: ListView.builder(
                                 // controller: controller,
-                                itemCount: Class.length,
+                                itemCount: Student.length,
                                 itemBuilder: (_, index) {
                                   return Padding(
                                     padding: EdgeInsets.symmetric(
@@ -90,63 +93,49 @@ class _allclassState extends State<allclass> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              save(
-                                                  'classid',
-                                                  Class[index]
-                                                      ["student_class_id"]);
-                                            });
-                                            Get.to(() => studentlsi(),
-                                                transition:
-                                                    Transition.leftToRight);
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    Class[index]
-                                                        ["student_class_name"],
-                                                    style: const TextStyle(
-                                                        color: Colors.black,
-                                                        fontFamily:
-                                                            "popins Medium",
-                                                        fontSize: 16),
-                                                  ),
-                                                  Text(
-                                                    Class[index][
-                                                        "student_class_created"],
-                                                    style: const TextStyle(
-                                                        color: Colors.black,
-                                                        fontFamily: "popins",
-                                                        fontSize: 14),
-                                                  ),
-                                                ],
-                                              ),
-                                              const Spacer(),
-                                              InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    save(
-                                                        'Did',
-                                                        Class[index][
-                                                            'student_class_id']);
-                                                  });
-                                                  dialogBuilder(context);
-                                                },
-                                                child: Icon(
-                                                  Icons.delete_outline,
-                                                  size: 25,
-                                                  color: Colors.black
-                                                      .withOpacity(0.6),
+                                        Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  Student[index]["user_name"],
+                                                  style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily:
+                                                          "popins Medium",
+                                                      fontSize: 16),
                                                 ),
-                                              )
-                                            ],
-                                          ),
+                                                Text(
+                                                  Student[index]
+                                                      ["student_group_created"],
+                                                  style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: "popins",
+                                                      fontSize: 14),
+                                                ),
+                                              ],
+                                            ),
+                                            const Spacer(),
+                                            InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  save(
+                                                      'stid',
+                                                      Student[index]
+                                                          ["student_group_id"]);
+                                                });
+                                                dialogBuilder(context);
+                                              },
+                                              child: Icon(
+                                                Icons.delete_outline,
+                                                size: 25,
+                                                color: Colors.black
+                                                    .withOpacity(0.6),
+                                              ),
+                                            )
+                                          ],
                                         ),
                                         const Divider()
                                       ],
@@ -169,7 +158,7 @@ class _allclassState extends State<allclass> {
                             )
                       : Center(
                           child: Padding(
-                            padding: EdgeInsets.only(top: Get.height / 2.2),
+                            padding: EdgeInsets.only(top: Get.height / 2.5),
                             child: CircularProgressIndicator(
                               color: Colors.blue,
                             ),
@@ -183,38 +172,14 @@ class _allclassState extends State<allclass> {
   }
 
   Future<void> regresher() async {
-    Getclass();
+    Gestudent();
   }
 
-  DetetAPI() async {
+  Gestudent() async {
     var request = http.MultipartRequest(
-        'POST', Uri.parse(AppUrl.Deleteclass + getdata.read('Did').toString()));
-    request.headers.addAll(headers);
-    final response = await request.send();
-    final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
-
-    if (response.statusCode == 200) {
-      if (val['success'] == true) {
-        setState(() {});
-        ApiWrapper.fluttertosat(val['message'].toString());
-        Getclass();
-      } else {
-        setState(() {
-          loding = false;
-        });
-      }
-    } else {
-      setState(() {
-        loding = false;
-      });
-      ApiWrapper.fluttertosat(val['message'].toString());
-    }
-  }
-
-  GetStudentbyclass() async {
-    var request =
-        http.MultipartRequest('GET', Uri.parse(AppUrl.getstudntbyclass));
+        'GET',
+        Uri.parse(
+            AppUrl.getstudntbyclass + getdata.read('classid').toString()));
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
@@ -223,47 +188,18 @@ class _allclassState extends State<allclass> {
     if (response.statusCode == 200) {
       if (val['success'] == true) {
         setState(() {
-          classtudent.clear();
+          Student.clear();
           val['Result'].forEach((e) {
-            classtudent.add(e);
+            Student.add(e);
           });
         });
-        print('--Getclass->>$val');
-        setState(() {});
-      } else {
-        setState(() {
-          classtudent.clear();
-        });
-        print('--Getclass->>$val');
-      }
-    } else {
-      setState(() {});
-      print('--Getclass->>$val');
-    }
-  }
-
-  Getclass() async {
-    var request = http.MultipartRequest('GET', Uri.parse(AppUrl.getclass));
-    request.headers.addAll(headers);
-    final response = await request.send();
-    final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
-
-    if (response.statusCode == 200) {
-      if (val['success'] == true) {
-        setState(() {
-          Class.clear();
-          val['Result'].forEach((e) {
-            Class.add(e);
-          });
-        });
-        print('--Getclass->>$val');
+        print('--STUDENT       ->>$val');
         setState(() {
           loding = false;
         });
       } else {
         setState(() {
-          Class.clear();
+          Student.clear();
           loding = false;
         });
         print('--Getclass->>$val');
@@ -274,6 +210,38 @@ class _allclassState extends State<allclass> {
         loding = false;
       });
       print('--Getclass->>$val');
+    }
+  }
+
+  Deletestudent() async {
+    var request = http.MultipartRequest('POST',
+        Uri.parse(AppUrl.deletestudent + getdata.read('stid').toString()));
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {});
+        Gestudent();
+        ApiWrapper.fluttertosat(val['message'].toString());
+
+        print('--STUDENT   stid    ->>$val');
+      } else {
+        setState(() {
+          loding = false;
+        });
+        print('--Getclass  stid   ->>$val');
+        ApiWrapper.fluttertosat(val['message'].toString());
+      }
+    } else {
+      setState(() {
+        loding = false;
+      });
+      ApiWrapper.fluttertosat(val['message'].toString());
+
+      print('--Getclass   stid   ->>$val');
     }
   }
 
@@ -307,7 +275,7 @@ class _allclassState extends State<allclass> {
                       height: Get.height / 40,
                     ),
                     Text(
-                      "Are you sure you want to Delete this Class ?",
+                      "Are you sure you want to Delete this Student from Class ?",
                       style: TextStyle(
                           color: Colors.black,
                           fontFamily: "popins",
@@ -350,7 +318,7 @@ class _allclassState extends State<allclass> {
                               loding = true;
                             });
                             Get.back();
-                            DetetAPI();
+                            Deletestudent();
                           },
                           child: Container(
                             decoration: BoxDecoration(

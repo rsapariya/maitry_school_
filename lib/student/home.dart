@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/student/prectice/selectch.dart';
 import 'package:http/http.dart' as http;
+import 'package:schooolapp/techers/units/storage.dart';
 import '../techers/dashboard/bottombar/home/notification.dart';
 import '../techers/units/api.dart';
 import 'Materials.dart';
@@ -23,6 +24,8 @@ class homes extends StatefulWidget {
 class _homesState extends State<homes> {
   @override
   void initState() {
+    GetOfer();
+    Getexam();
     getsubsribtionS();
     super.initState();
   }
@@ -447,6 +450,53 @@ class _homesState extends State<homes> {
       // print('--->>$val');
     } else {
       print('--00000->>$val');
+    }
+  }
+
+  GetOfer() async {
+    var request = http.MultipartRequest('GET', Uri.parse(AppUrl.getoffers));
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          save('offers', val);
+        });
+        print('--   OFER     ->>$val');
+        setState(() {});
+      } else {
+        print('--   OFER     ->>$val');
+      }
+    } else {
+      print('--   OFER     ->>$val');
+    }
+  }
+
+  Getexam() async {
+    var request = http.MultipartRequest(
+        'GET',
+        Uri.parse(AppUrl.getexam +
+            getdata.read('logindata')['Result']['user_id'].toString()));
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          save('offers', val);
+        });
+        print('--   EXAM     ->>$val');
+        setState(() {});
+      } else {
+        print('--   EXAM     ->>$val');
+      }
+    } else {
+      print('--   EXAM     ->>$val');
     }
   }
 }

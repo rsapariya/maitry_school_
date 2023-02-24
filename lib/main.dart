@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,11 +17,11 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(provider());
+  runApp(const provider());
 }
 
 class provider extends StatelessWidget {
-   provider({Key? key}) : super(key: key);
+   const provider({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class provider extends StatelessWidget {
           create: (_) => ColorNotifire(),
         ),
       ],
-      child: GetMaterialApp(
+      child: const GetMaterialApp(
         home: BoardingPage(),
         debugShowCheckedModeBanner: false,
       ),

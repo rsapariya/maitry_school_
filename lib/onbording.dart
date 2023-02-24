@@ -31,6 +31,7 @@ class _BoardingPageState extends State<BoardingPage> {
     );
   }
 
+  @override
   void initState() {
     FirebaseMessaging.instance.getToken().then((value) {
       setState(() {
@@ -38,13 +39,8 @@ class _BoardingPageState extends State<BoardingPage> {
         save('token', value);
         save('Open', true);
       });
-      print("------ddddddddddddddddd--------------------------");
-
-      print(token);
     });
 
-    print(
-        "---------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${getdata.read('varsion')}");
     getDocs();
     super.initState();
 
@@ -77,9 +73,7 @@ class _BoardingPageState extends State<BoardingPage> {
           .get();
       setState(() {});
       save('varsion', response['versionname']);
-    } catch (e) {
-      print("--  ERRORRRRR    -------$e");
-    }
+    } catch (e) {}
   }
 
   Widget _buildSlide(Slide slide) {

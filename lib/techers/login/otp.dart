@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -128,8 +130,6 @@ class _verificationState extends State<verification> {
               InkWell(
                 onTap: () async {
                   try {
-                    print(
-                        "SSSSSSS----------SSSSSSSSSSSSSSS${getdata.read('verification')}");
                     PhoneAuthCredential credential =
                         PhoneAuthProvider.credential(
                             verificationId: getdata.read('verification'),
@@ -142,7 +142,6 @@ class _verificationState extends State<verification> {
                     Registerapi();
                   } catch (e) {
                     ApiWrapper.fluttertosat('Wrong OTP!!');
-                    print(e);
                   }
                 },
                 child: Container(
@@ -241,14 +240,11 @@ class _verificationState extends State<verification> {
     var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
-      print("----");
-      print(val);
       if (val['success'] == true) {
         setState(() {
           loding = false;
           save('islogin', true);
         });
-        print(val);
         ApiWrapper.fluttertosat(val['message'].toString());
         val['Result']['user_type'] == 'Teacher'
             ? Get.offAll(() => const bottomt(),
@@ -260,7 +256,6 @@ class _verificationState extends State<verification> {
           loding = false;
         });
         ApiWrapper.fluttertosat(val['message'].toString());
-
       }
     } else {
       setState(() {

@@ -106,4 +106,6 @@ class AppUrl {
   static const String Aboutapp = baseurl + '/aboutapp';
   static const String Acceptrequets = baseurl + '/request_accept';
   static const String addstuclass = baseurl + '/addstudent_inclass';
+  static const String getoffers = baseurl + '/getoffers';
+  static const String getexam = baseurl + '/allexam_bystudent/';
 }

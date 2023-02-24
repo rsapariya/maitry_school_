@@ -1,7 +1,8 @@
+// ignore_for_file: camel_case_types
+
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/onbording.dart';
 import 'package:schooolapp/techers/login/register.dart';
@@ -30,7 +31,7 @@ class _mainscreenState extends State<mainscreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -38,7 +39,7 @@ class _mainscreenState extends State<mainscreen> {
         padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
         child: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -158,7 +159,7 @@ class _mainscreenState extends State<mainscreen> {
                 InkWell(
                   onTap: () async {
                     if (loding == false) {
-                      if (_formKey.currentState!.validate()) {
+                      if (formKey.currentState!.validate()) {
                         setState(() {
                           loding = true;
                         });
@@ -192,7 +193,7 @@ class _mainscreenState extends State<mainscreen> {
                               ),
                             ],
                           )
-                        : Center(
+                        : const Center(
                             child: CircularProgressIndicator(
                               color: Colors.white,
                             ),
@@ -294,7 +295,6 @@ class _mainscreenState extends State<mainscreen> {
           save('islogin', true);
           loding = false;
         });
-        print('--sssss->>$val');
         setState(() {
           save('logindata', val);
         });
@@ -316,7 +316,6 @@ class _mainscreenState extends State<mainscreen> {
         loding = false;
       });
       ApiWrapper.fluttertosat(val['message'].toString());
-      print(response.reasonPhrase);
     }
   }
 }

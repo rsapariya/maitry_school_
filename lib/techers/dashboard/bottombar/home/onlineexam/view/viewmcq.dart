@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schooolapp/student/onlineexam/onemcq.dart';
 
 class viewmcq extends StatefulWidget {
   const viewmcq({Key? key}) : super(key: key);

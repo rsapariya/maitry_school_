@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schooolapp/student/onlineexam/onemcq.dart';
 import 'package:schooolapp/techers/units/storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../../techers/units/api.dart';
+import 'onemcq.dart';
 
 int select = 0;
 List MCqlist = [];

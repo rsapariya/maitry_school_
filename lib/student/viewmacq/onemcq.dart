@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schooolapp/student/onlineexam/mcqs.dart';
 import 'package:schooolapp/techers/units/storage.dart';
 
 import '../bottoms.dart';
+import 'mcqs.dart';
 
 class OneMcqs extends StatefulWidget {
   const OneMcqs({Key? key}) : super(key: key);

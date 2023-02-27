@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:schooolapp/student/prectice/testmcq.dart';
 
 class tacktest extends StatefulWidget {
   const tacktest({Key? key}) : super(key: key);
@@ -179,6 +180,10 @@ class _tacktestState extends State<tacktest> {
                 ),
                 Center(
                   child: InkWell(
+                    onTap: () {
+                      Get.to(() => const TestMcqs(),
+                          transition: Transition.leftToRight);
+                    },
                     child: Container(
                       height: Get.height / 25,
                       width: Get.width / 3,

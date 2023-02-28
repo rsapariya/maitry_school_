@@ -2,6 +2,8 @@ import 'package:appbar_animated/appbar_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../techers/units/storage.dart';
+
 class PrecticeResult extends StatefulWidget {
   const PrecticeResult({Key? key}) : super(key: key);
 
@@ -75,89 +77,217 @@ class _PrecticeResultState extends State<PrecticeResult> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: Get.height / 80,horizontal:Get.width/30),
+          padding: EdgeInsets.symmetric(
+              vertical: Get.height / 80, horizontal: Get.width / 30),
           child: Column(
             children: [
-               Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Container(
-                        height: Get.height / 20,
-                        width: Get.width / 9,
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Image.asset(
-                            "asstes/image/backwrrow.png",
-                            scale: 1.5,
-                          ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                      height: Get.height / 20,
+                      width: Get.width / 9,
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Image.asset(
+                          "asstes/image/backwrrow.png",
+                          scale: 1.5,
                         ),
                       ),
                     ),
-                    Text(
-                      "Result",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "popins Medium",
-                          fontSize: 18),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        // Get.back();
-                      },
-                      child: Container(
-                        height: Get.height / 20,
-                        width: Get.width / 9,
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Image.asset(
-                            "asstes/image/profile/share.png",
-                            scale: 4,
-                            color: Colors.white,
-                          ),
+                  ),
+                  const Text(
+                    "Result",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: "popins Medium",
+                        fontSize: 18),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      // Get.back();
+                    },
+                    child: Container(
+                      height: Get.height / 20,
+                      width: Get.width / 9,
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Image.asset(
+                          "asstes/image/profile/share.png",
+                          scale: 4,
+                          color: Colors.white,
                         ),
                       ),
                     ),
-                  ],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                // height: Get.height / 5,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Get.width / 30, vertical: Get.height / 100),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: Get.width / 3,
+                            child: const Text(
+                              'User Name',
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: 'popins'),
+                            ),
+                          ),
+                          SizedBox(
+                            width: Get.width / 2,
+                            child: Text(
+                              getdata.read('logindata')['Result']
+                                      ['user_name'] ??
+                                  "",
+                              style: const TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: 'popins Medium'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: Get.width / 3,
+                            child: const Text(
+                              'Exam Name',
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: 'popins'),
+                            ),
+                          ),
+                          SizedBox(
+                            width: Get.width / 2,
+                            child: const Text(
+                              "Test",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: 'popins Medium'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: Get.width / 3,
+                            child: const Text(
+                              'Total Marks',
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: 'popins'),
+                            ),
+                          ),
+                          SizedBox(
+                            width: Get.width / 2,
+                            child: const Text(
+                              "10",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: 'popins Medium'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: Get.width / 3,
+                            child: const Text(
+                              'Obtainted Marks',
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: 'popins'),
+                            ),
+                          ),
+                          SizedBox(
+                            width: Get.width / 2,
+                            child: const Text(
+                              '0.5',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: 'popins Medium'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: Get.width / 3,
+                            child: const Text(
+                              'Percentage',
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: 'popins'),
+                            ),
+                          ),
+                          SizedBox(
+                            width: Get.width / 2,
+                            child: const Text(
+                              '8 %',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: 'popins Medium'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              SizedBox(height:10,),
-              Expanded(child:SizedBox(
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                  child: SizedBox(
                 width: double.infinity,
                 child: ListView.builder(
                   itemCount: chapter.length,
-                  // scrollDirection: Axis.vertical,
+                  scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => Container(
                     // height: Get.height / 13,
                     // width: Get.width / 3.7,
                     // color: Colors.grey.shade50,
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(chapter[index]["no"],
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.blue,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 )),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             SizedBox(
                               width: Get.width / 1.3,
                               child: Text(chapter[index]["name"],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 18,
                                     fontWeight: FontWeight.normal,
@@ -165,16 +295,12 @@ class _PrecticeResultState extends State<PrecticeResult> {
                             )
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         InkWell(
                           onTap: () {
-                            // setState(() {
-                            //   ans = "B";
-                            //
-                            //   ans == "A" ? a = true : b = true;
-                            // });
+
                           },
                           child: Container(
                             // height: Get.height / 20,
@@ -182,13 +308,12 @@ class _PrecticeResultState extends State<PrecticeResult> {
                             decoration: BoxDecoration(
                                 color: Colors.grey.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(10),
-                                border:
-                                Border.all(color: Colors.transparent)),
+                                border: Border.all(color: Colors.transparent)),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SizedBox(
                                 width: Get.width / 1.3,
-                                child: Text("A. loraem ipsum",
+                                child: const Text("A. loraem ipsum",
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
@@ -198,15 +323,12 @@ class _PrecticeResultState extends State<PrecticeResult> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         InkWell(
                           onTap: () {
-                            // setState(() {
-                            //   ans = "B";
-                            //   ans == "B" ? b = true : b = false;
-                            // });
+
                           },
                           child: Container(
                             // height: Get.height / 20,
@@ -214,13 +336,12 @@ class _PrecticeResultState extends State<PrecticeResult> {
                             decoration: BoxDecoration(
                                 color: Colors.grey.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(10),
-                                border:
-                                Border.all(color: Colors.transparent)),
+                                border: Border.all(color: Colors.transparent)),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SizedBox(
                                 width: Get.width / 1.3,
-                                child: Text(
+                                child: const Text(
                                     "B. loream ipsum dummy text for editing ",
                                     style: TextStyle(
                                       color: Colors.black,
@@ -231,15 +352,12 @@ class _PrecticeResultState extends State<PrecticeResult> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         InkWell(
                           onTap: () {
-                            // setState(() {
-                            //   ans = "B";
-                            //   ans == "C" ? c = true : b = true;
-                            // });
+
                           },
                           child: Container(
                             // height: Get.height / 20,
@@ -247,13 +365,12 @@ class _PrecticeResultState extends State<PrecticeResult> {
                             decoration: BoxDecoration(
                                 color: Colors.grey.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(10),
-                                border:
-                                Border.all(color: Colors.transparent)),
+                                border: Border.all(color: Colors.transparent)),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SizedBox(
                                 width: Get.width / 1.3,
-                                child: Text("C. The extrims of evil",
+                                child: const Text("C. The extrims of evil",
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
@@ -263,15 +380,12 @@ class _PrecticeResultState extends State<PrecticeResult> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         InkWell(
                           onTap: () {
-                            // setState(() {
-                            //   ans = "B";
-                            //   ans == "D" ? d = true : b = true;
-                            // });
+
                           },
                           child: Container(
                             // height: Get.height / 20,
@@ -279,13 +393,12 @@ class _PrecticeResultState extends State<PrecticeResult> {
                             decoration: BoxDecoration(
                                 color: Colors.grey.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(10),
-                                border:
-                                Border.all(color: Colors.transparent)),
+                                border: Border.all(color: Colors.transparent)),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SizedBox(
                                 width: Get.width / 1.3,
-                                child: Text("D. Latin profesor ",
+                                child: const Text("D. Latin profesor ",
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
@@ -295,55 +408,41 @@ class _PrecticeResultState extends State<PrecticeResult> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                // Get.off(() => pdfgenrat());
-                              },
-                              child: Container(
-                                height: Get.height / 25,
-                                decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Center(
-                                  child: Padding(
-                                    padding:
-                                    EdgeInsets.symmetric(horizontal: 20),
-                                    child: Text(
-                                      "Add +",
-                                      style: TextStyle(
-                                          fontFamily: 'popins',
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              chapter[index]["mark"],
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: "popins",
-                                  fontSize: 16),
-                            )
-                          ],
-                        ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
-                        Divider(
+                        InkWell(
+                          child: Container(
+                            // height: Get.height / 20,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.transparent)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: Get.width / 1.3,
+                                child: const Text("Answer: D",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                    )),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const Divider(
                           color: Colors.blue,
                           thickness: 1,
                         )
                       ],
                     ),
                   ),
-
                 ),
               )),
             ],

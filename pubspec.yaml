@@ -63,6 +63,7 @@ dependencies:
   fluttertoast: any
   auto_start_flutter: ^0.1.1
   firebase_remote_config: ^3.0.13
+  appbar_animated: ^0.0.3
 
 
 dev_dependencies:

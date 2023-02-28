@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/student/prectice/selectch.dart';
@@ -43,6 +42,7 @@ class _homesState extends State<homes> {
           padding: EdgeInsets.symmetric(
               horizontal: Get.width / 30, vertical: Get.height / 80),
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 Row(

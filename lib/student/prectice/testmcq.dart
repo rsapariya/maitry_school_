@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:schooolapp/student/prectice/result.dart';
 import '../../techers/units/storage.dart';
 
 List chapters = [
@@ -56,6 +57,7 @@ class TestMcqs extends StatefulWidget {
 class _TestMcqsState extends State<TestMcqs> {
   @override
   void initState() {
+    select = 0;
     save('Mcqs', chapters[select]);
     super.initState();
   }
@@ -110,6 +112,49 @@ class _TestMcqsState extends State<TestMcqs> {
             select + 2 <= chapters.length
                 ? InkWell(
                     onTap: () {
+                      setState(() {
+                        select++;
+                        next++;
+                        save('Mcqs', chapters[select]);
+                        print(select);
+                      });
+                    },
+                    child: Container(
+                      height: Get.height / 20,
+                      width: Get.width / 6,
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Center(
+                        child: Text(
+                          'Confirm',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  )
+                : InkWell(
+                    onTap: () {
+                      Get.off(() => PrecticeResult(),
+                          transition: Transition.topLevel);
+                    },
+                    child: Container(
+                      height: Get.height / 20,
+                      width: Get.width / 6,
+                      decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Center(
+                        child: Text(
+                          'Submit',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+            select + 2 <= chapters.length
+                ? InkWell(
+                    onTap: () {
                       setState(() {});
                       select++;
                       next++;
@@ -134,12 +179,12 @@ class _TestMcqsState extends State<TestMcqs> {
                     height: Get.height / 20,
                     width: Get.width / 6,
                     decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: Colors.blue.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(10)),
                     child: const Center(
                       child: Text(
-                        'Submit',
-                        style: TextStyle(color: Colors.white),
+                        'Next',
+                        style: TextStyle(color: Colors.blue),
                       ),
                     ),
                   ),

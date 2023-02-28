@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.12.29"
+  appbar_animated:
+    dependency: "direct main"
+    description:
+      name: appbar_animated
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   args:
     dependency: transitive
     description:

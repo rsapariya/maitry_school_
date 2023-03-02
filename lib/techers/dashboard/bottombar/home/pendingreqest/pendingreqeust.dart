@@ -268,7 +268,7 @@ class _pendingreqestState extends State<pendingreqest> {
                       : Padding(
                           padding: EdgeInsets.only(top: Get.height / 2.2),
                           child: const CircularProgressIndicator(
-                            color: Colors.blue,
+                            color: Colors.blue, strokeWidth:3,
                           ),
                         ),
                 ],

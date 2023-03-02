@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/createexam/qestionpaper.dart';
+import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/viewexam/qestionpaper.dart';
+
+List allExam = [
+  // {
+  //   "name": "1st Exam Ravi",
+  //   "date": "20/08/2022",
+  //   "time": "04:30 PM",
+  //   "no": "01."
+  // },
+  // {
+  //   "name": "2nd Exam Ravi",
+  //   "date": "21/08/2022",
+  //   "time": "04:30 PM",
+  //   "no": "02."
+  // },
+];
 
 class examlist extends StatefulWidget {
   const examlist({Key? key}) : super(key: key);
@@ -11,20 +26,7 @@ class examlist extends StatefulWidget {
 
 class _examlistState extends State<examlist> {
   int selectedindex = 0;
-  List chapter = [
-    {
-      "name": "1st Chapter Ravi",
-      "date": "20/08/2022",
-      "time": "04:30 PM",
-      "no": "01."
-    },
-    {
-      "name": "2nd Chapter Ravi",
-      "date": "21/08/2022",
-      "time": "04:30 PM",
-      "no": "02."
-    },
-  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +48,8 @@ class _examlistState extends State<examlist> {
                         Get.back();
                       },
                       child: Container(
-                        height:Get.height/20,
-                        width:Get.width/9,
+                        height: Get.height / 20,
+                        width: Get.width / 9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -69,8 +71,8 @@ class _examlistState extends State<examlist> {
                     InkWell(
                       child: SizedBox(
                         child: Container(
-                          height:Get.height/20,
-                          width:Get.width/9,
+                          height: Get.height / 20,
+                          width: Get.width / 9,
                         ),
                       ),
                     ),
@@ -78,16 +80,18 @@ class _examlistState extends State<examlist> {
                 ),
               ),
               const SizedBox(height: 10),
+              allExam.isNotEmpty?
               SizedBox(
                 height: Get.height / 1.3,
                 width: double.infinity,
                 child: ListView.builder(
-                  itemCount: chapter.length,
+                  itemCount: allExam.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => InkWell(
                     splashColor: Colors.transparent,
                     onTap: () {
-                      Get.to(() => const qestionpaper(),transition:Transition.leftToRight);
+                      Get.to(() => const qestionpaper(),
+                          transition: Transition.leftToRight);
                     },
                     child: Container(
                       child: Padding(
@@ -104,7 +108,7 @@ class _examlistState extends State<examlist> {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 12),
                                     child: Text(
-                                      chapter[index]["no"],
+                                      allExam[index]["no"],
                                       style: const TextStyle(
                                           color: Colors.blue,
                                           fontSize: 20,
@@ -120,7 +124,7 @@ class _examlistState extends State<examlist> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        chapter[index]["name"],
+                                        allExam[index]["name"],
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 18,
@@ -132,7 +136,7 @@ class _examlistState extends State<examlist> {
                                       Row(
                                         children: [
                                           Text(
-                                            chapter[index]["date"],
+                                            allExam[index]["date"],
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 12,
@@ -146,7 +150,7 @@ class _examlistState extends State<examlist> {
                                             width: 10,
                                           ),
                                           Text(
-                                            chapter[index]["time"],
+                                            allExam[index]["time"],
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 12,
@@ -180,7 +184,18 @@ class _examlistState extends State<examlist> {
                     ),
                   ),
                 ),
-              ),
+              ):
+              Padding(
+                padding: EdgeInsets.only(top: Get.height / 2.5),
+                child: Text(
+                  'No Exam Found!',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontFamily: 'popins Medium'),
+                ),
+              )
+              ,
             ],
           ),
         ),

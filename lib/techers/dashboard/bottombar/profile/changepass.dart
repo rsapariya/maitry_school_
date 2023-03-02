@@ -219,7 +219,7 @@ class _changepasswoedState extends State<changepasswoed> {
                           )
                         : Center(
                             child: CircularProgressIndicator(
-                              color: Colors.white,
+                              color: Colors.white, strokeWidth:3,
                             ),
                           ),
                   ),

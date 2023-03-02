@@ -224,7 +224,7 @@ class _JointeacherState extends State<Jointeacher> {
                                   ),
                                 ),
                               )
-                            : CircularProgressIndicator(
+                            : CircularProgressIndicator( strokeWidth:3,
                                 color: Colors.blue,
                               ),
                       )),

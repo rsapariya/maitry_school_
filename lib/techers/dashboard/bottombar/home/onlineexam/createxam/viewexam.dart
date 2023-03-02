@@ -275,7 +275,7 @@ class _viewexamState extends State<viewexam> {
                           DateFormat('yyyy-MM-dd').format(pickedDate);
                       print(
                           formattedDate); //formatted date output using intl package =>  2021-03-16
-                      //you can implement different kind of Date Format here according to your requirement
+
 
                       setState(() {
                         startdate.text =

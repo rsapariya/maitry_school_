@@ -171,7 +171,7 @@ class _allclassState extends State<allclass> {
                           child: Padding(
                             padding: EdgeInsets.only(top: Get.height / 2.2),
                             child: CircularProgressIndicator(
-                              color: Colors.blue,
+                              color: Colors.blue,strokeWidth:3,
                             ),
                           ),
                         ),

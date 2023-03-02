@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/onlineexam.dart';
 import 'package:http/http.dart' as http;
-import 'package:schooolapp/techers/login/register.dart';
 import '../../../../../units/api.dart';
 import '../../../../../units/storage.dart';
 
@@ -99,13 +97,16 @@ class _studentlsiState extends State<studentlsi> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  Student[index]["user_name"],
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontFamily:
-                                                          "popins Medium",
-                                                      fontSize: 16),
+                                                SizedBox(
+                                                  width: Get.width / 1.3,
+                                                  child: Text(
+                                                    Student[index]["user_name"],
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontFamily:
+                                                            "popins Medium",
+                                                        fontSize: 16),
+                                                  ),
                                                 ),
                                                 Text(
                                                   Student[index]
@@ -161,6 +162,7 @@ class _studentlsiState extends State<studentlsi> {
                             padding: EdgeInsets.only(top: Get.height / 2.5),
                             child: CircularProgressIndicator(
                               color: Colors.blue,
+                              strokeWidth: 3,
                             ),
                           ),
                         ),

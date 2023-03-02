@@ -62,7 +62,7 @@ class _viewmcqsState extends State<viewmcqs> {
                               ),
                             ),
                           ),
-                          Text(
+                          const Text(
                             "MCQs",
                             style: TextStyle(
                                 color: Colors.black,
@@ -80,7 +80,7 @@ class _viewmcqsState extends State<viewmcqs> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     SizedBox(
                       height: Get.height / 1.15,
                       width: double.infinity,
@@ -98,7 +98,7 @@ class _viewmcqsState extends State<viewmcqs> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       SizedBox(
@@ -106,18 +106,18 @@ class _viewmcqsState extends State<viewmcqs> {
                                         child: Text(
                                             MCqlist[index]["mcq_question"] ??
                                                 "",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.black,
                                               fontFamily: "popins",
                                               fontSize: 16,
                                               fontWeight: FontWeight.normal,
                                             )),
                                       ),
-                                      Spacer(),
-                                      Icon(Icons.navigate_next)
+                                      const Spacer(),
+                                      const Icon(Icons.navigate_next)
                                     ],
                                   ),
-                                  Divider(
+                                  const Divider(
                                     color: Colors.blue,
                                     thickness: 1,
                                   )
@@ -140,8 +140,9 @@ class _viewmcqsState extends State<viewmcqs> {
                   ],
                 ),
               )
-            : Center(
+            : const Center(
                 child: CircularProgressIndicator(
+                  strokeWidth: 1,
                   color: Colors.blue,
                 ),
               ),
@@ -156,10 +157,7 @@ class _viewmcqsState extends State<viewmcqs> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    // RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
     var val = jsonDecode(respStr);
-
-    // String parsedstring1 = html.replaceAll(exp, '');
 
     if (response.statusCode == 200) {
       print("----");

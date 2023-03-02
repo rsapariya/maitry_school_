@@ -165,7 +165,7 @@ class _createclassState extends State<createclass> {
                             ),
                           )
                         : CircularProgressIndicator(
-                            color: Colors.blue,
+                            color: Colors.blue, strokeWidth:3,
                           ),
                   ),
                 ],

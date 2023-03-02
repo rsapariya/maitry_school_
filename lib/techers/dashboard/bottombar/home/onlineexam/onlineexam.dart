@@ -1,16 +1,15 @@
 // ignore_for_file: camel_case_types
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/view/viewexam.dart';
+import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/viewexam/createxam.dart';
 import '../../../../units/api.dart';
 import '../../../../units/cusomewidget.dart';
 import '../notification.dart';
 import 'allclass/allclasss.dart';
 import 'creatclass/createclass.dart';
-import 'createexam/createxam.dart';
+import 'createxam/viewexam.dart';
 
 // ignore: non_constant_identifier_names
 List Class = [];

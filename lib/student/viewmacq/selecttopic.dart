@@ -184,6 +184,7 @@ class _selecttopicsState extends State<selecttopics> {
               )
             : const Center(
                 child: CircularProgressIndicator(
+                  strokeWidth: 3,
                   color: Colors.blue,
                 ),
               ),

@@ -249,7 +249,7 @@ class _homeState extends State<home> {
                                 height: 10,
                               ),
                               const Text(
-                                'PDF Paper Genrate',
+                                'PDF Paper Generate ',
                                 style: TextStyle(
                                     fontFamily: 'popins', fontSize: 14),
                               )
@@ -323,7 +323,7 @@ class _homeState extends State<home> {
                               const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15),
                                 child: Text(
-                                  'Panding Request',
+                                  'Pending Request',
                                   style: TextStyle(
                                       fontFamily: 'popins', fontSize: 14),
                                 ),

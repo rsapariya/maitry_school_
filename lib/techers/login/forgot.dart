@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import 'otp.dart';
 
-
 class forget extends StatefulWidget {
   const forget({Key? key}) : super(key: key);
 
@@ -14,6 +13,8 @@ class forget extends StatefulWidget {
 class _forgetState extends State<forget> {
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -51,108 +52,119 @@ class _forgetState extends State<forget> {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: Get.height / 15,
-              ),
-              const Text(
-                "Enter your Phone number",
-                style: TextStyle(
-                  fontFamily: "popins Medium",
-                  fontSize: 18,
-                ),
-              ),
-              SizedBox(
-                height: Get.height / 30,
-              ),
-              TextFormField(
-                style: const TextStyle(
-                  fontFamily: "popins",
-                ),
-                // controller: code,
-                autofocus: false,
-                decoration: buildInputDecoration(
-                    hintText: "Phone number",
-                    lbltext: "Phone number",
-                    icon: Icons.call),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: const Text(
-                  "Back to sign in",
-                  style: TextStyle(
-                    fontFamily: "popins",
-                    fontSize: 14,
+          child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: Get.height / 15,
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              InkWell(
-                onTap: () {
-                  Get.to(() => const verification(),transition:Transition.leftToRight);
-                },
-                child: Container(
-                  height: Get.height / 15,
-                  width: Get.width / 1.8,
-                  decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(40)),
-                  child: Row(
+                  const Text(
+                    "Enter your Phone number",
+                    style: TextStyle(
+                      fontFamily: "popins Medium",
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(
+                    height: Get.height / 30,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter Number';
+                      }
+                      return null;
+                    },
+                    style: const TextStyle(
+                      fontFamily: "popins",
+                    ),
+                    // controller: code,
+                    autofocus: false,
+                    decoration: buildInputDecoration(
+                        hintText: "Phone number",
+                        lbltext: "Phone number",
+                        icon: Icons.call),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: const Text(
+                      "Back to sign in",
+                      style: TextStyle(
+                        fontFamily: "popins",
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        Get.to(() => const verification(),
+                            transition: Transition.leftToRight);
+                      }
+                    },
+                    child: Container(
+                      height: Get.height / 15,
+                      width: Get.width / 1.8,
+                      decoration: BoxDecoration(
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(40)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "asstes/image/Login.png",
+                            scale: 4,
+                          ),
+                          SizedBox(
+                            width: Get.width / 40,
+                          ),
+                          const Text(
+                            "Submit",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: "popins"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: Get.height / 10,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "asstes/image/Login.png",
-                        scale: 4,
-                      ),
-                      SizedBox(
-                        width: Get.width / 40,
-                      ),
-                      const Text(
-                        "Submit",
+                    children: const [
+                      Text(
+                        "Don't have an account yet?",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: "popins"),
+                          fontFamily: "popins",
+                          fontSize: 14,
+                        ),
+                      ),
+                      Text(
+                        "Sign up",
+                        style: TextStyle(
+                          fontFamily: "popins",
+                          fontSize: 14,
+                          color: Colors.blue,
+                        ),
                       ),
                     ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: Get.height / 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    "Don't have an account yet?",
-                    style: TextStyle(
-                      fontFamily: "popins",
-                      fontSize: 14,
-                    ),
-                  ),
-                  Text(
-                    "Sign up",
-                    style: TextStyle(
-                      fontFamily: "popins",
-                      fontSize: 14,
-                      color: Colors.blue,
-                    ),
-                  ),
+                  )
                 ],
-              )
-            ],
-          ),
+              )),
         ),
       ),
     );
@@ -168,9 +180,7 @@ class _forgetState extends State<forget> {
       prefixIcon: Icon(icon, color: Colors.blue),
       suffix: surfix,
       hintText: hintText,
-      hintStyle: const TextStyle(
-        fontFamily: "popins",fontSize: 14
-      ),
+      hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
       labelStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
       labelText: lbltext,
       contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),

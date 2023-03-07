@@ -56,7 +56,7 @@ class _onlinetestState extends State<onlinetest> {
                     "Online test",
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: "popins Medium",
+                        fontFamily: "poppoins Medium",
                         fontSize: 18),
                   ),
                   InkWell(

@@ -58,7 +58,7 @@ class _verificationState extends State<verification> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    getdata.read('Register')['phonenumber'],
+                    getdata.read('Register')['phonenumber']??"",
                     style: const TextStyle(
                       fontFamily: "popins Medium",
                       fontSize: 18,
@@ -167,7 +167,8 @@ class _verificationState extends State<verification> {
                         )
                       : Center(
                           child: CircularProgressIndicator(
-                            color: Colors.white,strokeWidth:3,
+                            color: Colors.white,
+                            strokeWidth: 3,
                           ),
                         ),
                   height: Get.height / 15,

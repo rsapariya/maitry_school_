@@ -16,56 +16,56 @@ class _TesttopicState extends State<Testtopic> {
       "no": "0.1",
       "name": "Topic 01",
       "topic": "7 topics",
-      "qest": "220 Qestions",
+      "qest": "220 Question",
       "Select": 'false'
     },
     {
       "no": "0.2",
       "name": "Topic 02",
       "topic": "19 topics",
-      "qest": "200 Qestions",
+      "qest": "200 Question",
       "Select": 'false'
     },
     {
       "no": "0.3",
       "name": "Topic 03",
       "topic": "8 topics",
-      "qest": "210 Qestions",
+      "qest": "210 Question",
       "Select": "false"
     },
     {
       "no": "0.4",
       "name": "Topic 04",
       "topic": "6 topics",
-      "qest": "20 Qestions",
+      "qest": "20 Question",
       "Select": "false"
     },
     {
       "no": "0.5",
       "name": "Topic 05",
       "topic": "7 topics",
-      "qest": "130 Qestions",
+      "qest": "130 Question",
       "Select": 'false'
     },
     {
       "no": "0.6",
       "name": "Topic 06",
       "topic": "10 topics",
-      "qest": "100 Qestions",
+      "qest": "100 Question",
       "Select": 'false'
     },
     {
       "no": "0.7",
       "name": "Topic 07",
       "topic": "2 topics",
-      "qest": "170 Qestions",
+      "qest": "170 Question",
       "Select": 'false'
     },
     {
       "no": " 0.8",
       "name": "Topic 08",
       "topic": "7 topics",
-      "qest": "190 Qestions",
+      "qest": "190 Question",
       "Select": 'false'
     },
   ];

@@ -161,8 +161,8 @@ class _tacktestState extends State<tacktest> {
                         ),
                         autofocus: false,
                         decoration: buildInputDecoration(
-                          hintText: "No of Qestion",
-                          lbltext: "No of Qestion",
+                          hintText: "No of Question",
+                          lbltext: "No of Question",
                         ),
                       ),
                     ),

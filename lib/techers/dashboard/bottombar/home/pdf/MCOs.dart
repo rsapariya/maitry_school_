@@ -16,56 +16,56 @@ class _mcqsState extends State<mcqs> {
       "name":
           "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 4",
-      "qest": "220 Qestions"
+      "qest": "220 Question"
     },
     {
       "no": "0.2",
       "name":
           "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 1",
-      "qest": "200 Qestions"
+      "qest": "200 Question"
     },
     {
       "no": "0.3",
       "name":
           "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 3",
-      "qest": "210 Qestions"
+      "qest": "210 Question"
     },
     {
       "no": "0.4",
       "name":
           "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 2",
-      "qest": "20 Qestions"
+      "qest": "20 Question"
     },
     {
       "no": "0.5",
       "name":
           "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 1",
-      "qest": "130 Qestions"
+      "qest": "130 Question"
     },
     {
       "no": "0.6",
       "name":
           "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 2",
-      "qest": "100 Qestions"
+      "qest": "100 Question"
     },
     {
       "no": "0.7",
       "name":
           "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 3 ",
-      "qest": "170 Qestions"
+      "qest": "170 Question"
     },
     {
       "no": " 0.8",
       "name":
           "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 2",
-      "qest": "190 Qestions"
+      "qest": "190 Question"
     },
   ];
   @override

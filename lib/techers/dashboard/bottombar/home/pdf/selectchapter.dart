@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,49 +17,49 @@ class _selectchapterState extends State<selectchapter> {
       "no": "0.1",
       "name": "chapter 01",
       "topic": "7 topics",
-      "qest": "220 Qestions"
+      "qest": "220 Question"
     },
     {
       "no": "0.2",
       "name": "chapter 02",
       "topic": "19 topics",
-      "qest": "200 Qestions"
+      "qest": "200 Question"
     },
     {
       "no": "0.3",
       "name": "chapter 03",
       "topic": "8 topics",
-      "qest": "210 Qestions"
+      "qest": "210 Question"
     },
     {
       "no": "0.4",
       "name": "chapter 04",
       "topic": "6 topics",
-      "qest": "20 Qestions"
+      "qest": "20 Question"
     },
     {
       "no": "0.5",
       "name": "chapter 05",
       "topic": "7 topics",
-      "qest": "130 Qestions"
+      "qest": "130 Question"
     },
     {
       "no": "0.6",
       "name": "chapter 06",
       "topic": "10 topics",
-      "qest": "100 Qestions"
+      "qest": "100 Question"
     },
     {
       "no": "0.7",
       "name": "chapter 07",
       "topic": "2 topics",
-      "qest": "170 Qestions"
+      "qest": "170 Question"
     },
     {
       "no": " 0.8",
       "name": "chapter 08",
       "topic": "7 topics",
-      "qest": "190 Qestions"
+      "qest": "190 Question"
     },
   ];
   @override

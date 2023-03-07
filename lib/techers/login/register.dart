@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -916,7 +915,6 @@ class _registerState extends State<register> {
                               loding = false;
                             });
                             ApiWrapper.fluttertosat('Please chek number');
-
                           },
                           codeSent: (verificationId, forceResendingToken) {
                             ApiWrapper.fluttertosat('Code sent.');
@@ -961,7 +959,8 @@ class _registerState extends State<register> {
                           )
                         : Center(
                             child: CircularProgressIndicator(
-                              color: Colors.white, strokeWidth:3,
+                              color: Colors.white,
+                              strokeWidth: 3,
                             ),
                           ),
                   ),
@@ -1036,5 +1035,4 @@ class _registerState extends State<register> {
       fillColor: Colors.grey.withOpacity(0.1),
     );
   }
-
 }

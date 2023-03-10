@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -13,16 +15,19 @@ class pdfgenrat extends StatefulWidget {
 }
 
 class _pdfgenratState extends State<pdfgenrat> {
-  @override
   bool langauge = true;
+  bool Anskey = false;
+  bool Solution = false;
   String student = "11";
-  TextEditingController date = new TextEditingController();
+  TextEditingController date = TextEditingController();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: appButton(
           onTap: () {
-            Get.to(() => selectchapter(),transition:Transition.leftToRight);
+            Get.to(() => const selectchapter(),
+                transition: Transition.leftToRight);
           },
           title: "Submit"),
       body: SafeArea(
@@ -41,8 +46,8 @@ class _pdfgenratState extends State<pdfgenrat> {
                         Get.back();
                       },
                       child: Container(
-                        height:Get.height/20,
-                        width:Get.width/9,
+                        height: Get.height / 20,
+                        width: Get.width / 9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -54,7 +59,7 @@ class _pdfgenratState extends State<pdfgenrat> {
                         ),
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Create PDF",
                       style: TextStyle(
                           color: Colors.black,
@@ -63,9 +68,9 @@ class _pdfgenratState extends State<pdfgenrat> {
                     ),
                     InkWell(
                       child: SizedBox(
-                        child: Container(
-                          height:Get.height/20,
-                          width:Get.width/9,
+                        child: SizedBox(
+                          height: Get.height / 20,
+                          width: Get.width / 9,
                         ),
                       ),
                     ),
@@ -74,11 +79,11 @@ class _pdfgenratState extends State<pdfgenrat> {
                 SizedBox(
                   height: Get.height / 50,
                 ),
-                Text(
+                const Text(
                   "Select Standerd",
                   style: TextStyle(fontFamily: "popins Medium", fontSize: 16),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Row(
@@ -89,38 +94,36 @@ class _pdfgenratState extends State<pdfgenrat> {
                           student = "11";
                         });
                       },
-                      child: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                                height: 14,
-                                width: 14,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        width: 1, color: Colors.blue)),
-                                child: student == "11"
-                                    ? Center(
-                                        child: Icon(
-                                          Icons.circle,
-                                          size: 10,
-                                          color: Colors.blue,
-                                        ),
-                                      )
-                                    : SizedBox()),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              "11",
-                              style:
-                                  TextStyle(fontFamily: "popins", fontSize: 14),
-                            ),
-                          ],
-                        ),
+                      child: Row(
+                        children: [
+                          Container(
+                              height: 14,
+                              width: 14,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border:
+                                      Border.all(width: 1, color: Colors.blue)),
+                              child: student == "11"
+                                  ? const Center(
+                                      child: Icon(
+                                        Icons.circle,
+                                        size: 10,
+                                        color: Colors.blue,
+                                      ),
+                                    )
+                                  : const SizedBox()),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Text(
+                            "11",
+                            style:
+                                TextStyle(fontFamily: "popins", fontSize: 14),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     InkWell(
@@ -129,38 +132,36 @@ class _pdfgenratState extends State<pdfgenrat> {
                           student = "22";
                         });
                       },
-                      child: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                                height: 14,
-                                width: 14,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        width: 1, color: Colors.blue)),
-                                child: student == "22"
-                                    ? Center(
-                                        child: Icon(
-                                          Icons.circle,
-                                          size: 10,
-                                          color: Colors.blue,
-                                        ),
-                                      )
-                                    : SizedBox()),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              "12",
-                              style:
-                                  TextStyle(fontFamily: "popins", fontSize: 14),
-                            ),
-                          ],
-                        ),
+                      child: Row(
+                        children: [
+                          Container(
+                              height: 14,
+                              width: 14,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border:
+                                      Border.all(width: 1, color: Colors.blue)),
+                              child: student == "22"
+                                  ? const Center(
+                                      child: Icon(
+                                        Icons.circle,
+                                        size: 10,
+                                        color: Colors.blue,
+                                      ),
+                                    )
+                                  : const SizedBox()),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Text(
+                            "12",
+                            style:
+                                TextStyle(fontFamily: "popins", fontSize: 14),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     InkWell(
@@ -169,44 +170,42 @@ class _pdfgenratState extends State<pdfgenrat> {
                           student = "both";
                         });
                       },
-                      child: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                                height: 14,
-                                width: 14,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        width: 1, color: Colors.blue)),
-                                child: student == "both"
-                                    ? Center(
-                                        child: Icon(
-                                          Icons.circle,
-                                          size: 10,
-                                          color: Colors.blue,
-                                        ),
-                                      )
-                                    : SizedBox()),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              "Both",
-                              style:
-                                  TextStyle(fontFamily: "popins", fontSize: 14),
-                            ),
-                          ],
-                        ),
+                      child: Row(
+                        children: [
+                          Container(
+                              height: 14,
+                              width: 14,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border:
+                                      Border.all(width: 1, color: Colors.blue)),
+                              child: student == "both"
+                                  ? const Center(
+                                      child: Icon(
+                                        Icons.circle,
+                                        size: 10,
+                                        color: Colors.blue,
+                                      ),
+                                    )
+                                  : const SizedBox()),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Text(
+                            "Both",
+                            style:
+                                TextStyle(fontFamily: "popins", fontSize: 14),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 TextFormField(
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "popins",
                   ),
                   // controller: code,
@@ -217,11 +216,11 @@ class _pdfgenratState extends State<pdfgenrat> {
                     lbltext: "School Name",
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 TextFormField(
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "popins",
                   ),
                   // controller: code,
@@ -232,11 +231,11 @@ class _pdfgenratState extends State<pdfgenrat> {
                     lbltext: "Subject",
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 TextFormField(
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "popins",
                   ),
                   // controller: code,
@@ -247,11 +246,11 @@ class _pdfgenratState extends State<pdfgenrat> {
                     lbltext: "Test name",
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 TextFormField(
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "popins",
                   ),
                   // controller: code,
@@ -262,11 +261,11 @@ class _pdfgenratState extends State<pdfgenrat> {
                     lbltext: "Total Marks",
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 TextFormField(
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "popins",
                   ),
                   controller: date,
@@ -280,42 +279,38 @@ class _pdfgenratState extends State<pdfgenrat> {
                             2000), //DateTime.now() - not to allow to choose before today.
                         lastDate: DateTime(2101));
                     if (pickedDate != null) {
-                      print(
-                          pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                      //pickedDate output format => 2021-03-10 00:00:00.000
                       String formattedDate =
                           DateFormat('yyyy-MM-dd').format(pickedDate);
-                      print(
-                          formattedDate); //formatted date output using intl package =>  2021-03-16
+                      //formatted date output using intl package =>  2021-03-16
                       //you can implement different kind of Date Format here according to your requirement
 
                       setState(() {
                         date.text =
                             formattedDate; //set output date to TextField value.
                       });
-                    } else {
-                      print("Date is not selected");
-                    }
+                    } else {}
                   },
                   decoration: buildInputDecoration(
                       hintText: "Date",
                       lbltext: "Date",
-                      surfix: Icon(
+                      surfix: const Icon(
                         Icons.calendar_month_sharp,
                         color: Colors.blue,
                       )),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   "Water Marks",
                   style: TextStyle(fontFamily: "popins Medium", fontSize: 16),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 TextFormField(
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "popins",
                   ),
                   readOnly: true,
@@ -324,40 +319,83 @@ class _pdfgenratState extends State<pdfgenrat> {
                   decoration: buildInputDecoration(
                       hintText: "Answer Key",
                       lbltext: "Answer Key",
-                      surfix: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Container(
-                          width: 10,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.grey)),
+                      surfix: InkWell(
+                        onTap: () {
+                          setState(() {
+                            Anskey = !Anskey;
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Container(
+                            width: 10,
+                            decoration: BoxDecoration(
+                                color: Anskey == false
+                                    ? Colors.white
+                                    : Colors.blue,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                    color: Anskey == false
+                                        ? Colors.grey
+                                        : Colors.blue)),
+                            child: Center(
+                              child: Anskey == false
+                                  ? const SizedBox()
+                                  : const Icon(
+                                      Icons.done,
+                                      size: 20,
+                                      color: Colors.white,
+                                    ),
+                            ),
+                          ),
                         ),
                       )),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 TextFormField(
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "popins",
                   ),
                   readOnly: true,
                   // controller: code,
                   autofocus: false,
                   decoration: buildInputDecoration(
-                      hintText: "Solution",
-                      lbltext: "Solution",
-                      surfix: Padding(
+                    hintText: "Solution",
+                    lbltext: "Solution",
+                    surfix: InkWell(
+                      onTap: () {
+                        setState(() {
+                          Solution = !Solution;
+                        });
+                      },
+                      child: Padding(
                         padding: const EdgeInsets.all(12),
                         child: Container(
                           width: 10,
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Solution == false
+                                  ? Colors.white
+                                  : Colors.blue,
                               borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.grey)),
+                              border: Border.all(
+                                  color: Solution == false
+                                      ? Colors.grey
+                                      : Colors.blue)),
+                          child: Center(
+                            child: Solution == false
+                                ? const SizedBox()
+                                : const Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                          ),
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -377,19 +415,18 @@ class _pdfgenratState extends State<pdfgenrat> {
       prefixIcon: prifix,
       suffixIcon: surfix,
       hintText: hintText,
-      hintStyle: TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: TextStyle(fontFamily: "popins", fontSize: 14),
+      hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
+      labelStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
       labelText: lbltext,
-      contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+      contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-              color: Colors.white,
-              width: 0.5,
-              strokeAlign: StrokeAlign.center)),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(
+            color: Colors.white, width: 0.5, strokeAlign: StrokeAlign.center),
+      ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: Colors.transparent,
           width: 2.0,
         ),

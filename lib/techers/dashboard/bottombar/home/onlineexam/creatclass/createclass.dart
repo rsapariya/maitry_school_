@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:schooolapp/techers/dashboard/bottombar/home/result/studentwise.dart';
 
 import '../../../../../units/api.dart';
 import '../allclass/allclasss.dart';
@@ -165,7 +166,8 @@ class _createclassState extends State<createclass> {
                             ),
                           )
                         : CircularProgressIndicator(
-                            color: Colors.blue, strokeWidth:3,
+                            color: Colors.blue,
+                            strokeWidth: 3,
                           ),
                   ),
                 ],
@@ -219,11 +221,13 @@ class _createclassState extends State<createclass> {
       if (val['success'] == true) {
         setState(() {
           Class.clear();
+          Classes.clear();
           val['Result'].forEach((e) {
             Class.add(e);
+            Classes.add(e);
           });
         });
-        print('--Getclass->>$val');
+        print('--Getclass->>$Classes');
         setState(() {
           Get.off(() => allclass());
           loding = false;

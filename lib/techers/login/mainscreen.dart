@@ -12,6 +12,7 @@ import '../../student/bottoms.dart';
 import '../dashboard/bottombar/bottombar.dart';
 import '../units/api.dart';
 import '../units/storage.dart';
+import 'forgot.dart';
 
 class mainscreen extends StatefulWidget {
   const mainscreen({Key? key}) : super(key: key);
@@ -141,8 +142,8 @@ class _mainscreenState extends State<mainscreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    // Get.to(() => const forget(),
-                    //     transition: Transition.leftToRight);
+                    Get.to(() => const forget(),
+                        transition: Transition.leftToRight);
                   },
                   child: const Text(
                     "Forgot your password?",

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/PDFpaper.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pendingreqest/pendingreqeust.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/result/results.dart';
+import 'package:schooolapp/techers/dashboard/bottombar/home/result/studentwise.dart';
 import '../../../units/api.dart';
 import '../../../units/cusomewidget.dart';
 import '../../../units/storage.dart';
@@ -386,17 +387,22 @@ class _homeState extends State<home> {
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {
-        setState(() {
-          Class.clear();
-          val['Result'].forEach((e) {
-            Class.add(e);
-          });
-        });
+        setState(
+          () {
+            Class.clear();
+            Classes.clear();
+            val['Result'].forEach((e) {
+              Class.add(e);
+              Classes.add(e);
+            });
+          },
+        );
         print('--Getclass->>$val');
         setState(() {});
       } else {
         setState(() {
           Class.clear();
+          Classes.clear();
         });
         print('--Getclass->>$val');
       }

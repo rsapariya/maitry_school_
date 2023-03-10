@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/allclass/studentlist.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/onlineexam.dart';
 import 'package:http/http.dart' as http;
+import 'package:schooolapp/techers/dashboard/bottombar/home/result/studentwise.dart';
 import '../../../../../units/api.dart';
 import '../../../../../units/storage.dart';
 import '../../home.dart';
@@ -252,9 +253,11 @@ class _allclassState extends State<allclass> {
     if (response.statusCode == 200) {
       if (val['success'] == true) {
         setState(() {
+          Classes.clear();
           Class.clear();
           val['Result'].forEach((e) {
             Class.add(e);
+            Classes.add(e);
           });
         });
         print('--Getclass->>$val');
@@ -264,6 +267,7 @@ class _allclassState extends State<allclass> {
       } else {
         setState(() {
           Class.clear();
+          Classes.clear();
           loding = false;
         });
         print('--Getclass->>$val');

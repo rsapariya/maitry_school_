@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'otp.dart';
+import 'package:http/http.dart' as http;
+import 'package:schooolapp/techers/login/mainscreen.dart';
+import '../units/api.dart';
 
 class forget extends StatefulWidget {
   const forget({Key? key}) : super(key: key);
@@ -11,6 +14,8 @@ class forget extends StatefulWidget {
 }
 
 class _forgetState extends State<forget> {
+  bool loding = false;
+  TextEditingController number = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
@@ -75,13 +80,15 @@ class _forgetState extends State<forget> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter Number';
+                      } else if (value.isPhoneNumber) {
+                        return null;
                       }
-                      return null;
+                      return 'Enter valid Number!';
                     },
                     style: const TextStyle(
                       fontFamily: "popins",
                     ),
-                    // controller: code,
+                    controller: number,
                     autofocus: false,
                     decoration: buildInputDecoration(
                         hintText: "Phone number",
@@ -106,40 +113,47 @@ class _forgetState extends State<forget> {
                   const SizedBox(
                     height: 25,
                   ),
-                  InkWell(
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        Get.to(() => const verification(),
-                            transition: Transition.leftToRight);
-                      }
-                    },
-                    child: Container(
-                      height: Get.height / 15,
-                      width: Get.width / 1.8,
-                      decoration: BoxDecoration(
-                          color: Colors.blueAccent,
-                          borderRadius: BorderRadius.circular(40)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "asstes/image/Login.png",
-                            scale: 4,
+                  loding == false
+                      ? InkWell(
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() {
+                                loding = true;
+                              });
+                              Newpass();
+                            }
+                          },
+                          child: Container(
+                            height: Get.height / 15,
+                            width: Get.width / 1.8,
+                            decoration: BoxDecoration(
+                                color: Colors.blueAccent,
+                                borderRadius: BorderRadius.circular(40)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "asstes/image/Login.png",
+                                  scale: 4,
+                                ),
+                                SizedBox(
+                                  width: Get.width / 40,
+                                ),
+                                const Text(
+                                  "Submit",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: "popins"),
+                                ),
+                              ],
+                            ),
                           ),
-                          SizedBox(
-                            width: Get.width / 40,
-                          ),
-                          const Text(
-                            "Submit",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: "popins"),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                        )
+                      : const CircularProgressIndicator(
+                          color: Colors.blue,
+                          strokeWidth: 3,
+                        ),
                   SizedBox(
                     height: Get.height / 10,
                   ),
@@ -168,6 +182,36 @@ class _forgetState extends State<forget> {
         ),
       ),
     );
+  }
+
+  Newpass() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Forgot));
+    request.fields.addAll({
+      'mobile_number': number.text.toString(),
+    });
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          loding = false;
+        });
+        ApiWrapper.fluttertosat(val['message'].toString());
+        Get.off(() => mainscreen(), transition: Transition.leftToRight);
+      } else {
+        setState(() {
+          loding = false;
+        });
+        ApiWrapper.fluttertosat(val['message'].toString());
+      }
+    } else {
+      setState(() {
+        loding = false;
+      });
+      ApiWrapper.fluttertosat(val['message'].toString());
+    }
   }
 
   InputDecoration buildInputDecoration({

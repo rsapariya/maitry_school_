@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 
-List<Map> _myJson = [
+List<Map> myJson = [
   {"ev_title": "Saumil", "ev_id": "01"},
   {"ev_title": "vekariya", "ev_id": "21"},
   {"ev_title": "hemadri", "ev_id": "20"},
   {"ev_title": "rahil", "ev_id": "19"},
   {"ev_title": "rahul", "ev_id": "13"},
+];
+
+
+List<Map> Classes = [
 ];
 
 class Studentwise extends StatefulWidget {
@@ -225,7 +229,7 @@ class _StudentwiseState extends State<Studentwise> {
             ),
           ],
         ),
-        items: _myJson
+        items: myJson
             .map((Map map) => DropdownMenuItem<String>(
                   value: map["ev_id"].toString(),
                   child: Text(

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/selecttopic.dart';
@@ -50,6 +49,42 @@ class _selectchapterState extends State<selectchapter> {
       "qest": "100 Question"
     },
     {
+      "no": "0.6",
+      "name": "chapter 06",
+      "topic": "10 topics",
+      "qest": "100 Question"
+    },
+    {
+      "no": "0.6",
+      "name": "chapter 06",
+      "topic": "10 topics",
+      "qest": "100 Question"
+    },
+    {
+      "no": "0.6",
+      "name": "chapter 06",
+      "topic": "10 topics",
+      "qest": "100 Question"
+    },
+    {
+      "no": "0.6",
+      "name": "chapter 06",
+      "topic": "10 topics",
+      "qest": "100 Question"
+    },
+    {
+      "no": "0.6",
+      "name": "chapter 06",
+      "topic": "10 topics",
+      "qest": "100 Question"
+    },
+    {
+      "no": "0.6",
+      "name": "chapter 06",
+      "topic": "10 topics",
+      "qest": "100 Question"
+    },
+    {
       "no": "0.7",
       "name": "chapter 07",
       "topic": "2 topics",
@@ -83,8 +118,8 @@ class _selectchapterState extends State<selectchapter> {
                         Get.back();
                       },
                       child: Container(
-                        height:Get.height/20,
-                        width:Get.width/9,
+                        height: Get.height / 20,
+                        width: Get.width / 9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -106,8 +141,8 @@ class _selectchapterState extends State<selectchapter> {
                     InkWell(
                       child: SizedBox(
                         child: Container(
-                          height:Get.height/20,
-                          width:Get.width/9,
+                          height: Get.height / 20,
+                          width: Get.width / 9,
                         ),
                       ),
                     ),
@@ -120,7 +155,8 @@ class _selectchapterState extends State<selectchapter> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.to(() => selecttopic(),transition:Transition.leftToRight);
+                      Get.to(() => selecttopic(),
+                          transition: Transition.leftToRight);
                     },
                     child: Container(
                       height: Get.height / 25,
@@ -167,8 +203,7 @@ class _selectchapterState extends State<selectchapter> {
               ),
               SizedBox(height: 10),
               SizedBox(
-                height: Get.height / 1.3,
-                width: double.infinity,
+                height: Get.height / 1.22,
                 child: ListView.builder(
                   itemCount: chapter.length,
                   scrollDirection: Axis.vertical,

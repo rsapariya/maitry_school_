@@ -112,4 +112,6 @@ class AppUrl {
   static const String deletestudent = baseurl + '/stud_delete_inclass/';
   static const String dateresult = baseurl + '/datewise_exam';
   static const String allexamtech = baseurl + '/allexam_forteacher/';
+  static const String CreEAXM = baseurl + '/exam';
+  static const String Forgot = baseurl + '/send_otp';
 }

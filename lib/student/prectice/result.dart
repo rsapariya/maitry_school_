@@ -252,7 +252,6 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                     InkWell(
                                         onTap: () {},
                                         child: Container(
-                                            // height: Get.height / 20,
                                             width: double.infinity,
                                             decoration: BoxDecoration(
                                                 color: Colors.grey

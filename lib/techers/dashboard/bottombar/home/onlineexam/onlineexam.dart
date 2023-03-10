@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/viewexam/createxam.dart';
+import 'package:schooolapp/techers/dashboard/bottombar/home/result/studentwise.dart';
 import '../../../../units/api.dart';
 import '../../../../units/cusomewidget.dart';
 import '../notification.dart';
@@ -315,8 +316,10 @@ class _onlineState extends State<online> {
       if (val['success'] == true) {
         setState(() {
           Class.clear();
+          Classes.clear();
           val['Result'].forEach((e) {
             Class.add(e);
+            Classes.add(e);
           });
         });
         print('--Getclass->>$val');

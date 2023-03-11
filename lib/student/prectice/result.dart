@@ -361,28 +361,31 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                       height: 15,
                                     ),
                                     InkWell(
-                                        child: Container(
-                                            // height: Get.height / 20,
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                                color: Colors.green,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.transparent)),
-                                            child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: SizedBox(
-                                                    width: Get.width / 1.3,
-                                                    child: const Text(
-                                                        "Answer: D",
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        )))))),
+                                      child: Container(
+                                        // height: Get.height / 20,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: Colors.transparent)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: SizedBox(
+                                            width: Get.width / 1.3,
+                                            child: const Text(
+                                              "Answer: D",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                     const SizedBox(
                                       height: 15,
                                     ),
@@ -392,29 +395,5 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                     )
                                   ])))))
                 ]))));
-  }
-
-  Widget _appBar(BuildContext context, ColorAnimated colorAnimated) {
-    return AppBar(
-        backgroundColor: colorAnimated.background,
-        elevation: 0,
-        title: Text(
-          "AppBar Animate",
-          style: TextStyle(
-            color: colorAnimated.color,
-          ),
-        ),
-        leading: Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: colorAnimated.color,
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.favorite,
-                color: colorAnimated.color,
-              ))
-        ]);
   }
 }

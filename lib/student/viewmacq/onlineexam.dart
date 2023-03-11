@@ -216,7 +216,8 @@ class _selectchaptersState extends State<selectchapters> {
                 ),
               )
             : Center(
-                child: CircularProgressIndicator(strokeWidth:3,
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
                   color: Colors.blue,
                 ),
               ),

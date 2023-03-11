@@ -289,7 +289,7 @@ class _onlineState extends State<online> {
                                 'All Class',
                                 style: TextStyle(
                                     fontFamily: 'popins', fontSize: 14),
-                              )
+                              ),
                             ],
                           ),
                         ),

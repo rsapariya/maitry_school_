@@ -166,32 +166,6 @@ class _selectchaptersState extends State<selectchapters> {
                                             SizedBox(
                                               height: 5,
                                             ),
-                                            // Row(
-                                            //   children: [
-                                            //     Text(
-                                            //       chapter[index]["topic"] ?? "",
-                                            //       style: TextStyle(
-                                            //         color: Colors.grey,
-                                            //         fontSize: 12,
-                                            //         fontFamily: 'Gilroy Medium',
-                                            //       ),
-                                            //     ),
-                                            //     SizedBox(
-                                            //       width: 10,
-                                            //     ),
-                                            //     SizedBox(
-                                            //       width: 10,
-                                            //     ),
-                                            //     Text(
-                                            //       chapter[index]["qest"] ?? "",
-                                            //       style: TextStyle(
-                                            //         color: Colors.grey,
-                                            //         fontSize: 12,
-                                            //         fontFamily: 'Gilroy Medium',
-                                            //       ),
-                                            //     ),
-                                            //   ],
-                                            // ),
                                           ],
                                         ),
                                         Spacer(),

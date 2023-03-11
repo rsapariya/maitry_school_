@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../../techers/units/api.dart';
 import '../../techers/units/storage.dart';
 
-List<String> _selectedChapterNames = [];
+List<String> selectedChapterIds = [];
 
 class precticechapter extends StatefulWidget {
   const precticechapter({Key? key}) : super(key: key);
@@ -18,10 +18,9 @@ class _precticechapterState extends State<precticechapter> {
   @override
   void initState() {
     Getchapter();
+    selectedChapterIds.clear();
     super.initState();
   }
-
-
 
   int selectedindex = 0;
   List chapter = [];
@@ -135,12 +134,17 @@ class _precticechapterState extends State<precticechapter> {
                           splashColor: Colors.transparent,
                           onTap: () {
                             setState(() {
-                              if (chapter[index]['created_at'] == "true") {
-                                chapter[index]['created_at'] = "false";
+                              if (selectedChapterIds.contains(
+                                  chapter[index]["chapter_id"].toString())) {
+                                // If the chapter_id is already in the array, remove it
+                                selectedChapterIds.remove(
+                                    chapter[index]["chapter_id"].toString());
                               } else {
-                                chapter[index]['created_at'] = "true";
+                                // If the chapter_id is not in the array, add it
+                                selectedChapterIds.add(
+                                    chapter[index]["chapter_id"].toString());
                               }
-                              print(chapter[index]['created_at']);
+                              print(selectedChapterIds);
                             });
                           },
                           child: Container(
@@ -172,6 +176,18 @@ class _precticechapterState extends State<precticechapter> {
                                                         'Gilroy Medium'),
                                               ),
                                             ),
+                                            SizedBox(
+                                              width: Get.width / 1.2,
+                                              child: Text(
+                                                chapter[index]["chapter_id"]
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18,
+                                                    fontFamily:
+                                                        'Gilroy Medium'),
+                                              ),
+                                            ),
                                             const SizedBox(
                                               height: 5,
                                             ),
@@ -185,21 +201,24 @@ class _precticechapterState extends State<precticechapter> {
                                             width: 15,
                                             decoration: BoxDecoration(
                                                 border: Border.all(
-                                                    color: chapter[index][
-                                                                'created_at'] ==
-                                                            "true"
+                                                    color: selectedChapterIds
+                                                            .contains(chapter[index]
+                                                                    [
+                                                                    "chapter_id"]
+                                                                .toString())
                                                         ? Colors.blue
                                                         : Colors.grey),
-                                                color: chapter[index]
-                                                            ['created_at'] ==
-                                                        "true"
+                                                color: selectedChapterIds
+                                                        .contains(chapter[index]
+                                                                ["chapter_id"]
+                                                            .toString())
                                                     ? Colors.blue
                                                     : Colors.white,
                                                 borderRadius:
                                                     BorderRadius.circular(2)),
-                                            child: chapter[index]
-                                                        ['created_at'] ==
-                                                    "true"
+                                            child: selectedChapterIds.contains(
+                                                    chapter[index]["chapter_id"]
+                                                        .toString())
                                                 ? const Center(
                                                     child: Icon(
                                                       Icons.done,
@@ -262,14 +281,3 @@ class _precticechapterState extends State<precticechapter> {
     }
   }
 }
-
-List a = [
-  {'id': '1', "name": "saimol"},
-  {'id': '2', "name": "saimol"},
-  {'id': '12', "name": "saimol"},
-  {'id': '23', "name": "saimol"},
-  {'id': '11', "name": "saimol"},
-  {'id': '16', "name": "saimol"},
-  {'id': '19', "name": "saimol"},
-  {'id': '91', "name": "saimol"},
-];

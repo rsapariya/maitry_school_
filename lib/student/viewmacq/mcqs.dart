@@ -142,7 +142,8 @@ class _viewmcqsState extends State<viewmcqs> {
               )
             : const Center(
                 child: CircularProgressIndicator(
-                  strokeWidth: 1,
+                  strokeWidth: 3,
+
                   color: Colors.blue,
                 ),
               ),

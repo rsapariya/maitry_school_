@@ -1,13 +1,13 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:schooolapp/student/prectice/prectice.dart';
 import 'package:schooolapp/student/prectice/selectch.dart';
-
 import '../../techers/units/api.dart';
+
 List<String> selectedToicIds = [];
+
 class Testtopic extends StatefulWidget {
   const Testtopic({Key? key}) : super(key: key);
 
@@ -112,14 +112,15 @@ class _TesttopicState extends State<Testtopic> {
                           splashColor: Colors.transparent,
                           onTap: () {
                             setState(() {
-                              if (selectedToicIds.contains(Topic[index]["topic_id"].toString())) {
+                              if (selectedToicIds.contains(
+                                  Topic[index]["topic_id"].toString())) {
                                 // If the chapter_id is already in the array, remove it
                                 selectedToicIds.remove(
                                     Topic[index]["topic_id"].toString());
                               } else {
                                 // If the chapter_id is not in the array, add it
-                                selectedToicIds.add(
-                                    Topic[index]["topic_id"].toString());
+                                selectedToicIds
+                                    .add(Topic[index]["topic_id"].toString());
                               }
                               print(selectedToicIds);
                             });
@@ -183,24 +184,31 @@ class _TesttopicState extends State<Testtopic> {
                                             width: 15,
                                             decoration: BoxDecoration(
                                                 border: Border.all(
-                                                    color: selectedToicIds.contains(Topic[index]["topic_id"].toString())
+                                                    color: selectedToicIds
+                                                            .contains(Topic[
+                                                                        index]
+                                                                    ["topic_id"]
+                                                                .toString())
                                                         ? Colors.blue
                                                         : Colors.grey),
-                                                color: selectedToicIds.contains(Topic[index]["topic_id"].toString())
+                                                color: selectedToicIds.contains(
+                                                        Topic[index]["topic_id"]
+                                                            .toString())
                                                     ? Colors.blue
                                                     : Colors.white,
                                                 borderRadius:
                                                     BorderRadius.circular(2)),
-                                            child:
-                                            selectedToicIds.contains(Topic[index]["topic_id"].toString())
-                                                    ? const Center(
-                                                        child: Icon(
-                                                          Icons.done,
-                                                          size: 12,
-                                                          color: Colors.white,
-                                                        ),
-                                                      )
-                                                    : const SizedBox(),
+                                            child: selectedToicIds.contains(
+                                                    Topic[index]["topic_id"]
+                                                        .toString())
+                                                ? const Center(
+                                                    child: Icon(
+                                                      Icons.done,
+                                                      size: 12,
+                                                      color: Colors.white,
+                                                    ),
+                                                  )
+                                                : const SizedBox(),
                                           ),
                                         ),
                                       ],
@@ -217,7 +225,7 @@ class _TesttopicState extends State<Testtopic> {
                         ),
                       )
                     : Center(
-                        child: const CircularProgressIndicator(),
+                        child: const CircularProgressIndicator(strokeWidth: 3),
                       ),
               ),
             ],
@@ -239,24 +247,19 @@ class _TesttopicState extends State<Testtopic> {
       print("----");
       print(val);
       if (val['success'] == true) {
-        setState(() {
-          Topic.clear();
-        });
         val['Result'].forEach((e) {
           Topic.add(e);
         });
+        selectedToicIds.add(Topic[0]["topic_id"].toString());
         setState(() {
           loding = false;
         });
-        print("------>>> ${Topic}");
       } else {
-        print("--else--->>> ${Topic}");
         setState(() {
           loding = false;
         });
       }
     } else {
-      print("---else-->>> ${val}");
       setState(() {
         loding = false;
       });

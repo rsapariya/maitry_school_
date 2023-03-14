@@ -385,7 +385,7 @@ class _homesState extends State<homes> {
                                 height: 10,
                               ),
                               const Text(
-                                'Practice Test',
+                                'Practice Test' ,
                                 style: TextStyle(
                                     fontFamily: 'popins', fontSize: 13),
                               )

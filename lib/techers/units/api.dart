@@ -96,10 +96,8 @@ class AppUrl {
   static const String getrequest = baseurl + '/allrequest';
   static const String chagepass = baseurl + '/change_password';
   static const String decline = baseurl + '/request_decline';
-  static const String getsubscribeT =
-      baseurl + '/getsubscriptionplan?type=Teacher';
-  static const String getsubscribeS =
-      baseurl + '/getsubscriptionplan?type=Student';
+  static const String getsubscribeT = baseurl + '/getsubscriptionplan?type=Teacher';
+  static const String getsubscribeS = baseurl + '/getsubscriptionplan?type=Student';
   static const String getclass = baseurl + '/allclass';
   static const String Creatclass = baseurl + '/create_class';
   static const String Deleteclass = baseurl + '/class_delete/';
@@ -114,4 +112,5 @@ class AppUrl {
   static const String allexamtech = baseurl + '/allexam_forteacher/';
   static const String CreEAXM = baseurl + '/exam';
   static const String Forgot = baseurl + '/send_otp';
+  static const String PostTest = baseurl + '/test';
 }

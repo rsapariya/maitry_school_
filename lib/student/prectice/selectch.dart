@@ -18,7 +18,9 @@ class _precticechapterState extends State<precticechapter> {
   @override
   void initState() {
     Getchapter();
+
     selectedChapterIds.clear();
+
     super.initState();
   }
 
@@ -81,6 +83,13 @@ class _precticechapterState extends State<precticechapter> {
                         ),
                       ),
                     ),
+                    const Text(
+                      "Select Chapter",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "popins Medium",
+                          fontSize: 18),
+                    ),
                     InkWell(
                       onTap: () {
                         Get.back();
@@ -108,7 +117,7 @@ class _precticechapterState extends State<precticechapter> {
                 child: Row(
                   children: [
                     const Text(
-                      "Prectice Test",
+                      "Practice Test",
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 22,
@@ -243,7 +252,10 @@ class _precticechapterState extends State<precticechapter> {
                         ),
                       ),
                     )
-                  : CircularProgressIndicator(),
+                  : Padding(
+                      padding: EdgeInsets.only(top: Get.height / 3),
+                      child: CircularProgressIndicator(strokeWidth: 3),
+                    ),
             ],
           ),
         ),
@@ -269,6 +281,8 @@ class _precticechapterState extends State<precticechapter> {
       val['Result'].forEach((e) {
         chapter.add(e);
       });
+      selectedChapterIds.add(chapter[0]["chapter_id"].toString());
+
       setState(() {
         loading = false;
       });

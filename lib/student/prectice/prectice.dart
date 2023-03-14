@@ -318,7 +318,6 @@ class _tacktestState extends State<tacktest> {
         onChanged: (value) {
           setState(() {
             _selected = value as String;
-            print(_selected);
 
             _selected == '01' ? negative.text = '0.25' : negative.text = '3';
             _selected == '01' ? Ma = 1 : 4;

@@ -200,7 +200,6 @@ class _JointeacherState extends State<Jointeacher> {
                   InkWell(
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
-                          print('------------');
                           setState(() {
                             loding = true;
                           });
@@ -337,11 +336,9 @@ class _JointeacherState extends State<Jointeacher> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        print('----');
                         setState(() {});
                         Navigator.of(context).pop();
                         sselectedindex == index;
-                        print(sselectedindex.toString());
                       },
                       child: Row(
                         children: [
@@ -429,8 +426,6 @@ class _JointeacherState extends State<Jointeacher> {
     var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
-      print("----");
-      print(val);
       if (val['success'] == true) {
         setState(() {
           loding = false;
@@ -445,7 +440,6 @@ class _JointeacherState extends State<Jointeacher> {
       }
     } else {
       ApiWrapper.fluttertosat(val['message'].toString());
-      print("---else-->>> ${val}");
       setState(() {
         loding = false;
       });

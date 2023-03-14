@@ -202,8 +202,6 @@ class _selecttopicsState extends State<selecttopics> {
     var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
-      print("----");
-      print(val);
       if (val['success'] == true) {
         setState(() {
           Topics.clear();
@@ -214,9 +212,7 @@ class _selecttopicsState extends State<selecttopics> {
         setState(() {
           loding = false;
         });
-        print("------>>> ${Topics}");
       } else {
-        print("--else--->>> ${Topics}");
         setState(() {
           loding = false;
         });

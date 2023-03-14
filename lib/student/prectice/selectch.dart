@@ -153,7 +153,6 @@ class _precticechapterState extends State<precticechapter> {
                                 selectedChapterIds.add(
                                     chapter[index]["chapter_id"].toString());
                               }
-                              print(selectedChapterIds);
                             });
                           },
                           child: Container(

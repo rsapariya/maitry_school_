@@ -455,14 +455,10 @@ class _homesState extends State<homes> {
             subscribplanse.add(e);
           });
         });
-        print('--000000000000000000000000000000000->>$val');
         setState(() {});
       } else {
-        print('--0000->>$val');
       }
-      // print('--->>$val');
     } else {
-      print('--00000->>$val');
     }
   }
 
@@ -478,13 +474,10 @@ class _homesState extends State<homes> {
         setState(() {
           save('offers', val);
         });
-        print('--   OFER     ->>$val');
         setState(() {});
       } else {
-        print('--   OFER     ->>$val');
       }
     } else {
-      print('--   OFER     ->>$val');
     }
   }
 
@@ -507,13 +500,10 @@ class _homesState extends State<homes> {
             ExamList.add(e);
           });
         });
-        print('--   EXAM     ->>$val');
         setState(() {});
       } else {
-        print('--   EXAM     ->>$val');
       }
     } else {
-      print('--   EXAM     ->>$val');
     }
   }
 
@@ -549,7 +539,6 @@ class _homesState extends State<homes> {
         onChanged: (value) {
           setState(() {
             _selected = value as String;
-            print(_selected);
           });
         },
         buttonStyleData: const ButtonStyleData(

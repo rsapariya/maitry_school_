@@ -229,17 +229,14 @@ class _allclassState extends State<allclass> {
             classtudent.add(e);
           });
         });
-        print('--Getclass->>$val');
         setState(() {});
       } else {
         setState(() {
           classtudent.clear();
         });
-        print('--Getclass->>$val');
       }
     } else {
       setState(() {});
-      print('--Getclass->>$val');
     }
   }
 
@@ -260,7 +257,6 @@ class _allclassState extends State<allclass> {
             Classes.add(e);
           });
         });
-        print('--Getclass->>$val');
         setState(() {
           loding = false;
         });
@@ -270,14 +266,12 @@ class _allclassState extends State<allclass> {
           Classes.clear();
           loding = false;
         });
-        print('--Getclass->>$val');
       }
       // print('--->>$val');
     } else {
       setState(() {
         loding = false;
       });
-      print('--Getclass->>$val');
     }
   }
 

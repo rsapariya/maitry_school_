@@ -188,8 +188,6 @@ class _createclassState extends State<createclass> {
     var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
-      print("----");
-      print(val);
       if (val['success'] == true) {
         setState(() {});
         Getclass();
@@ -203,7 +201,6 @@ class _createclassState extends State<createclass> {
       }
     } else {
       ApiWrapper.fluttertosat(val['message'].toString());
-      print("---else-->>> ${val}");
       setState(() {
         loding = false;
       });
@@ -227,13 +224,11 @@ class _createclassState extends State<createclass> {
             Classes.add(e);
           });
         });
-        print('--Getclass->>$Classes');
         setState(() {
           Get.off(() => allclass());
           loding = false;
         });
       } else {
-        print('--Getclass->>$val');
       }
       // print('--->>$val');
     } else {

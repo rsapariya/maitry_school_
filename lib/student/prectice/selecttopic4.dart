@@ -122,7 +122,6 @@ class _TesttopicState extends State<Testtopic> {
                                 selectedToicIds
                                     .add(Topic[index]["topic_id"].toString());
                               }
-                              print(selectedToicIds);
                             });
                           },
                           child: Container(

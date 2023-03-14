@@ -38,7 +38,6 @@ class _homeState extends State<home> {
         token = value;
       });
 
-      print(token);
     });
     super.initState();
   }
@@ -397,18 +396,15 @@ class _homeState extends State<home> {
             });
           },
         );
-        print('--Getclass->>$val');
         setState(() {});
       } else {
         setState(() {
           Class.clear();
           Classes.clear();
         });
-        print('--Getclass->>$val');
       }
     } else {
       setState(() {});
-      print('--Getclass->>$val');
     }
   }
 

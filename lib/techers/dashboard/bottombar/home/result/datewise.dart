@@ -30,45 +30,42 @@ class _DatewiseState extends State<Datewise> {
     return Scaffold(
         body: Column(children: [
       Padding(
-          padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
-          child: TextFormField(
-              style: TextStyle(
-                fontFamily: "popins",
-              ),
-              controller: startdate,
-              autofocus: false,
-              readOnly: true,
-              onTap: () async {
-                DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(
-                        2000), //DateTime.now() - not to allow to choose before today.
-                    lastDate: DateTime(2101));
-                if (pickedDate != null) {
-                  print(
-                      pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                  String formattedDate =
-                      DateFormat('yyyy-MM-dd').format(pickedDate);
-                  print(
-                      formattedDate); //formatted date output using intl package =>  2021-03-16
-                  setState(() {
-                    startdate.text =
-                        formattedDate; //set output date to TextField value.
-                    loding = true;
-                  });
-                  GetExam();
-                } else {
-                  print("Date is not selected");
-                }
-              },
-              decoration: buildInputDecoration(
-                  hintText: "Select Exam Start Date",
-                  lbltext: "Select Exam Start Date",
-                  surfix: Icon(
-                    Icons.calendar_month_sharp,
-                    color: Colors.blue,
-                  )))),
+        padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
+        child: TextFormField(
+          style: TextStyle(
+            fontFamily: "popins",
+          ),
+          controller: startdate,
+          autofocus: false,
+          readOnly: true,
+          onTap: () async {
+            DateTime? pickedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2101));
+            if (pickedDate != null) {
+              String formattedDate =
+                  DateFormat('yyyy-MM-dd').format(pickedDate);
+              setState(() {
+                startdate.text = formattedDate;
+                loding = true;
+              });
+              GetExam();
+            } else {
+              print("Date is not selected");
+            }
+          },
+          decoration: buildInputDecoration(
+            hintText: "Select Exam Start Date",
+            lbltext: "Select Exam Start Date",
+            surfix: Icon(
+              Icons.calendar_month_sharp,
+              color: Colors.blue,
+            ),
+          ),
+        ),
+      ),
       SizedBox(
         height: Get.height / 70,
       ),

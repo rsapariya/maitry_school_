@@ -195,7 +195,6 @@ class _studentlsiState extends State<studentlsi> {
             Student.add(e);
           });
         });
-        print('--STUDENT       ->>$val');
         setState(() {
           loding = false;
         });
@@ -204,14 +203,11 @@ class _studentlsiState extends State<studentlsi> {
           Student.clear();
           loding = false;
         });
-        print('--Getclass->>$val');
       }
-      // print('--->>$val');
     } else {
       setState(() {
         loding = false;
       });
-      print('--Getclass->>$val');
     }
   }
 
@@ -229,12 +225,10 @@ class _studentlsiState extends State<studentlsi> {
         Gestudent();
         ApiWrapper.fluttertosat(val['message'].toString());
 
-        print('--STUDENT   stid    ->>$val');
       } else {
         setState(() {
           loding = false;
         });
-        print('--Getclass  stid   ->>$val');
         ApiWrapper.fluttertosat(val['message'].toString());
       }
     } else {
@@ -243,7 +237,6 @@ class _studentlsiState extends State<studentlsi> {
       });
       ApiWrapper.fluttertosat(val['message'].toString());
 
-      print('--Getclass   stid   ->>$val');
     }
   }
 

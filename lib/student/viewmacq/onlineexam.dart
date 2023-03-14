@@ -200,8 +200,6 @@ class _selectchaptersState extends State<selectchapters> {
   }
 
   Getchapter() async {
-    print(
-        "---------------- GETCHAPTER _________${getdata.read('logindata')['Result']['user_api'].toString()}_________-");
 
     var request =
         http.Request('GET', Uri.parse('https://maitriapp.in/api/v1/chapter/1'));
@@ -213,7 +211,6 @@ class _selectchaptersState extends State<selectchapters> {
     var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
-      print(val);
       val['Result'].forEach((e) {
         chapter.add(e);
       });

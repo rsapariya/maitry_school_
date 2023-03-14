@@ -126,7 +126,6 @@ class _viewmcqsState extends State<viewmcqs> {
                             ),
                             onTap: () {
                               setState(() {
-                                print(index);
                                 select = index;
                                 save('MCQ', MCqlist[select]);
                               });
@@ -161,8 +160,6 @@ class _viewmcqsState extends State<viewmcqs> {
     var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
-      print("----");
-      print(val);
       if (val['success'] == true) {
         setState(() {
           MCqlist.clear();
@@ -173,15 +170,12 @@ class _viewmcqsState extends State<viewmcqs> {
         setState(() {
           loding = false;
         });
-        print("------>>> ${MCqlist}");
       } else {
-        print("--else--->>> ${MCqlist}");
         setState(() {
           loding = false;
         });
       }
     } else {
-      print("---else-->>> ${val}");
       setState(() {
         loding = false;
       });

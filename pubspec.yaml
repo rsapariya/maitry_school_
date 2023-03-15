@@ -65,6 +65,8 @@ dependencies:
   firebase_remote_config: ^3.0.13
   appbar_animated: ^0.0.3
   dropdown_button2: ^2.0.0
+  flutter_html: any
+  html: ^0.15.2
 
 
 dev_dependencies:

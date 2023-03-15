@@ -136,22 +136,6 @@ class _TesttopicState extends State<Testtopic> {
                                     ),
                                     child: Row(
                                       children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 12),
-                                          child: Text(
-                                            Topic[index]["topic_id"]
-                                                    .toString() ??
-                                                "",
-                                            style: const TextStyle(
-                                                color: Colors.blue,
-                                                fontSize: 20,
-                                                fontFamily: 'Gilroy Medium'),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 15,
-                                        ),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -159,7 +143,7 @@ class _TesttopicState extends State<Testtopic> {
                                               MainAxisAlignment.center,
                                           children: [
                                             SizedBox(
-                                              width: Get.width / 1.3,
+                                              width: Get.width / 1.2,
                                               child: Text(
                                                 Topic[index]["topic_name"] ??
                                                     "",
@@ -214,7 +198,6 @@ class _TesttopicState extends State<Testtopic> {
                                     ),
                                   ),
                                   const Divider(
-                                    indent: 60,
                                     thickness: 1,
                                   )
                                 ],

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 import 'package:schooolapp/student/prectice/prectice.dart';
 import 'package:schooolapp/student/prectice/result.dart';
 import 'package:schooolapp/student/prectice/selecttopic4.dart';
@@ -322,11 +323,13 @@ class _TestMcqsState extends State<TestMcqs> {
                       InkWell(
                         onTap: () {
                           setState(() {
-                            SelectedMCQ = getdata.read('Mcqs')['mcqs_option4'];
+                            SelectedMCQ = getdata.read('Mcqs')['mcq_question'];
                             Arrey.add(<String, dynamic>{
+                              'Question': getdata.read('Mcqs')['mcqs_option'],
                               '1': getdata.read('Mcqs')['mcqs_option1'],
                               '2': getdata.read('Mcqs')['mcqs_option2'],
                               '3': getdata.read('Mcqs')['mcqs_option3'],
+                              '4': getdata.read('Mcqs')['mcqs_option4'],
                             });
 
                             print(Arrey);
@@ -384,7 +387,18 @@ class _TestMcqsState extends State<TestMcqs> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {
@@ -404,13 +418,12 @@ class _TestMcqsState extends State<TestMcqs> {
             count++;
           }
         });
+
         save('Mcqs', chapters[select]);
         setState(() {
           loding = false;
         });
-      }
-      else
-      {
+      } else {
         setState(() {
           loding = false;
         });

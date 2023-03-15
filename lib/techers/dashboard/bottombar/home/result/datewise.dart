@@ -78,25 +78,33 @@ class _DatewiseState extends State<Datewise> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                        width: Get.width / 10,
-                        child: const Center(
-                            child: Text('Sr',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: "popins",
-                                    fontSize: 14)))),
+                      width: Get.width / 10,
+                      child: const Center(
+                        child: Text(
+                          'Sr',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "popins",
+                              fontSize: 14),
+                        ),
+                      ),
+                    ),
                     SizedBox(
-                        width: Get.width / 2.2,
-                        child: const Center(
-                            child: Text('Name',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: "popins",
-                                    fontSize: 14)))),
+                      width: Get.width / 2.2,
+                      child: const Center(
+                        child: Text(
+                          'Name',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "popins",
+                              fontSize: 14),
+                        ),
+                      ),
+                    ),
                     SizedBox(
                         width: Get.width / 8,
                         child: const Center(

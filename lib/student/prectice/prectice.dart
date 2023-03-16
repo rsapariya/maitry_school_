@@ -1,7 +1,11 @@
+// ignore_for_file: non_constant_identifier_names, camel_case_types, sized_box_for_whitespace
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/student/prectice/testmcq.dart';
+import 'package:schooolapp/techers/units/api.dart';
+import 'package:schooolapp/techers/units/storage.dart';
 
 int Count = 1;
 
@@ -13,16 +17,13 @@ class tacktest extends StatefulWidget {
 }
 
 class _tacktestState extends State<tacktest> {
-  @override
   int Ma = 0;
   bool isnagative = false;
-  List m = ['1', '2'];
-  List<Map> Marks = [
+  List<Map> Mark = [
     {"ev_title": "1", "ev_id": "01"},
     {"ev_title": "4", "ev_id": "21"},
   ];
   String? _selected;
-
   bool langauge = true;
   String student = "11";
   int totel = 0;
@@ -30,9 +31,10 @@ class _tacktestState extends State<tacktest> {
   TextEditingController endtdate = TextEditingController();
   TextEditingController negative = TextEditingController();
   TextEditingController totelqu = TextEditingController();
-
+  TextEditingController Testname = TextEditingController();
+  @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -42,7 +44,7 @@ class _tacktestState extends State<tacktest> {
               horizontal: Get.width / 30, vertical: Get.height / 80),
           child: SingleChildScrollView(
             child: Form(
-                key: _formKey,
+                key: formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -67,7 +69,7 @@ class _tacktestState extends State<tacktest> {
                             ),
                           ),
                         ),
-                        Text(
+                        const Text(
                           "Practice Test",
                           style: TextStyle(
                               color: Colors.black,
@@ -75,11 +77,9 @@ class _tacktestState extends State<tacktest> {
                               fontSize: 18),
                         ),
                         InkWell(
-                          child: SizedBox(
-                            child: Container(
-                              height: 40,
-                              width: 40,
-                            ),
+                          child: Container(
+                            height: 40,
+                            width: 40,
                           ),
                         ),
                       ],
@@ -91,15 +91,20 @@ class _tacktestState extends State<tacktest> {
                       style: const TextStyle(
                         fontFamily: "popins",
                       ),
-                      // controller: code,
                       autofocus: false,
-
+                      controller: Testname,
+                      validator: (value) {
+                        if (Testname.text.toString().isEmpty) {
+                          return "Enter Test Name";
+                        }
+                        return null;
+                      },
                       decoration: buildInputDecoration(
-                        hintText: "Enter Exam Name",
-                        lbltext: "Enter Exam Name",
+                        hintText: "Enter Test Name",
+                        lbltext: "Enter Test Name",
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Container(
@@ -110,15 +115,15 @@ class _tacktestState extends State<tacktest> {
                           borderRadius: BorderRadius.circular(10)),
                       child: drop(),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Text(
+                    const Text(
                       "Negative Marks of One Question",
                       style:
                           TextStyle(fontFamily: "popins Medium", fontSize: 16),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Row(
@@ -132,13 +137,6 @@ class _tacktestState extends State<tacktest> {
                           child: Container(
                             width: 25,
                             height: 25,
-                            child: Center(
-                                child: isnagative
-                                    ? Icon(
-                                        Icons.done,
-                                        color: Colors.white,
-                                      )
-                                    : SizedBox()),
                             decoration: BoxDecoration(
                                 color: isnagative ? Colors.blue : Colors.white,
                                 borderRadius: BorderRadius.circular(5),
@@ -146,16 +144,23 @@ class _tacktestState extends State<tacktest> {
                                     color: isnagative
                                         ? Colors.blue
                                         : Colors.grey)),
+                            child: Center(
+                                child: isnagative
+                                    ? const Icon(
+                                        Icons.done,
+                                        color: Colors.white,
+                                      )
+                                    : const SizedBox()),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         SizedBox(
                           width: Get.width / 2,
                           child: TextFormField(
                             keyboardType: TextInputType.number,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "popins",
                             ),
                             controller: negative,
@@ -169,19 +174,19 @@ class _tacktestState extends State<tacktest> {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           "MCQ   X  ",
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "popins",
                               fontSize: 16),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         SizedBox(
@@ -191,6 +196,7 @@ class _tacktestState extends State<tacktest> {
                               if (totelqu.text.toString().isEmpty) {
                                 return "Enter Qes No";
                               }
+                              return null;
                             },
                             keyboardType: TextInputType.number,
                             style: const TextStyle(
@@ -205,7 +211,7 @@ class _tacktestState extends State<tacktest> {
                           ),
                         ),
                         Text(
-                          "   =  ${totel}",
+                          "   =  $totel",
                           style: const TextStyle(
                               color: Colors.black,
                               fontFamily: "popins",
@@ -213,18 +219,25 @@ class _tacktestState extends State<tacktest> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Center(
                       child: InkWell(
                         onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            setState(() {
-                              Count = int.parse(totelqu.text);
-                            });
-                            Get.to(() => const TestMcqs(),
-                                transition: Transition.leftToRight);
+                          if (formKey.currentState!.validate()) {
+                            if (_selected == null) {
+                              ApiWrapper.fluttertosat(
+                                  'Select Marks of Question');
+                            } else {
+                              setState(() {
+                                Count = int.parse(totelqu.text);
+                                save('testname', Testname.text);
+                                save('Quesmark', Ma.toString());
+                              });
+                              Get.to(() => const TestMcqs(),
+                                  transition: Transition.leftToRight);
+                            }
                           }
                         },
                         child: Container(
@@ -264,19 +277,19 @@ class _tacktestState extends State<tacktest> {
       prefixIcon: prifix,
       suffixIcon: surfix,
       hintText: hintText,
-      hintStyle: TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: TextStyle(fontFamily: "popins", fontSize: 14),
+      hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
+      labelStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
       labelText: lbltext,
-      contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+      contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
               color: Colors.white,
               width: 0.5,
               strokeAlign: StrokeAlign.center)),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: Colors.transparent,
           width: 1,
         ),
@@ -302,7 +315,7 @@ class _tacktestState extends State<tacktest> {
             ),
           ],
         ),
-        items: Marks.map((Map map) => DropdownMenuItem<String>(
+        items: Mark.map((Map map) => DropdownMenuItem<String>(
               value: map["ev_id"].toString(),
               child: Text(
                 map['ev_title'],
@@ -318,9 +331,8 @@ class _tacktestState extends State<tacktest> {
         onChanged: (value) {
           setState(() {
             _selected = value as String;
-
             _selected == '01' ? negative.text = '0.25' : negative.text = '3';
-            _selected == '01' ? Ma = 1 : 4;
+            _selected == '01' ? Ma = 1 : Ma = 4;
           });
         },
         buttonStyleData: ButtonStyleData(
@@ -353,11 +365,4 @@ class _tacktestState extends State<tacktest> {
       ),
     );
   }
-
-  // Totel() {
-  //   setState(() {
-  //     int myInt = int.parse(totelqu.text);
-  //     totel = myInt * Ma;
-  //   });
-  // }
 }

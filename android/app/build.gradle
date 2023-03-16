@@ -34,7 +34,6 @@ if (keystorePropertiesFile.exists()) {
 android {
     compileSdkVersion 33
     ndkVersion flutter.ndkVersion
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -56,8 +55,8 @@ android {
         minSdkVersion 19
         multiDexEnabled true
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 03
-        versionName "03"
+        versionCode 10
+        versionName "10"
     }
 
     signingConfigs {

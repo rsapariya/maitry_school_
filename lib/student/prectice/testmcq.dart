@@ -78,6 +78,8 @@ class _TestMcqsState extends State<TestMcqs> {
                           onTap: () {
                             setState(() {
                               OnTap();
+                              print(select);
+
                               select++;
                               next++;
                               save('Mcqs', chapters[select]);
@@ -97,20 +99,24 @@ class _TestMcqsState extends State<TestMcqs> {
                               ))))
                       : InkWell(
                           onTap: () {
+                            OnTap();
                             Get.off(() => PrecticeResult(),
                                 transition: Transition.topLevel);
                           },
                           child: Container(
-                              height: Get.height / 20,
-                              width: Get.width / 6,
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: const Center(
-                                  child: Text(
+                            height: Get.height / 20,
+                            width: Get.width / 6,
+                            decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: const Center(
+                              child: Text(
                                 'Submit',
                                 style: TextStyle(color: Colors.white),
-                              )))),
+                              ),
+                            ),
+                          ),
+                        ),
                   select + 2 <= chapters.length
                       ? InkWell(
                           onTap: () {
@@ -121,16 +127,19 @@ class _TestMcqsState extends State<TestMcqs> {
                             save('Mcqs', chapters[select]);
                           },
                           child: Container(
-                              height: Get.height / 20,
-                              width: Get.width / 6,
-                              decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: const Center(
-                                  child: Text(
-                                'Next',
+                            height: Get.height / 20,
+                            width: Get.width / 6,
+                            decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: const Center(
+                              child: Text(
+                                'Skip',
                                 style: TextStyle(color: Colors.white),
-                              ))))
+                              ),
+                            ),
+                          ),
+                        )
                       : Container(
                           height: Get.height / 20,
                           width: Get.width / 6,
@@ -138,10 +147,11 @@ class _TestMcqsState extends State<TestMcqs> {
                               color: Colors.blue.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(10)),
                           child: const Center(
-                              child: Text(
-                            'Next',
-                            style: TextStyle(color: Colors.blue),
-                          )))
+                            child: Text(
+                              'Next',
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ))
                 ],
               ),
             )
@@ -371,16 +381,10 @@ class _TestMcqsState extends State<TestMcqs> {
         val['Result'].forEach((e) {
           if (count < Count) {
             chapters.add(e);
+            print(e['mcqs_answer']);
             count++;
           }
         });
-        val['Result'].forEach((e) {
-          if (count < Count) {
-            Arrey.add(e);
-            count++;
-          }
-        });
-
         save('Mcqs', chapters[select]);
         setState(() {
           loding = false;
@@ -410,8 +414,8 @@ class _TestMcqsState extends State<TestMcqs> {
         "mcqs_answer": getdata.read('Mcqs')['mcqs_answer'],
         "student_ans": getdata.read('student_ans'),
         "Marks": 1,
+        "Result": "${getdata.read('Mcqs')['mcqs_answer']}",
       });
-      print(Arrey[select]['Marks'].toString());
     } else {
       Arrey.add({
         "mcqs_id": getdata.read('Mcqs')['mcqs_id'],
@@ -423,13 +427,9 @@ class _TestMcqsState extends State<TestMcqs> {
         "mcqs_answer": getdata.read('Mcqs')['mcqs_answer'],
         "student_ans": getdata.read('student_ans'),
         "Marks": 0,
+        "Result":"${getdata.read('Mcqs')['mcqs_answer']} (Your Choice: ${getdata.read('student_ans')})",
       });
-      print(Arrey[select]['Marks'].toString());
     }
-
     setState(() {});
-    print('===');
-    // print(getdata.read('Mcqs')['mcqs_id']);
-    // print(Arrey.length);
   }
 }

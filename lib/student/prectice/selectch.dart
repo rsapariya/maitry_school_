@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 import 'package:schooolapp/student/prectice/selecttopic4.dart';
 import 'package:http/http.dart' as http;
 import '../../techers/units/api.dart';
@@ -273,7 +274,18 @@ class _precticechapterState extends State<precticechapter> {
 
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       print(val);

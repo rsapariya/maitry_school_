@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
@@ -273,7 +274,18 @@ class _DatewiseState extends State<Datewise> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       print("----");

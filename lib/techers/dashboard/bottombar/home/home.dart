@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/PDFpaper.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pendingreqest/pendingreqeust.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/result/results.dart';
@@ -382,7 +383,18 @@ class _homeState extends State<home> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {
@@ -413,7 +425,18 @@ class _homeState extends State<home> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {
@@ -439,7 +462,18 @@ class _homeState extends State<home> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {
@@ -469,7 +503,18 @@ class _homeState extends State<home> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {

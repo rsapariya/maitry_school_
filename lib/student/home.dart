@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 import 'package:schooolapp/student/prectice/selectch.dart';
 import 'package:http/http.dart' as http;
 import 'package:schooolapp/student/viewmacq/onlineexam.dart';
@@ -445,7 +446,18 @@ class _homesState extends State<homes> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {
@@ -467,7 +479,18 @@ class _homesState extends State<homes> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {
@@ -489,7 +512,18 @@ class _homesState extends State<homes> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {

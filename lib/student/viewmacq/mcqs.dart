@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 import 'package:schooolapp/techers/units/storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -157,7 +158,18 @@ class _viewmcqsState extends State<viewmcqs> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {

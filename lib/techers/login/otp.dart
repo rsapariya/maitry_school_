@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 import 'package:pinput/pinput.dart';
 import 'package:schooolapp/techers/units/storage.dart';
 import 'package:http/http.dart' as http;
@@ -24,6 +25,9 @@ class _verificationState extends State<verification> {
   @override
   var SMS = "";
   bool loding = false;
+
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +62,7 @@ class _verificationState extends State<verification> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    getdata.read('Register')['phonenumber']??"",
+                    getdata.read('Register')['phonenumber'] ?? "",
                     style: const TextStyle(
                       fontFamily: "popins Medium",
                       fontSize: 18,
@@ -238,7 +242,18 @@ class _verificationState extends State<verification> {
 
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {
@@ -265,4 +280,72 @@ class _verificationState extends State<verification> {
       ApiWrapper.fluttertosat(val['message'].toString());
     }
   }
+}
+
+class v {
+  List a = [
+    {
+      'a': 'asddd',
+      'b': 'ss',
+      'c': 'fev',
+      'd': 'ss',
+      'e': 'asvetbddd',
+    },
+    {
+      'a': 'asddd',
+      'b': 'ss',
+      'c': 'fev',
+      'd': 'ss',
+      'e': 'asvetbddd',
+    },
+    {
+      'a': 'asddd',
+      'b': 'ss',
+      'c': 'fev',
+      'd': 'ss',
+      'e': 'asvetbddd',
+    },
+    {
+      'a': 'asddd',
+      'b': 'ss',
+      'c': 'fev',
+      'd': 'ss',
+      'e': 'asvetbddd',
+    },
+    {
+      'a': 'asddd',
+      'b': 'ss',
+      'c': 'fev',
+      'd': 'ss',
+      'e': 'asvetbddd',
+    },
+    {
+      'a': 'asddd',
+      'b': 'ss',
+      'c': 'fev',
+      'd': 'ss',
+      'e': 'asvetbddd',
+    },
+    {
+      'a': 'asddd',
+      'b': 'ss',
+      'c': 'fev',
+      'd': 'ss',
+      'e': 'asvetbddd',
+    },
+    {
+      'a': 'asddd',
+      'b': 'ss',
+      'c': 'fev',
+      'd': 'ss',
+      'e': 'asvetbddd',
+    },
+    {
+      'a': 'asddd',
+      'b': 'ss',
+      'c': 'fev',
+      'd': 'ss',
+      'e': 'asvetbddd',
+    },
+  ];
 }

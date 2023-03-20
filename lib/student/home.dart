@@ -18,6 +18,7 @@ import 'gujcetpaper.dart';
 
 List subscribplanse = [];
 List ExamList = [];
+List Alltest = [];
 
 class homes extends StatefulWidget {
   const homes({Key? key}) : super(key: key);
@@ -30,6 +31,7 @@ class _homesState extends State<homes> {
   void initState() {
     GetOfer();
     Getexam();
+    Alltestapi();
     getsubsribtionS();
     super.initState();
   }
@@ -386,7 +388,7 @@ class _homesState extends State<homes> {
                                 height: 10,
                               ),
                               const Text(
-                                'Practice Test' ,
+                                'Practice Test',
                                 style: TextStyle(
                                     fontFamily: 'popins', fontSize: 13),
                               )
@@ -468,10 +470,8 @@ class _homesState extends State<homes> {
           });
         });
         setState(() {});
-      } else {
-      }
-    } else {
-    }
+      } else {}
+    } else {}
   }
 
   GetOfer() async {
@@ -498,10 +498,8 @@ class _homesState extends State<homes> {
           save('offers', val);
         });
         setState(() {});
-      } else {
-      }
-    } else {
-    }
+      } else {}
+    } else {}
   }
 
   Getexam() async {
@@ -535,10 +533,8 @@ class _homesState extends State<homes> {
           });
         });
         setState(() {});
-      } else {
-      }
-    } else {
-    }
+      } else {}
+    } else {}
   }
 
   drop() {
@@ -601,5 +597,42 @@ class _homesState extends State<homes> {
         ),
       ),
     );
+  }
+
+  Alltestapi() async {
+    print("--------------ALLLLLTEST _____________");
+    var request = http.MultipartRequest('GET', Uri.parse(AppUrl.AllTestApi));
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          Alltest.clear();
+        });
+        val['Result'].forEach((e) {
+          Alltest.add(e);
+        });
+        print("--------------ALLLLLTEST _____________$Alltest");
+        setState(() {});
+      } else {
+        setState(() {});
+      }
+    } else {
+      setState(() {});
+    }
   }
 }

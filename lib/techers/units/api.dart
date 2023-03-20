@@ -113,4 +113,6 @@ class AppUrl {
   static const String CreEAXM = baseurl + '/exam';
   static const String Forgot = baseurl + '/send_otp';
   static const String PostTest = baseurl + '/test';
+  static const String AllTestApi = baseurl + '/alltest';
+  static const String Result = baseurl + '/test_result/';
 }

@@ -1,33 +1,31 @@
-// ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
-import 'package:schooolapp/student/prectice/prectice.dart';
-import 'package:schooolapp/student/prectice/testmcq.dart';
 import 'package:share/share.dart';
 import '../../techers/units/api.dart';
 import '../../techers/units/storage.dart';
-import '../bottoms.dart';
 
 double total = 0;
 double PR = 0;
 int gget = 0;
 int Posi = 0;
 
-class PrecticeResult extends StatefulWidget {
-  const PrecticeResult({Key? key}) : super(key: key);
+List Mcq = [];
+
+class TestResults extends StatefulWidget {
+  const TestResults({Key? key}) : super(key: key);
   @override
-  State<PrecticeResult> createState() => _PrecticeResultState();
+  State<TestResults> createState() => _TestResultsState();
 }
 
-class _PrecticeResultState extends State<PrecticeResult> {
+class _TestResultsState extends State<TestResults> {
   @override
   bool loding = true;
 
   void initState() {
-    Totel();
-    TestAPI();
+    GetResult();
     super.initState();
   }
 
@@ -47,7 +45,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                           children: [
                             InkWell(
                                 onTap: () {
-                                  Get.offAll(() => const bottoms());
+                                  Get.back();
                                 },
                                 child: Container(
                                     height: Get.height / 20,
@@ -70,7 +68,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                             InkWell(
                                 onTap: () {
                                   Share.share(
-                                      "User Name : ${getdata.read('logindata')['Result']['user_name']}\nExam Name : ${getdata.read('testname')}\nTotal Marks : ${gget.toString()}\nObtained Marks : ${total.toString()}\nPercentage : ${PR.toString()}",
+                                      "User Name : ${getdata.read('Map')['user']}\nExam Name : ${getdata.read('Map')['examname']}\nTotal Marks : ${getdata.read('Map')['total']}\nObtained Marks : ${getdata.read('Map')['obtained']}}",
                                       subject: "Result");
                                 },
                                 child: Container(
@@ -111,9 +109,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                 SizedBox(
                                     width: Get.width / 2,
                                     child: Text(
-                                        getdata.read('logindata')['Result']
-                                                ['user_name'] ??
-                                            "",
+                                        getdata.read('Map')['user'] ?? "",
                                         style: const TextStyle(
                                             color: Colors.blue,
                                             fontFamily: 'popins Medium')))
@@ -127,7 +123,8 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                             fontFamily: 'popins'))),
                                 SizedBox(
                                     width: Get.width / 2,
-                                    child: Text(getdata.read('testname') ?? "",
+                                    child: Text(
+                                        getdata.read('Map')['examname'] ?? "",
                                         style: const TextStyle(
                                             color: Colors.blue,
                                             fontFamily: 'popins Medium')))
@@ -141,7 +138,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                             fontFamily: 'popins'))),
                                 SizedBox(
                                     width: Get.width / 2,
-                                    child: Text(gget.toString(),
+                                    child: Text(getdata.read('Map')['total'],
                                         style: const TextStyle(
                                             color: Colors.blue,
                                             fontFamily: 'popins Medium')))
@@ -155,7 +152,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                             fontFamily: 'popins'))),
                                 SizedBox(
                                     width: Get.width / 2,
-                                    child: Text(total.toString(),
+                                    child: Text(getdata.read('Map')['obtained'],
                                         style: const TextStyle(
                                             color: Colors.blue,
                                             fontFamily: 'popins Medium')))
@@ -170,7 +167,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                               fontFamily: 'popins'))),
                                   SizedBox(
                                       width: Get.width / 2,
-                                      child: Text("${PR.toString()}%",
+                                      child: Text(getdata.read('Map')['date'],
                                           style: TextStyle(
                                               color: Colors.blue,
                                               fontFamily: 'popins Medium')))
@@ -187,7 +184,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                         child: SizedBox(
                           width: double.infinity,
                           child: ListView.builder(
-                            itemCount: Arrey.length,
+                            itemCount: Mcq.length,
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context, index) => Column(
                               children: [
@@ -209,7 +206,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                     SizedBox(
                                       width: Get.width / 1.3,
                                       child: Text(
-                                        Arrey[index]["mcq_question"] ?? "",
+                                        Mcq[index]['mcq_question'] ?? "",
                                         style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
@@ -234,7 +231,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                         child: SizedBox(
                                             width: Get.width / 1.3,
                                             child: Text(
-                                                "A ${Arrey[index]["mcqs_option1"]}",
+                                                "A ${Mcq[index]['mcqs_option1']}",
                                                 style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16,
@@ -256,7 +253,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                         child: SizedBox(
                                             width: Get.width / 1.3,
                                             child: Text(
-                                                "B ${Arrey[index]["mcqs_option2"]}",
+                                                "B ${Mcq[index]['mcqs_option2']}",
                                                 style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16,
@@ -278,7 +275,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                         child: SizedBox(
                                             width: Get.width / 1.3,
                                             child: Text(
-                                                "C ${Arrey[index]["mcqs_option3"]}",
+                                                "C ${Mcq[index]['mcqs_option3']}",
                                                 style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16,
@@ -300,7 +297,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                         child: SizedBox(
                                             width: Get.width / 1.3,
                                             child: Text(
-                                                "D ${Arrey[index]["mcqs_option4"]}",
+                                                "D ${Mcq[index]['mcqs_option4']}",
                                                 style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16,
@@ -312,8 +309,10 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                 Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                      color: Arrey[index]["Marks"].toString() ==
-                                              "0"
+                                      color: Mcq[index]["test_answer"]
+                                                  .toString() !=
+                                              Mcq[index]["mcqs_answer"]
+                                                  .toString()
                                           ? Colors.red
                                           : Colors.green,
                                       borderRadius: BorderRadius.circular(10),
@@ -324,7 +323,7 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                     child: SizedBox(
                                       width: Get.width / 1.3,
                                       child: Text(
-                                        "Answer:${Arrey[index]["Result"]}",
+                                        "Answer:${Mcq[index]['mcqs_answer']} Your choice ${Mcq[index]['test_answer']}",
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,
@@ -355,48 +354,34 @@ class _PrecticeResultState extends State<PrecticeResult> {
         ));
   }
 
-  Totel() {
-    Posi = getdata.read('One');
-    double Nega = isnagative ? 0 : nagetive;
-    print(Nega);
-    total = 0;
-    gget = (Count * Posi);
-    for (int i = 0; i < Arrey.length; i++) {
-      if (Arrey[i]["Marks"] == 0) {
-        total -= Nega;
-      } else {
-        total += Posi;
-      }
-    }
-    if (total <= 0) {
-      PR = 0;
-    } else {
-      PR = total / gget * 100;
-    }
-    print(PR);
-    setState(() {});
-    print("------     total      --->> $total");
-    TestAPI();
-  }
-
-  TestAPI() async {
-    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.PostTest));
+  GetResult() async {
+    var request = http.MultipartRequest(
+        'GET', Uri.parse(AppUrl.Result + getdata.read('TestID')));
     request.headers.addAll(headers);
-    request.fields.addAll({
-      'tests_name': getdata.read('testname'),
-      'tests_marks': gget.toString(),
-      'test_obtaine_mark': total.toString(),
-      'test_answers': "{${Arrey}",
-      'c_datetime': DateTime.now().toString(),
-      'isnegative': '0',
-      'markofques': Posi.toString(),
-    });
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(respStr);
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    print(respStr);
+
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {
+        Mcq.clear();
+        setState(() {});
+        val['Result'].forEach((e) {
+          Mcq.add(e);
+        });
         loding = false;
         setState(() {});
         print("Success $val");
@@ -409,7 +394,6 @@ class _PrecticeResultState extends State<PrecticeResult> {
     } else {
       setState(() {
         print("Succ 222 ess $val");
-
         loding = false;
       });
     }

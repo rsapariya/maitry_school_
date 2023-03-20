@@ -8,6 +8,10 @@ import 'package:schooolapp/techers/units/api.dart';
 import 'package:schooolapp/techers/units/storage.dart';
 
 int Count = 1;
+double Nega = 0;
+String? _selected;
+double nagetive = 0;
+bool isnagative = false;
 
 class tacktest extends StatefulWidget {
   const tacktest({Key? key}) : super(key: key);
@@ -18,12 +22,10 @@ class tacktest extends StatefulWidget {
 
 class _tacktestState extends State<tacktest> {
   int Ma = 0;
-  bool isnagative = false;
   List<Map> Mark = [
     {"ev_title": "1", "ev_id": "01"},
     {"ev_title": "4", "ev_id": "21"},
   ];
-  String? _selected;
   bool langauge = true;
   String student = "11";
   int totel = 0;
@@ -156,22 +158,23 @@ class _tacktestState extends State<tacktest> {
                         const SizedBox(
                           width: 10,
                         ),
-                        SizedBox(
-                          width: Get.width / 2,
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            style: const TextStyle(
-                              fontFamily: "popins",
-                            ),
-                            controller: negative,
-                            autofocus: false,
-                            readOnly: true,
-                            decoration: buildInputDecoration(
-                              hintText: "marks",
-                              lbltext: "marks",
+                        Container(
+                          height: Get.height / 14,
+                          width: Get.width / 3,
+                          decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              nagetive.toString(),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "popins",
+                                  color:
+                                      isnagative ? Colors.blue : Colors.grey),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -331,8 +334,10 @@ class _tacktestState extends State<tacktest> {
         onChanged: (value) {
           setState(() {
             _selected = value as String;
-            _selected == '01' ? negative.text = '0.25' : negative.text = '3';
+            _selected == '01' ? nagetive = 0.25 : nagetive = 3;
+
             _selected == '01' ? Ma = 1 : Ma = 4;
+            save('One', Ma);
           });
         },
         buttonStyleData: ButtonStyleData(

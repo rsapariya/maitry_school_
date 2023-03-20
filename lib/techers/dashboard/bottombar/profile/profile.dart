@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/student/persnoldata.dart';
+import 'package:schooolapp/student/prectice/Testlist.dart';
 import 'package:share/share.dart';
 
 import '../../../../student/Requestacher.dart';
@@ -164,6 +165,26 @@ class _profileState extends State<profile> {
                                     transition: Transition.leftToRight);
                               },
                               titel: "Join with Teacher",
+                              image: "asstes/image/Placeholder.png")
+                          : const SizedBox(),
+                      getdata
+                                  .read('logindata')['Result']['user_type']
+                                  .toString() !=
+                              "Teacher"
+                          ? const SizedBox(
+                              height: 10,
+                            )
+                          : const SizedBox(),
+                      getdata
+                                  .read('logindata')['Result']['user_type']
+                                  .toString() !=
+                              "Teacher"
+                          ? roww(
+                              onTap: () {
+                                Get.to(() => const AllTest(),
+                                    transition: Transition.leftToRight);
+                              },
+                              titel: "All Tests",
                               image: "asstes/image/Placeholder.png")
                           : const SizedBox(),
                       getdata

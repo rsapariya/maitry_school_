@@ -27,6 +27,7 @@ class _TestMcqsState extends State<TestMcqs> {
   var SelectedMCQ;
   List chapters = [];
   bool loding = true;
+  bool selectes = false;
   void initState() {
     McqAPI();
     Arrey.clear();
@@ -51,6 +52,8 @@ class _TestMcqsState extends State<TestMcqs> {
                             setState(() {
                               select--;
                               next--;
+                              selectes = false;
+
                               save('Mcqs', chapters[select]);
                               print(select);
                             });
@@ -76,15 +79,22 @@ class _TestMcqsState extends State<TestMcqs> {
                   select + 2 <= chapters.length
                       ? InkWell(
                           onTap: () {
-                            setState(() {
-                              OnTap();
-                              print(select);
 
-                              select++;
-                              next++;
-                              save('Mcqs', chapters[select]);
-                              print(select);
-                            });
+                            if(selectes == true){
+                              setState(() {
+                                OnTap();
+                                print(select);
+                                selectes = false;
+                                select++;
+                                next++;
+                                save('Mcqs', chapters[select]);
+                                print(select);
+                              });
+                            }else{
+                              ApiWrapper.fluttertosat("Select Ans");
+                            }
+
+
                           },
                           child: Container(
                               height: Get.height / 20,
@@ -120,9 +130,12 @@ class _TestMcqsState extends State<TestMcqs> {
                   select + 2 <= chapters.length
                       ? InkWell(
                           onTap: () {
+                            OnTap2();
                             setState(() {});
                             select++;
                             next++;
+                            selectes = false;
+
                             print(select);
                             save('Mcqs', chapters[select]);
                           },
@@ -204,6 +217,8 @@ class _TestMcqsState extends State<TestMcqs> {
                     ),
                     InkWell(
                         onTap: () {
+                          selectes = true;
+
                           SelectedMCQ = getdata.read('Mcqs')['mcqs_option1'];
                           save('student_ans', 'A');
                           setState(() {});
@@ -236,6 +251,8 @@ class _TestMcqsState extends State<TestMcqs> {
                     ),
                     InkWell(
                       onTap: () {
+                        selectes = true;
+
                         SelectedMCQ = getdata.read('Mcqs')['mcqs_option2'];
                         save('student_ans', 'B');
                         setState(() {});
@@ -274,6 +291,8 @@ class _TestMcqsState extends State<TestMcqs> {
                     ),
                     InkWell(
                         onTap: () {
+                          selectes = true;
+
                           SelectedMCQ = getdata.read('Mcqs')['mcqs_option3'];
                           save('student_ans', 'C');
                           setState(() {});
@@ -308,6 +327,8 @@ class _TestMcqsState extends State<TestMcqs> {
                     ),
                     InkWell(
                         onTap: () {
+                          selectes = true;
+
                           SelectedMCQ = getdata.read('Mcqs')['mcqs_option4'];
                           save('student_ans', 'D');
                           setState(() {});
@@ -401,21 +422,29 @@ class _TestMcqsState extends State<TestMcqs> {
     }
   }
 
-  OnTap() async {
-    if (getdata.read('student_ans').toString() ==
-        getdata.read('Mcqs')['mcqs_answer'].toString()) {
-      Arrey.add({
+  OnTap2() async {
+    String value = chapters[select]['mcq_question'];
+    bool valueExists = false;
+    for (int i = 0; i < Arrey.length; i++) {
+      if (Arrey[i]['mcq_question'] == value) {
+        valueExists = true;
+        break;
+      }
+    }
+    if (valueExists) {
+      print('$value is already in the selected values list');
+      Arrey[select] = {
         "mcqs_id": getdata.read('Mcqs')['mcqs_id'],
         "mcq_question": getdata.read('Mcqs')['mcq_question'],
         "mcqs_option1": getdata.read('Mcqs')['mcqs_option1'],
         "mcqs_option2": getdata.read('Mcqs')['mcqs_option2'],
         "mcqs_option3": getdata.read('Mcqs')['mcqs_option3'],
         "mcqs_option4": getdata.read('Mcqs')['mcqs_option4'],
-        "mcqs_answer": getdata.read('Mcqs')['mcqs_answer'],
+        "mcqs_answer": '',
         "student_ans": getdata.read('student_ans'),
-        "Marks": 1,
+        "Marks": 0,
         "Result": "${getdata.read('Mcqs')['mcqs_answer']}",
-      });
+      };
     } else {
       Arrey.add({
         "mcqs_id": getdata.read('Mcqs')['mcqs_id'],
@@ -424,12 +453,89 @@ class _TestMcqsState extends State<TestMcqs> {
         "mcqs_option2": getdata.read('Mcqs')['mcqs_option2'],
         "mcqs_option3": getdata.read('Mcqs')['mcqs_option3'],
         "mcqs_option4": getdata.read('Mcqs')['mcqs_option4'],
-        "mcqs_answer": getdata.read('Mcqs')['mcqs_answer'],
+        "mcqs_answer": '',
         "student_ans": getdata.read('student_ans'),
         "Marks": 0,
-        "Result":"${getdata.read('Mcqs')['mcqs_answer']} (Your Choice: ${getdata.read('student_ans')})",
+        "Result": "${getdata.read('Mcqs')['mcqs_answer']}",
       });
     }
+
+    setState(() {});
+  }
+
+  OnTap() async {
+    String value = chapters[select]['mcq_question'];
+    bool valueExists = false;
+    for (int i = 0; i < Arrey.length; i++) {
+      if (Arrey[i]['mcq_question'] == value) {
+        valueExists = true;
+        break;
+      }
+    }
+    if (valueExists) {
+      print('$value is already in the selected values list');
+      if (getdata.read('student_ans').toString() ==
+          getdata.read('Mcqs')['mcqs_answer'].toString()) {
+        Arrey[select] = {
+          "mcqs_id": getdata.read('Mcqs')['mcqs_id'],
+          "mcq_question": getdata.read('Mcqs')['mcq_question'],
+          "mcqs_option1": getdata.read('Mcqs')['mcqs_option1'],
+          "mcqs_option2": getdata.read('Mcqs')['mcqs_option2'],
+          "mcqs_option3": getdata.read('Mcqs')['mcqs_option3'],
+          "mcqs_option4": getdata.read('Mcqs')['mcqs_option4'],
+          "mcqs_answer": getdata.read('Mcqs')['mcqs_answer'],
+          "student_ans": getdata.read('student_ans'),
+          "Marks": 1,
+          "Result": "${getdata.read('Mcqs')['mcqs_answer']}",
+        };
+      } else {
+        Arrey[select] = {
+          "mcqs_id": getdata.read('Mcqs')['mcqs_id'],
+          "mcq_question": getdata.read('Mcqs')['mcq_question'],
+          "mcqs_option1": getdata.read('Mcqs')['mcqs_option1'],
+          "mcqs_option2": getdata.read('Mcqs')['mcqs_option2'],
+          "mcqs_option3": getdata.read('Mcqs')['mcqs_option3'],
+          "mcqs_option4": getdata.read('Mcqs')['mcqs_option4'],
+          "mcqs_answer": getdata.read('Mcqs')['mcqs_answer'],
+          "student_ans": getdata.read('student_ans'),
+          "Marks": 0,
+          "Result":
+              "${getdata.read('Mcqs')['mcqs_answer']} (Your Choice: ${getdata.read('student_ans')})",
+        };
+      }
+    } else {
+      print('Added');
+      if (getdata.read('student_ans').toString() ==
+          getdata.read('Mcqs')['mcqs_answer'].toString()) {
+        Arrey.add({
+          "mcqs_id": getdata.read('Mcqs')['mcqs_id'],
+          "mcq_question": getdata.read('Mcqs')['mcq_question'],
+          "mcqs_option1": getdata.read('Mcqs')['mcqs_option1'],
+          "mcqs_option2": getdata.read('Mcqs')['mcqs_option2'],
+          "mcqs_option3": getdata.read('Mcqs')['mcqs_option3'],
+          "mcqs_option4": getdata.read('Mcqs')['mcqs_option4'],
+          "mcqs_answer": getdata.read('Mcqs')['mcqs_answer'],
+          "student_ans": getdata.read('student_ans'),
+          "Marks": 1,
+          "Result": "${getdata.read('Mcqs')['mcqs_answer']}",
+        });
+      } else {
+        Arrey.add({
+          "mcqs_id": getdata.read('Mcqs')['mcqs_id'],
+          "mcq_question": getdata.read('Mcqs')['mcq_question'],
+          "mcqs_option1": getdata.read('Mcqs')['mcqs_option1'],
+          "mcqs_option2": getdata.read('Mcqs')['mcqs_option2'],
+          "mcqs_option3": getdata.read('Mcqs')['mcqs_option3'],
+          "mcqs_option4": getdata.read('Mcqs')['mcqs_option4'],
+          "mcqs_answer": getdata.read('Mcqs')['mcqs_answer'],
+          "student_ans": getdata.read('student_ans'),
+          "Marks": 0,
+          "Result":
+              "${getdata.read('Mcqs')['mcqs_answer']} (Your Choice: ${getdata.read('student_ans')})",
+        });
+      }
+    }
+
     setState(() {});
   }
 }

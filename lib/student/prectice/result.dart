@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:schooolapp/student/prectice/prectice.dart';
@@ -208,9 +209,9 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                     ),
                                     SizedBox(
                                       width: Get.width / 1.3,
-                                      child: Text(
-                                        Arrey[index]["mcq_question"] ?? "",
-                                        style: const TextStyle(
+                                      child: HtmlWidget(
+                                        """${Arrey[index]["mcq_question"]}""",
+                                        textStyle: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
                                           fontWeight: FontWeight.normal,
@@ -223,89 +224,162 @@ class _PrecticeResultState extends State<PrecticeResult> {
                                   height: 15,
                                 ),
                                 Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.1),
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: Colors.transparent)),
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                            width: Get.width / 1.3,
-                                            child: Text(
-                                                "A ${Arrey[index]["mcqs_option1"]}",
-                                                style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.normal,
-                                                ))))),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors.transparent)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: Get.width / 20,
+                                          child: const Text(
+                                            "A",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: Get.width / 1.2,
+                                          child: HtmlWidget(
+                                            """${Arrey[index]["mcqs_option1"]}""",
+                                            textStyle: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 const SizedBox(
                                   height: 15,
                                 ),
                                 Container(
-                                    // height: Get.height / 20,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.1),
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: Colors.transparent)),
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                            width: Get.width / 1.3,
-                                            child: Text(
-                                                "B ${Arrey[index]["mcqs_option2"]}",
-                                                style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.normal,
-                                                ))))),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors.transparent)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: Get.width / 20,
+                                          child: const Text(
+                                            "B",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: Get.width / 1.2,
+                                          child: HtmlWidget(
+                                            """${Arrey[index]["mcqs_option2"]}""",
+                                            textStyle: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 const SizedBox(
                                   height: 15,
                                 ),
                                 Container(
-                                    // height: Get.height / 20,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.1),
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: Colors.transparent)),
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                            width: Get.width / 1.3,
-                                            child: Text(
-                                                "C ${Arrey[index]["mcqs_option3"]}",
-                                                style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.normal,
-                                                ))))),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors.transparent)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: Get.width / 20,
+                                          child: const Text(
+                                            "C",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: Get.width / 1.2,
+                                          child: HtmlWidget(
+                                            """${Arrey[index]["mcqs_option3"]}""",
+                                            textStyle: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 const SizedBox(
                                   height: 15,
                                 ),
                                 Container(
-                                    // height: Get.height / 20,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.1),
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: Colors.transparent)),
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                            width: Get.width / 1.3,
-                                            child: Text(
-                                                "D ${Arrey[index]["mcqs_option4"]}",
-                                                style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.normal,
-                                                ))))),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors.transparent)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: Get.width / 20,
+                                          child: const Text(
+                                            "D",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: Get.width / 1.2,
+                                          child: HtmlWidget(
+                                            """${Arrey[index]["mcqs_option4"]}""",
+                                            textStyle: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 const SizedBox(
                                   height: 15,
                                 ),

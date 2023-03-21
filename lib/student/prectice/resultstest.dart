@@ -1,16 +1,13 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
 import '../../techers/units/api.dart';
 import '../../techers/units/storage.dart';
-
-double total = 0;
-double PR = 0;
-int gget = 0;
-int Posi = 0;
 
 List Mcq = [];
 
@@ -21,9 +18,8 @@ class TestResults extends StatefulWidget {
 }
 
 class _TestResultsState extends State<TestResults> {
-  @override
   bool loding = true;
-
+  @override
   void initState() {
     GetResult();
     super.initState();
@@ -161,14 +157,14 @@ class _TestResultsState extends State<TestResults> {
                                 children: [
                                   SizedBox(
                                       width: Get.width / 3,
-                                      child: const Text('Percentage',
+                                      child: const Text('Result Date',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontFamily: 'popins'))),
                                   SizedBox(
                                       width: Get.width / 2,
                                       child: Text(getdata.read('Map')['date'],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.blue,
                                               fontFamily: 'popins Medium')))
                                 ],
@@ -204,10 +200,10 @@ class _TestResultsState extends State<TestResults> {
                                       width: 10,
                                     ),
                                     SizedBox(
-                                      width: Get.width / 1.3,
-                                      child: Text(
-                                        Mcq[index]['mcq_question'] ?? "",
-                                        style: const TextStyle(
+                                      width: Get.width / 1.2,
+                                      child: HtmlWidget(
+                                        """${Mcq[index]['mcq_question']}""",
+                                        textStyle: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
                                           fontWeight: FontWeight.normal,
@@ -228,20 +224,33 @@ class _TestResultsState extends State<TestResults> {
                                             color: Colors.transparent)),
                                     child: Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                            width: Get.width / 1.3,
-                                            child: Text(
-                                                "A ${Mcq[index]['mcqs_option1']}",
-                                                style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.normal,
-                                                ))))),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                                width: Get.width / 20,
+                                                child: const Text("A",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ))),
+                                            SizedBox(
+                                                width: Get.width / 1.3,
+                                                child: HtmlWidget(
+                                                    """${Mcq[index]['mcqs_option1']}""",
+                                                    textStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ))),
+                                          ],
+                                        ))),
                                 const SizedBox(
                                   height: 15,
                                 ),
                                 Container(
-                                    // height: Get.height / 20,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                         color: Colors.grey.withOpacity(0.1),
@@ -250,20 +259,33 @@ class _TestResultsState extends State<TestResults> {
                                             color: Colors.transparent)),
                                     child: Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                            width: Get.width / 1.3,
-                                            child: Text(
-                                                "B ${Mcq[index]['mcqs_option2']}",
-                                                style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.normal,
-                                                ))))),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                                width: Get.width / 20,
+                                                child: const Text("B",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ))),
+                                            SizedBox(
+                                                width: Get.width / 1.3,
+                                                child: HtmlWidget(
+                                                    """${Mcq[index]['mcqs_option2']}""",
+                                                    textStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ))),
+                                          ],
+                                        ))),
                                 const SizedBox(
                                   height: 15,
                                 ),
                                 Container(
-                                    // height: Get.height / 20,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                         color: Colors.grey.withOpacity(0.1),
@@ -272,20 +294,33 @@ class _TestResultsState extends State<TestResults> {
                                             color: Colors.transparent)),
                                     child: Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                            width: Get.width / 1.3,
-                                            child: Text(
-                                                "C ${Mcq[index]['mcqs_option3']}",
-                                                style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.normal,
-                                                ))))),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                                width: Get.width / 20,
+                                                child: const Text("C",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ))),
+                                            SizedBox(
+                                                width: Get.width / 1.3,
+                                                child: HtmlWidget(
+                                                    """${Mcq[index]['mcqs_option3']}""",
+                                                    textStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ))),
+                                          ],
+                                        ))),
                                 const SizedBox(
                                   height: 15,
                                 ),
                                 Container(
-                                    // height: Get.height / 20,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                         color: Colors.grey.withOpacity(0.1),
@@ -294,15 +329,31 @@ class _TestResultsState extends State<TestResults> {
                                             color: Colors.transparent)),
                                     child: Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                            width: Get.width / 1.3,
-                                            child: Text(
-                                                "D ${Mcq[index]['mcqs_option4']}",
-                                                style: const TextStyle(
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: Get.width / 20,
+                                              child: const Text(
+                                                "D",
+                                                style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.normal,
-                                                ))))),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                width: Get.width / 1.3,
+                                                child: HtmlWidget(
+                                                    """${Mcq[index]['mcqs_option4']}""",
+                                                    textStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ))),
+                                          ],
+                                        ))),
                                 const SizedBox(
                                   height: 15,
                                 ),
@@ -347,7 +398,7 @@ class _TestResultsState extends State<TestResults> {
                       ),
                     ],
                   )
-                : Center(
+                : const Center(
                     child: CircularProgressIndicator(strokeWidth: 3),
                   ),
           ),
@@ -360,20 +411,7 @@ class _TestResultsState extends State<TestResults> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
-    print(respStr);
-
-    String jsonString = jsonEncode(val);
-    jsonString = jsonString
-        .replaceAll('</p>', "")
-        .replaceAll('</span>', "")
-        .replaceAll('</td>', "")
-        .replaceAll('</tr>', "")
-        .replaceAll('</o:p>', "")
-        .replaceAll('</table>', "")
-        .replaceAll('</tbody>', "");
-
-    val = jsonDecode(jsonString);
+    var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {
@@ -384,16 +422,13 @@ class _TestResultsState extends State<TestResults> {
         });
         loding = false;
         setState(() {});
-        print("Success $val");
       } else {
         loding = false;
-        print("Succ 11 $val");
 
         setState(() {});
       }
     } else {
       setState(() {
-        print("Succ 222 ess $val");
         loding = false;
       });
     }

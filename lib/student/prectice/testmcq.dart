@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:schooolapp/student/prectice/prectice.dart';
@@ -79,8 +80,7 @@ class _TestMcqsState extends State<TestMcqs> {
                   select + 2 <= chapters.length
                       ? InkWell(
                           onTap: () {
-
-                            if(selectes == true){
+                            if (selectes == true) {
                               setState(() {
                                 OnTap();
                                 print(select);
@@ -90,11 +90,9 @@ class _TestMcqsState extends State<TestMcqs> {
                                 save('Mcqs', chapters[select]);
                                 print(select);
                               });
-                            }else{
+                            } else {
                               ApiWrapper.fluttertosat("Select Ans");
                             }
-
-
                           },
                           child: Container(
                               height: Get.height / 20,
@@ -203,49 +201,81 @@ class _TestMcqsState extends State<TestMcqs> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                              width: Get.width / 1.1,
                               child: Text(
-                                  "$next\t${getdata.read('Mcqs')['mcq_question'] ?? ""}",
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.normal,
-                                  )))
+                            next.toString(),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          )),
+                          SizedBox(
+                            width: Get.width / 80,
+                          ),
+                          SizedBox(
+                              width: Get.width / 1.20,
+                              child: HtmlWidget(
+                                """${getdata.read('Mcqs')['mcq_question']}""",
+                                textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              )),
                         ]),
                     const SizedBox(
                       height: 15,
                     ),
                     InkWell(
-                        onTap: () {
-                          selectes = true;
+                      onTap: () {
+                        selectes = true;
 
-                          SelectedMCQ = getdata.read('Mcqs')['mcqs_option1'];
-                          save('student_ans', 'A');
-                          setState(() {});
-                          print(getdata.read('student_ans'));
-                        },
-                        child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: SelectedMCQ ==
-                                          getdata.read('Mcqs')['mcqs_option1']
-                                      ? Colors.blue
-                                      : Colors.transparent,
-                                )),
-                            child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                    width: Get.width / 1.3,
-                                    child: Text(
-                                        'A. ${getdata.read('Mcqs')['mcqs_option1'] ?? ""}',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                        )))))),
+                        SelectedMCQ = getdata.read('Mcqs')['mcqs_option1'];
+                        save('student_ans', 'A');
+                        setState(() {});
+                        print(getdata.read('student_ans'));
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: SelectedMCQ ==
+                                      getdata.read('Mcqs')['mcqs_option1']
+                                  ? Colors.blue
+                                  : Colors.transparent,
+                            )),
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                  width: Get.width / 20,
+                                  child: Text(
+                                    "A",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  )),
+                              SizedBox(
+                                width: Get.width / 1.2,
+                                child: HtmlWidget(
+                                  """${getdata.read('Mcqs')['mcqs_option1']}""",
+                                  textStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 15,
                     ),
@@ -261,27 +291,40 @@ class _TestMcqsState extends State<TestMcqs> {
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: SelectedMCQ ==
-                                    getdata.read('Mcqs')['mcqs_option2']
-                                ? Colors.blue
-                                : Colors.transparent,
-                          ),
-                        ),
+                            color: Colors.grey.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: SelectedMCQ ==
+                                      getdata.read('Mcqs')['mcqs_option2']
+                                  ? Colors.blue
+                                  : Colors.transparent,
+                            )),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: Get.width / 1.3,
-                            child: Text(
-                              'B. ${getdata.read('Mcqs')['mcqs_option2'] ?? ""}',
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
+                          padding: EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                  width: Get.width / 20,
+                                  child: Text(
+                                    "B",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  )),
+                              SizedBox(
+                                width: Get.width / 1.20,
+                                child: HtmlWidget(
+                                  """${getdata.read('Mcqs')['mcqs_option2']}""",
+                                  textStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -299,29 +342,45 @@ class _TestMcqsState extends State<TestMcqs> {
                           print(getdata.read('student_ans'));
                         },
                         child: Container(
-                            // height: Get.height / 20,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: SelectedMCQ ==
-                                          getdata.read('Mcqs')['mcqs_option3']
-                                      ? Colors.blue
-                                      : Colors.transparent,
-                                )),
-                            child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: Get.width / 1.3,
-                                  child: Text(
-                                      'C. ${getdata.read('Mcqs')['mcqs_option3'] ?? ""}',
-                                      style: const TextStyle(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: SelectedMCQ ==
+                                        getdata.read('Mcqs')['mcqs_option3']
+                                    ? Colors.blue
+                                    : Colors.transparent,
+                              )),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                    width: Get.width / 20,
+                                    child: Text(
+                                      "C",
+                                      style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.normal,
-                                      )),
-                                )))),
+                                      ),
+                                    )),
+                                SizedBox(
+                                  width: Get.width / 1.2,
+                                  child: HtmlWidget(
+                                    """${getdata.read('Mcqs')['mcqs_option3']}""",
+                                    textStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )),
                     const SizedBox(
                       height: 15,
                     ),
@@ -335,8 +394,8 @@ class _TestMcqsState extends State<TestMcqs> {
                           print(getdata.read('student_ans'));
                         },
                         child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
                               color: Colors.grey.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
@@ -344,19 +403,36 @@ class _TestMcqsState extends State<TestMcqs> {
                                         getdata.read('Mcqs')['mcqs_option4']
                                     ? Colors.blue
                                     : Colors.transparent,
-                              ),
-                            ),
-                            child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                    width: Get.width / 1.3,
+                              )),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                    width: Get.width / 20,
                                     child: Text(
-                                        'D. ${getdata.read('Mcqs')['mcqs_option4'] ?? ""}',
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                        )))))),
+                                      "D",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    )),
+                                SizedBox(
+                                  width: Get.width / 1.2,
+                                  child: HtmlWidget(
+                                    """${getdata.read('Mcqs')['mcqs_option4']}""",
+                                    textStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )),
                     const SizedBox(
                       height: 20,
                     ),
@@ -380,18 +456,7 @@ class _TestMcqsState extends State<TestMcqs> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
-    String jsonString = jsonEncode(val);
-    jsonString = jsonString
-        .replaceAll('</p>', "")
-        .replaceAll('</span>', "")
-        .replaceAll('</td>', "")
-        .replaceAll('</tr>', "")
-        .replaceAll('</o:p>', "")
-        .replaceAll('</table>', "")
-        .replaceAll('</tbody>', "");
-
-    val = jsonDecode(jsonString);
+    var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {

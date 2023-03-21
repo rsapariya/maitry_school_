@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
-
+import 'package:html/parser.dart' as htmlparser;
+import 'package:html/dom.dart' as dom;
 
 class Gujcetpaper extends StatefulWidget {
   const Gujcetpaper({Key? key}) : super(key: key);
@@ -38,8 +40,8 @@ class _GujcetpaperState extends State<Gujcetpaper> {
                       Get.back();
                     },
                     child: Container(
-                      height:Get.height/20,
-                      width:Get.width/9,
+                      height: Get.height / 20,
+                      width: Get.width / 9,
                       decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(10)),
@@ -61,8 +63,8 @@ class _GujcetpaperState extends State<Gujcetpaper> {
                   InkWell(
                     child: SizedBox(
                       child: Container(
-                        height:Get.height/20,
-                        width:Get.width/9,
+                        height: Get.height / 20,
+                        width: Get.width / 9,
                       ),
                     ),
                   ),
@@ -94,9 +96,9 @@ class _GujcetpaperState extends State<Gujcetpaper> {
                                         color: Colors.blue.withOpacity(0.1)),
                                     child: Center(
                                         child: Image.asset(
-                                          "asstes/image/PDF.png",
-                                          scale: 5,
-                                        ))),
+                                      "asstes/image/PDF.png",
+                                      scale: 5,
+                                    ))),
                               ),
                               SizedBox(width: Get.width / 20),
                               Column(
@@ -132,7 +134,7 @@ class _GujcetpaperState extends State<Gujcetpaper> {
                               )
                             ],
                           ),
-                          Divider()
+                          Divider(),
                         ],
                       ),
                     );

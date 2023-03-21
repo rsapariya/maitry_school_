@@ -120,9 +120,6 @@ class _selecttopicsState extends State<selecttopics> {
                                         //         fontFamily: 'Gilroy Medium'),
                                         //   ),
                                         // ),
-                                        const SizedBox(
-                                          width: 15,
-                                        ),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,

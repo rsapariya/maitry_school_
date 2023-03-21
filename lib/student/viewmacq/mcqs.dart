@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:schooolapp/techers/units/storage.dart';
@@ -88,14 +89,14 @@ class _viewmcqsState extends State<viewmcqs> {
                       child: ListView.builder(
                         itemCount: MCqlist.length,
                         scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) => Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: Get.width / 30),
-                          child: InkWell(
-                            child: Container(
-                              child: Column(
-                                children: [
-                                  Row(
+                        itemBuilder: (context, index) => InkWell(
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: Get.width / 60),
+                                  child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -104,36 +105,35 @@ class _viewmcqsState extends State<viewmcqs> {
                                       ),
                                       SizedBox(
                                         width: Get.width / 1.4,
-                                        child: Text(
-                                            MCqlist[index]["mcq_question"] ??
-                                                "",
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: "popins",
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.normal,
-                                            )),
+                                        child: HtmlWidget(
+                                          """${MCqlist[index]["mcq_question"]}""",
+                                          textStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
                                       ),
                                       const Spacer(),
                                       const Icon(Icons.navigate_next)
                                     ],
                                   ),
-                                  const Divider(
-                                    color: Colors.blue,
-                                    thickness: 1,
-                                  )
-                                ],
-                              ),
+                                ),
+                                const Divider(
+                                  color: Colors.blue,
+                                  thickness: 1,
+                                )
+                              ],
                             ),
-                            onTap: () {
-                              setState(() {
-                                select = index;
-                                save('MCQ', MCqlist[select]);
-                              });
-                              Get.to(() => const OneMcqs(),
-                                  transition: Transition.leftToRight);
-                            },
                           ),
+                          onTap: () {
+                            setState(() {
+                              select = index;
+                              save('MCQ', MCqlist[select]);
+                            });
+                            Get.to(() => const OneMcqs(),
+                                transition: Transition.leftToRight);
+                          },
                         ),
                       ),
                     ),
@@ -143,7 +143,6 @@ class _viewmcqsState extends State<viewmcqs> {
             : const Center(
                 child: CircularProgressIndicator(
                   strokeWidth: 3,
-
                   color: Colors.blue,
                 ),
               ),
@@ -158,18 +157,7 @@ class _viewmcqsState extends State<viewmcqs> {
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
-    String jsonString = jsonEncode(val);
-    jsonString = jsonString
-        .replaceAll('</p>', "")
-        .replaceAll('</span>', "")
-        .replaceAll('</td>', "")
-        .replaceAll('</tr>', "")
-        .replaceAll('</o:p>', "")
-        .replaceAll('</table>', "")
-        .replaceAll('</tbody>', "");
-
-    val = jsonDecode(jsonString);
+    var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {

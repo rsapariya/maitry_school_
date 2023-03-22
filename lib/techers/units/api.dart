@@ -86,7 +86,7 @@ class ApiWrapper {
 }
 
 class AppUrl {
-  static const String baseurl = 'https://maitriapp.in/api/v1';
+  static const String baseurl = 'https://maitriapp.in/api_new/v1';
   static const String login = baseurl + '/login';
   static const String Signup = baseurl + '/signup';
   static const String Chapter = baseurl + '/chapter/1';
@@ -96,8 +96,10 @@ class AppUrl {
   static const String getrequest = baseurl + '/allrequest';
   static const String chagepass = baseurl + '/change_password';
   static const String decline = baseurl + '/request_decline';
-  static const String getsubscribeT = baseurl + '/getsubscriptionplan?type=Teacher';
-  static const String getsubscribeS = baseurl + '/getsubscriptionplan?type=Student';
+  static const String getsubscribeT =
+      baseurl + '/getsubscriptionplan?type=Teacher';
+  static const String getsubscribeS =
+      baseurl + '/getsubscriptionplan?type=Student';
   static const String getclass = baseurl + '/allclass';
   static const String Creatclass = baseurl + '/create_class';
   static const String Deleteclass = baseurl + '/class_delete/';
@@ -115,4 +117,5 @@ class AppUrl {
   static const String PostTest = baseurl + '/test';
   static const String AllTestApi = baseurl + '/alltest';
   static const String Result = baseurl + '/test_result/';
+  static const String Getchapter = baseurl + '/chapter';
 }

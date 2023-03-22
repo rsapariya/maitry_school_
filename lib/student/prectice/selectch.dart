@@ -7,7 +7,7 @@ import 'package:html/parser.dart';
 import 'package:schooolapp/student/prectice/selecttopic4.dart';
 import 'package:http/http.dart' as http;
 import '../../techers/units/api.dart';
-import '../../techers/units/storage.dart';
+import '../home.dart';
 
 List<String> selectedChapterIds = [];
 
@@ -266,14 +266,13 @@ class _precticechapterState extends State<precticechapter> {
   }
 
   Getchapter() async {
-    print(
-        "---------------- GETCHAPTER _________${getdata.read('logindata')['Result']['user_api'].toString()}_________-");
-
-    var request =
-        http.Request('GET', Uri.parse('https://maitriapp.in/api/v1/chapter/1'));
-
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Getchapter));
+    request.fields.addAll({
+      'group_id': groupid.toString(),
+      'medium': 'gujarati',
+      'subject_name': 'Biology'
+    });
     request.headers.addAll(headers);
-
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
     var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
@@ -286,8 +285,6 @@ class _precticechapterState extends State<precticechapter> {
         .replaceAll('</o:p>', "")
         .replaceAll('</table>', "")
         .replaceAll('</tbody>', "");
-
-    val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
       print(val);

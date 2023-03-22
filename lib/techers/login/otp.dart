@@ -26,8 +26,6 @@ class _verificationState extends State<verification> {
   var SMS = "";
   bool loding = false;
 
-
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -260,6 +258,7 @@ class _verificationState extends State<verification> {
         setState(() {
           loding = false;
           save('islogin', true);
+          save('logindata', val);
         });
         ApiWrapper.fluttertosat(val['message'].toString());
         val['Result']['user_type'] == 'Teacher'

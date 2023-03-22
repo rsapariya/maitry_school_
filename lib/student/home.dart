@@ -19,6 +19,8 @@ import 'gujcetpaper.dart';
 List subscribplanse = [];
 List ExamList = [];
 List Alltest = [];
+String groupid = "";
+String Sunject = "";
 
 class homes extends StatefulWidget {
   const homes({Key? key}) : super(key: key);
@@ -97,7 +99,14 @@ class _homesState extends State<homes> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedItem = value!;
+
+                                  if (selectedItem == "11th") {
+                                    groupid = '1';
+                                  } else if (selectedItem == "12th") {
+                                    groupid = '2';
+                                  }
                                 });
+                                print(groupid);
                               },
                             ),
                           ),

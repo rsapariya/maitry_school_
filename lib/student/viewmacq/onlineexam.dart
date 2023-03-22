@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:schooolapp/student/viewmacq/selecttopic.dart';
 import 'package:schooolapp/techers/units/storage.dart';
 import '../../techers/units/api.dart';
+import '../home.dart';
 
 class selectchapters extends StatefulWidget {
   const selectchapters({Key? key}) : super(key: key);
@@ -201,12 +202,13 @@ class _selectchaptersState extends State<selectchapters> {
   }
 
   Getchapter() async {
-
-    var request =
-        http.Request('GET', Uri.parse('https://maitriapp.in/api/v1/chapter/1'));
-
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Getchapter));
+    request.fields.addAll({
+      'group_id': groupid.toString(),
+      'medium': 'gujarati',
+      'subject_name': 'Biology'
+    });
     request.headers.addAll(headers);
-
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
     var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
@@ -219,9 +221,6 @@ class _selectchaptersState extends State<selectchapters> {
         .replaceAll('</o:p>', "")
         .replaceAll('</table>', "")
         .replaceAll('</tbody>', "");
-
-    val = jsonDecode(jsonString);
-
     if (response.statusCode == 200) {
       val['Result'].forEach((e) {
         chapter.add(e);

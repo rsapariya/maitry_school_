@@ -191,8 +191,9 @@ class _selecttopicsState extends State<selecttopics> {
 
   Topicapi() async {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Tpoic));
-    request.fields
-        .addAll({"chapterids": '[${getdata.read('chepterid').toString()}]'});
+    request.fields.addAll({
+      "chapterids": '[${getdata.read('chepterid').toString()}]',
+    });
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();

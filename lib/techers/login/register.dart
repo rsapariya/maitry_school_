@@ -361,7 +361,7 @@ class _registerState extends State<register> {
                                           SizedBox(
                                             width: Get.width / 6,
                                             child: const Text(
-                                              "Student",
+                                              "English",
                                               style: TextStyle(
                                                   fontFamily: "popins",
                                                   fontSize: 14),
@@ -406,7 +406,7 @@ class _registerState extends State<register> {
                                           SizedBox(
                                             width: Get.width / 6,
                                             child: const Text(
-                                              "Teacher",
+                                              "Gujarati",
                                               style: TextStyle(
                                                   fontFamily: "popins",
                                                   fontSize: 14),
@@ -895,6 +895,7 @@ class _registerState extends State<register> {
                             "phonenumber": OTPnum.toString(),
                             "password": password.text.toString(),
                             "cpassword": cpassword.text.toString(),
+                            "cpassword": cpassword.text.toString(),
                             "schoolname": schoolname.text.toString(),
                             "city": city.text.toString(),
                             "district": district.text.toString(),
@@ -927,7 +928,6 @@ class _registerState extends State<register> {
                           codeAutoRetrievalTimeout: (verificationId) {},
                         );
 
-                        // Registerapi();
                       }
                     }
                   },

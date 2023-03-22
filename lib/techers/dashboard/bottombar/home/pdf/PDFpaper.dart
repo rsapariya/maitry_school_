@@ -416,19 +416,43 @@ class _pdfgenratState extends State<pdfgenrat> {
       suffixIcon: surfix,
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
+      labelStyle: TextStyle(
+        fontFamily: "popins",
+        fontSize: 14,
+      ),
       labelText: lbltext,
       contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(
+              color: Colors.white,
+              width: 0.5,
+              strokeAlign: StrokeAlign.center)),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: BorderSide(
+          width: 1,        color: Colors.blue,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
         borderSide: const BorderSide(
-            color: Colors.white, width: 0.5, strokeAlign: StrokeAlign.center),
+          color: Colors.red,
+          width: 1,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: const BorderSide(
+          color: Colors.red,
+          width: 1,
+        ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
         borderSide: const BorderSide(
           color: Colors.transparent,
-          width: 2.0,
+          width: 1,
         ),
       ),
       filled: true,

@@ -389,7 +389,10 @@ class _allclassState extends State<allclass> {
       suffixIcon: surfix,
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
+      labelStyle: TextStyle(
+        fontFamily: "popins",
+        fontSize: 14,
+      ),
       labelText: lbltext,
       contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       border: OutlineInputBorder(
@@ -398,6 +401,27 @@ class _allclassState extends State<allclass> {
               color: Colors.white,
               width: 0.5,
               strokeAlign: StrokeAlign.center)),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: BorderSide(
+          color: Colors.blue,
+          width: 1,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: const BorderSide(
+          color: Colors.red,
+          width: 1,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: const BorderSide(
+          color: Colors.red,
+          width: 1,
+        ),
+      ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
         borderSide: const BorderSide(

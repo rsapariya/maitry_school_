@@ -1,3 +1,5 @@
+// ignore_for_file: equal_keys_in_map
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -910,8 +912,6 @@ class _registerState extends State<register> {
                           phoneNumber: OTPnum,
                           verificationCompleted: (phoneAuthCredential) {},
                           verificationFailed: (error) {
-                            print('====>>>>$error');
-                            print('====>>>>$OTPnum');
                             setState(() {
                               loding = false;
                             });
@@ -927,7 +927,6 @@ class _registerState extends State<register> {
                           },
                           codeAutoRetrievalTimeout: (verificationId) {},
                         );
-
                       }
                     }
                   },
@@ -1015,7 +1014,10 @@ class _registerState extends State<register> {
       suffixIcon: surfix,
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
+      labelStyle: TextStyle(
+        fontFamily: "popins",
+        fontSize: 14,
+      ),
       labelText: lbltext,
       contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       border: OutlineInputBorder(
@@ -1024,6 +1026,26 @@ class _registerState extends State<register> {
               color: Colors.white,
               width: 0.5,
               strokeAlign: StrokeAlign.center)),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: BorderSide(
+          width: 1,        color: Colors.blue,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: const BorderSide(
+          color: Colors.red,
+          width: 1,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: const BorderSide(
+          color: Colors.red,
+          width: 1,
+        ),
+      ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
         borderSide: const BorderSide(

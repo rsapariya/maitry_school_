@@ -489,7 +489,8 @@ class _viewexamState extends State<viewexam> {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
         borderSide: BorderSide(
-          width: 1,        color: Colors.blue,
+          width: 1,
+          color: Colors.blue,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(

@@ -33,11 +33,16 @@ class _BoardingPageState extends State<BoardingPage> {
 
   @override
   void initState() {
+    print(
+        '--------------------------------------------------------------------1111');
     FirebaseMessaging.instance.getToken().then((value) {
       setState(() {
+        print(
+            '--------------------------------------------------------------------');
         token = value;
         save('token', value);
         save('Open', true);
+        print('---------------${getdata.read('token')}-----------');
       });
     });
 

@@ -31,6 +31,13 @@ class homes extends StatefulWidget {
 class _homesState extends State<homes> {
   @override
   void initState() {
+    setState(() {
+      Subject.clear();
+    });
+    getdata.read('logindata')['Result']['subjects'].forEach((e) {
+      Subject.add(e);
+    });
+
     GetOfer();
     Getexam();
     Alltestapi();
@@ -127,44 +134,42 @@ class _homesState extends State<homes> {
                             borderRadius: BorderRadius.circular(30)),
                         child: Center(
                           child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: DropdownButton<String>(
-                                  value: selectedItem2,
-                                  elevation: 0,
-                                  borderRadius: BorderRadius.circular(10),
-                                  items: const [
-                                    DropdownMenuItem(
-                                      value: 'Biology',
-                                      child: Text(
-                                        'Biology',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: DropdownButton<String>(
+                              value: selectedItem2,
+                              elevation: 0,
+                              borderRadius: BorderRadius.circular(10),
+                              items: Subject.map((String subject) {
+                                return DropdownMenuItem<String>(
+                                  value: subject,
+                                  child: Text(
+                                    subject,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'popins',
+                                      color: Colors.blue,
                                     ),
-                                    DropdownMenuItem(
-                                      value: 'Physics',
-                                      child: Text('Physics',
-                                          style: TextStyle(color: Colors.blue)),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 'Chemistry',
-                                      child: Text('Chemistry',
-                                          style: TextStyle(color: Colors.blue)),
-                                    ),
-                                  ],
-                                  underline: Container(
-                                    height: 0,
-                                    color: Colors.transparent,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  icon: const Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Colors.blue,
-                                  ),
-                                  onChanged: (value2) {
-                                    setState(() {
-                                      selectedItem2 = value2!;
-                                    });
-                                  })),
+                                );
+                              }).toList(),
+                              underline: Container(
+                                height: 0,
+                                color: Colors.transparent,
+                              ),
+                              icon: const Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.blue,
+                              ),
+                              onChanged: (value2) {
+                                setState(
+                                  () {
+                                    selectedItem2 = value2!;
+                                  },
+                                );
+                              },
+                            ),
+                          ),
                         ),
                       ),
                     ),

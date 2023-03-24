@@ -1,10 +1,9 @@
-// ignore_for_file: camel_case_types
-
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/onbording.dart';
+import 'package:schooolapp/techers/dashboard/bottombar/home/result/studentwise.dart';
 import 'package:schooolapp/techers/login/register.dart';
 import 'package:http/http.dart' as http;
 import '../../detabse.dart';
@@ -273,7 +272,8 @@ class _mainscreenState extends State<mainscreen> {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
         borderSide: BorderSide(
-          width: 1,        color: Colors.blue,
+          width: 1,
+          color: Colors.blue,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(
@@ -322,8 +322,13 @@ class _mainscreenState extends State<mainscreen> {
         setState(() {
           save('logindata', val);
         });
+        setState(() {
+          Subject.clear();
+        });
+        getdata.read('logindata')['Result']['subjects'].forEach((e) {
+          Subject.add(e);
+        });
         ApiWrapper.fluttertosat(val['message'].toString());
-
         val['Result']['user_type'] == 'Teacher'
             ? Get.offAll(() => const bottomt(),
                 transition: Transition.leftToRight)

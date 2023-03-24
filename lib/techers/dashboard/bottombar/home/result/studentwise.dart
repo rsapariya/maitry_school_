@@ -11,9 +11,9 @@ List<Map> myJson = [
   {"ev_title": "rahul", "ev_id": "13"},
 ];
 
+List<Map> Classes = [];
 
-List<Map> Classes = [
-];
+List<String> Subject = [];
 
 class Studentwise extends StatefulWidget {
   const Studentwise({Key? key}) : super(key: key);

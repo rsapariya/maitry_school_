@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:schooolapp/student/home.dart';
 
 class Materials extends StatefulWidget {
   const Materials({Key? key}) : super(key: key);
@@ -11,14 +12,6 @@ class Materials extends StatefulWidget {
 class _MaterialsState extends State<Materials> {
   @override
   bool langauge = true;
-  List notifi = [
-    {"a": "Physics Material"},
-    {"a": "Chemistry Material"},
-    {"a": "Mathematics Material"},
-    {"a": "Biology Material"},
-    {"a": "Empowering the world"},
-    {"a": "Loream ipsum doller"},
-  ];
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +66,7 @@ class _MaterialsState extends State<Materials> {
               Expanded(
                 child: ListView.builder(
                   // controller: controller,
-                  itemCount: notifi.length,
+                  itemCount: Materialss.length,
                   itemBuilder: (_, index) {
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: Get.width / 40),
@@ -99,7 +92,7 @@ class _MaterialsState extends State<Materials> {
                               ),
                               SizedBox(width: Get.width / 20),
                               Text(
-                                notifi[index]["a"],
+                                Materialss[index]["materials_name"],
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: "popins Medium",

@@ -20,6 +20,7 @@ String selectedItem2 = 'Biology';
 List subscribplanse = [];
 List ExamList = [];
 List Alltest = [];
+List Materialss = [];
 String groupid = "1";
 
 class homes extends StatefulWidget {
@@ -41,6 +42,7 @@ class _homesState extends State<homes> {
     GetOfer();
     Getexam();
     Alltestapi();
+    GetMaterials();
     getsubsribtionS();
     super.initState();
   }
@@ -647,6 +649,40 @@ class _homesState extends State<homes> {
       }
     } else {
       setState(() {});
+    }
+  }
+
+  GetMaterials() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Materials));
+    request.fields.addAll({
+      'group_id': groupid.toString(),
+      'medium': getdata.read('logindata')['Result']['user_medium'].toString(),
+      'subject_name': selectedItem2.toString()
+    });
+    print(request.fields);
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    print(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+    jsonString = jsonEncode(val);
+    if (response.statusCode == 200) {
+      val['Result'].forEach((e) {
+        Materialss.add(e);
+      });
+      setState(() {});
+      print(Materialss);
+    } else {
+      print(val);
     }
   }
 }

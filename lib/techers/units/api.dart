@@ -118,4 +118,5 @@ class AppUrl {
   static const String AllTestApi = baseurl + '/alltest';
   static const String Result = baseurl + '/test_result/';
   static const String Getchapter = baseurl + '/chapter';
+  static const String Materials = baseurl + '/materials';
 }

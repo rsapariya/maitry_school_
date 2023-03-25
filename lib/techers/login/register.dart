@@ -954,6 +954,7 @@ class _registerState extends State<register> {
                               loding = false;
                             });
                             ApiWrapper.fluttertosat(error.toString());
+                            ApiWrapper.fluttertosat('Chek Number');
                           },
                           codeSent: (verificationId, forceResendingToken) {
                             ApiWrapper.fluttertosat('Code sent.');
@@ -963,9 +964,7 @@ class _registerState extends State<register> {
                             });
                             Get.to(() => verification());
                           },
-                          codeAutoRetrievalTimeout: (verificationId) {
-
-                          },
+                          codeAutoRetrievalTimeout: (verificationId) {},
                         );
                       }
                     }

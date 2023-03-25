@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
+import 'package:schooolapp/student/prectice/resultstest.dart';
 import 'package:schooolapp/techers/units/storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -84,59 +85,67 @@ class _viewmcqsState extends State<viewmcqs> {
                     ),
                     const SizedBox(height: 10),
                     SizedBox(
-                      height: Get.height / 1.15,
-                      width: double.infinity,
-                      child: ListView.builder(
-                        itemCount: MCqlist.length,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) => InkWell(
-                          child: Container(
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: Get.width / 60),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      SizedBox(
-                                        width: Get.width / 1.4,
-                                        child: HtmlWidget(
-                                          """${MCqlist[index]["mcq_question"]}""",
-                                          textStyle: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal,
+                        height: Get.height / 1.15,
+                        width: double.infinity,
+                        child: MCqlist.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: MCqlist.length,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) => InkWell(
+                                  child: Container(
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: Get.width / 60),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              SizedBox(
+                                                width: Get.width / 1.4,
+                                                child: HtmlWidget(
+                                                  """${MCqlist[index]["mcq_question"]}""",
+                                                  textStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              const Icon(Icons.navigate_next)
+                                            ],
                                           ),
                                         ),
-                                      ),
-                                      const Spacer(),
-                                      const Icon(Icons.navigate_next)
-                                    ],
+                                        const Divider(
+                                          color: Colors.blue,
+                                          thickness: 1,
+                                        )
+                                      ],
+                                    ),
                                   ),
+                                  onTap: () {
+                                    setState(() {
+                                      select = index;
+                                      save('MCQ', MCqlist[select]);
+                                    });
+                                    Get.to(() => const OneMcqs(),
+                                        transition: Transition.leftToRight);
+                                  },
                                 ),
-                                const Divider(
-                                  color: Colors.blue,
-                                  thickness: 1,
-                                )
-                              ],
-                            ),
-                          ),
-                          onTap: () {
-                            setState(() {
-                              select = index;
-                              save('MCQ', MCqlist[select]);
-                            });
-                            Get.to(() => const OneMcqs(),
-                                transition: Transition.leftToRight);
-                          },
-                        ),
-                      ),
-                    ),
+                              )
+                            : Center(
+                                child: Text(
+                                  "No Data",
+                                  style: TextStyle(fontSize:18,
+                                      color: Colors.blue, fontFamily: "popins"),
+                                ),
+                              )),
                   ],
                 ),
               )

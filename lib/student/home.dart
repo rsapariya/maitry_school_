@@ -16,11 +16,11 @@ import 'Materials.dart';
 import 'Onlinetest/test.dart';
 import 'gujcetpaper.dart';
 
+String selectedItem2 = 'Biology';
 List subscribplanse = [];
 List ExamList = [];
 List Alltest = [];
-String groupid = "";
-String Sunject = "";
+String groupid = "1";
 
 class homes extends StatefulWidget {
   const homes({Key? key}) : super(key: key);
@@ -46,7 +46,7 @@ class _homesState extends State<homes> {
   }
 
   String selectedItem = '11th';
-  String selectedItem2 = 'Biology';
+
   String? _selected;
 
   @override

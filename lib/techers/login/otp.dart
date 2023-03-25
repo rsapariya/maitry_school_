@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:pinput/pinput.dart';
+import 'package:schooolapp/techers/login/register.dart';
 import 'package:schooolapp/techers/units/storage.dart';
 import 'package:http/http.dart' as http;
 import '../../student/bottoms.dart';
@@ -225,14 +226,15 @@ class _verificationState extends State<verification> {
   Registerapi() async {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Signup));
     request.fields.addAll({
-      'user_name': getdata.read('Register')['fullname'],
-      'user_mobile': getdata.read('Register')['phonenumber'],
-      'user_type': getdata.read('Register')['usertype'],
-      'user_password': getdata.read('Register')['password'],
-      'user_standard_id': '1',
-      'user_school_name': getdata.read('Register')['schoolname'],
-      'user_token': getdata.read('Register')['token'],
-      'user_reference_number': '',
+      "user_name": getdata.read('Register')['fullname'],
+      "user_mobile": getdata.read('Register')['phonenumber'],
+      "user_type": getdata.read('Register')['usertype'],
+      "user_password": getdata.read('Register')['password'],
+      "user_medium": Medium.toString(),
+      "user_standard_id": '1',
+      "user_school_name": getdata.read('Register')['schoolname'],
+      "user_token": getdata.read('Register')['token'],
+      "subject_group_id": group.toString(),
       "user_taluko": getdata.read('Register')['taluko'],
       "user_gam": getdata.read('Register')['district'],
       "user_jillo": getdata.read('Register')['city'],
@@ -279,72 +281,4 @@ class _verificationState extends State<verification> {
       ApiWrapper.fluttertosat(val['message'].toString());
     }
   }
-}
-
-class v {
-  List a = [
-    {
-      'a': 'asddd',
-      'b': 'ss',
-      'c': 'fev',
-      'd': 'ss',
-      'e': 'asvetbddd',
-    },
-    {
-      'a': 'asddd',
-      'b': 'ss',
-      'c': 'fev',
-      'd': 'ss',
-      'e': 'asvetbddd',
-    },
-    {
-      'a': 'asddd',
-      'b': 'ss',
-      'c': 'fev',
-      'd': 'ss',
-      'e': 'asvetbddd',
-    },
-    {
-      'a': 'asddd',
-      'b': 'ss',
-      'c': 'fev',
-      'd': 'ss',
-      'e': 'asvetbddd',
-    },
-    {
-      'a': 'asddd',
-      'b': 'ss',
-      'c': 'fev',
-      'd': 'ss',
-      'e': 'asvetbddd',
-    },
-    {
-      'a': 'asddd',
-      'b': 'ss',
-      'c': 'fev',
-      'd': 'ss',
-      'e': 'asvetbddd',
-    },
-    {
-      'a': 'asddd',
-      'b': 'ss',
-      'c': 'fev',
-      'd': 'ss',
-      'e': 'asvetbddd',
-    },
-    {
-      'a': 'asddd',
-      'b': 'ss',
-      'c': 'fev',
-      'd': 'ss',
-      'e': 'asvetbddd',
-    },
-    {
-      'a': 'asddd',
-      'b': 'ss',
-      'c': 'fev',
-      'd': 'ss',
-      'e': 'asvetbddd',
-    },
-  ];
 }

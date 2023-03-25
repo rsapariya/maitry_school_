@@ -92,14 +92,14 @@ class _selectchaptersState extends State<selectchapters> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Physics",
+                                selectedItem2.toString(),
                                 style: TextStyle(
                                     fontFamily: 'popins Medium',
                                     color: Colors.black,
                                     fontSize: 22),
                               ),
                               Text(
-                                "33 Chapters",
+                                "Chapter ${chapter.length}",
                                 style: TextStyle(
                                     fontFamily: 'popins',
                                     color: Colors.grey,
@@ -117,77 +117,89 @@ class _selectchaptersState extends State<selectchapters> {
                     ),
                     SizedBox(height: 10),
                     SizedBox(
-                      height: Get.height / 1.3,
-                      width: double.infinity,
-                      child: ListView.builder(
-                        itemCount: chapter.length,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) => InkWell(
-                          splashColor: Colors.transparent,
-                          onTap: () {
-                            setState(() {
-                              setState(() {
-                                save('chepterid', chapter[index]["chapter_id"]);
-                              });
-                              Get.to(selecttopics(),
-                                  transition: Transition.leftToRight);
-                            });
-                          },
-                          child: Container(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: Get.width / 30,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: Get.width / 1.2,
-                                              child: Text(
-                                                chapter[index]
-                                                        ["chapter_name"] ??
-                                                    "",
-                                                maxLines: 5,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 18,
-                                                    fontFamily:
-                                                        'Gilroy Medium'),
-                                              ),
+                        height: Get.height / 1.3,
+                        width: double.infinity,
+                        child: chapter.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: chapter.length,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) => InkWell(
+                                  splashColor: Colors.transparent,
+                                  onTap: () {
+                                    setState(() {
+                                      setState(() {
+                                        save('chepterid',
+                                            chapter[index]["chapter_id"]);
+                                      });
+                                      Get.to(selecttopics(),
+                                          transition: Transition.leftToRight);
+                                    });
+                                  },
+                                  child: Container(
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 5),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: Get.width / 30,
                                             ),
-                                            SizedBox(
-                                              height: 5,
+                                            child: Row(
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: Get.width / 1.2,
+                                                      child: Text(
+                                                        chapter[index][
+                                                                "chapter_name"] ??
+                                                            "",
+                                                        maxLines: 5,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                            fontFamily:
+                                                                'Gilroy Medium'),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                  ],
+                                                ),
+                                                Spacer(),
+                                                Icon(
+                                                  Icons.navigate_next,
+                                                  color: Colors.grey,
+                                                )
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                        Spacer(),
-                                        Icon(
-                                          Icons.navigate_next,
-                                          color: Colors.grey,
-                                        )
-                                      ],
+                                          ),
+                                          Divider(
+                                            thickness: 1,
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  Divider(
-                                    thickness: 1,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                                ),
+                              )
+                            : Center(
+                                child: Text(
+                                  "No Data",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.blue,
+                                      fontFamily: "popins"),
+                                ),
+                              )),
                   ],
                 ),
               )
@@ -205,14 +217,16 @@ class _selectchaptersState extends State<selectchapters> {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Getchapter));
     request.fields.addAll({
       'group_id': groupid.toString(),
-      'medium': 'gujarati',
-      'subject_name': 'Biology'
+      'medium': getdata.read('logindata')['Result']['user_medium'].toString(),
+      'subject_name': selectedItem2.toString()
     });
+    print(request.fields);
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
     var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
     String jsonString = jsonEncode(val);
+    print(val);
     jsonString = jsonString
         .replaceAll('</p>', "")
         .replaceAll('</span>', "")
@@ -221,6 +235,7 @@ class _selectchaptersState extends State<selectchapters> {
         .replaceAll('</o:p>', "")
         .replaceAll('</table>', "")
         .replaceAll('</tbody>', "");
+    jsonString = jsonEncode(val);
     if (response.statusCode == 200) {
       val['Result'].forEach((e) {
         chapter.add(e);

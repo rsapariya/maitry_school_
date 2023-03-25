@@ -1,11 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:html/parser.dart';
 import 'package:schooolapp/student/prectice/prectice.dart';
 import 'package:schooolapp/student/prectice/result.dart';
 import 'package:schooolapp/student/prectice/selecttopic4.dart';
@@ -17,7 +14,6 @@ List<Map> Arrey = [];
 
 class TestMcqs extends StatefulWidget {
   const TestMcqs({Key? key}) : super(key: key);
-
   @override
   State<TestMcqs> createState() => _TestMcqsState();
 }
@@ -41,131 +37,134 @@ class _TestMcqsState extends State<TestMcqs> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: loding == false
-          ? Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: Get.width / 30, vertical: Get.height / 40),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  select != 0
-                      ? InkWell(
-                          onTap: () {
-                            setState(() {
-                              select--;
-                              next--;
-                              selectes = false;
+          ? chapters.isNotEmpty
+              ? Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Get.width / 30, vertical: Get.height / 40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      select != 0
+                          ? InkWell(
+                              onTap: () {
+                                setState(() {
+                                  select--;
+                                  next--;
+                                  selectes = false;
 
-                              save('Mcqs', chapters[select]);
-                              print(select);
-                            });
-                          },
-                          child: Container(
+                                  save('Mcqs', chapters[select]);
+                                  print(select);
+                                });
+                              },
+                              child: Container(
+                                  height: Get.height / 20,
+                                  width: Get.width / 6,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: const Center(
+                                      child: Text('Back',
+                                          style:
+                                              TextStyle(color: Colors.white)))))
+                          : Container(
                               height: Get.height / 20,
                               width: Get.width / 6,
                               decoration: BoxDecoration(
-                                  color: Colors.blue,
+                                  color: Colors.blue.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(10)),
                               child: const Center(
                                   child: Text('Back',
-                                      style: TextStyle(color: Colors.white)))))
-                      : Container(
-                          height: Get.height / 20,
-                          width: Get.width / 6,
-                          decoration: BoxDecoration(
-                              color: Colors.blue.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Center(
-                              child: Text('Back',
-                                  style: TextStyle(color: Colors.blue)))),
-                  select + 2 <= chapters.length
-                      ? InkWell(
-                          onTap: () {
-                            if (selectes == true) {
-                              setState(() {
+                                      style: TextStyle(color: Colors.blue)))),
+                      select + 2 <= chapters.length
+                          ? InkWell(
+                              onTap: () {
+                                if (selectes == true) {
+                                  setState(() {
+                                    OnTap();
+                                    print(select);
+                                    selectes = false;
+                                    select++;
+                                    next++;
+                                    save('Mcqs', chapters[select]);
+                                    print(select);
+                                  });
+                                } else {
+                                  ApiWrapper.fluttertosat("Select Ans");
+                                }
+                              },
+                              child: Container(
+                                  height: Get.height / 20,
+                                  width: Get.width / 6,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: const Center(
+                                      child: Text(
+                                    'Confirm',
+                                    style: TextStyle(color: Colors.white),
+                                  ))))
+                          : InkWell(
+                              onTap: () {
                                 OnTap();
-                                print(select);
-                                selectes = false;
+                                Get.off(() => PrecticeResult(),
+                                    transition: Transition.topLevel);
+                              },
+                              child: Container(
+                                height: Get.height / 20,
+                                width: Get.width / 6,
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: const Center(
+                                  child: Text(
+                                    'Submit',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                      select + 2 <= chapters.length
+                          ? InkWell(
+                              onTap: () {
+                                OnTap2();
+                                setState(() {});
                                 select++;
                                 next++;
-                                save('Mcqs', chapters[select]);
+                                selectes = false;
+
                                 print(select);
-                              });
-                            } else {
-                              ApiWrapper.fluttertosat("Select Ans");
-                            }
-                          },
-                          child: Container(
+                                save('Mcqs', chapters[select]);
+                              },
+                              child: Container(
+                                height: Get.height / 20,
+                                width: Get.width / 6,
+                                decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: const Center(
+                                  child: Text(
+                                    'Skip',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(
                               height: Get.height / 20,
                               width: Get.width / 6,
                               decoration: BoxDecoration(
-                                  color: Colors.blue,
+                                  color: Colors.blue.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(10)),
                               child: const Center(
-                                  child: Text(
-                                'Confirm',
-                                style: TextStyle(color: Colors.white),
-                              ))))
-                      : InkWell(
-                          onTap: () {
-                            OnTap();
-                            Get.off(() => PrecticeResult(),
-                                transition: Transition.topLevel);
-                          },
-                          child: Container(
-                            height: Get.height / 20,
-                            width: Get.width / 6,
-                            decoration: BoxDecoration(
-                                color: Colors.green,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Center(
-                              child: Text(
-                                'Submit',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                  select + 2 <= chapters.length
-                      ? InkWell(
-                          onTap: () {
-                            OnTap2();
-                            setState(() {});
-                            select++;
-                            next++;
-                            selectes = false;
-
-                            print(select);
-                            save('Mcqs', chapters[select]);
-                          },
-                          child: Container(
-                            height: Get.height / 20,
-                            width: Get.width / 6,
-                            decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Center(
-                              child: Text(
-                                'Skip',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        )
-                      : Container(
-                          height: Get.height / 20,
-                          width: Get.width / 6,
-                          decoration: BoxDecoration(
-                              color: Colors.blue.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Center(
-                            child: Text(
-                              'Next',
-                              style: TextStyle(color: Colors.blue),
-                            ),
-                          ))
-                ],
-              ),
-            )
+                                child: Text(
+                                  'Next',
+                                  style: TextStyle(color: Colors.blue),
+                                ),
+                              ))
+                    ],
+                  ),
+                )
+              : SizedBox()
           : SizedBox(),
       backgroundColor: Colors.white,
       body: SafeArea(

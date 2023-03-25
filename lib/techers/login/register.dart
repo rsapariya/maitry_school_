@@ -9,7 +9,9 @@ import 'package:schooolapp/techers/units/storage.dart';
 
 import '../units/api.dart';
 
+String group = "A";
 bool student = true;
+String Medium = "gujarati";
 
 class register extends StatefulWidget {
   const register({Key? key}) : super(key: key);
@@ -32,8 +34,7 @@ class _registerState extends State<register> {
   String OTPnum = '';
   bool npaas = true;
   bool cpaas = true;
-  bool medium = true;
-  bool group = true;
+
   String sub = "a";
   bool hide = true;
   bool turms = false;
@@ -323,7 +324,7 @@ class _registerState extends State<register> {
                                   InkWell(
                                     onTap: () {
                                       setState(() {
-                                        medium = true;
+                                        Medium == 'gujarati';
                                       });
                                     },
                                     child: Container(
@@ -348,52 +349,7 @@ class _registerState extends State<register> {
                                                   border: Border.all(
                                                       width: 1,
                                                       color: Colors.blue)),
-                                              child: medium == true
-                                                  ? const Center(
-                                                      child: Icon(
-                                                        Icons.circle,
-                                                        size: 10,
-                                                        color: Colors.blue,
-                                                      ),
-                                                    )
-                                                  : const SizedBox()),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          SizedBox(
-                                            width: Get.width / 6,
-                                            child: const Text(
-                                              "English",
-                                              style: TextStyle(
-                                                  fontFamily: "popins",
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        medium = false;
-                                      });
-                                    },
-                                    child: Container(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                              height: 14,
-                                              width: 14,
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      width: 1,
-                                                      color: Colors.blue)),
-                                              child: medium == false
+                                              child: Medium == 'gujarati'
                                                   ? const Center(
                                                       child: Icon(
                                                         Icons.circle,
@@ -421,6 +377,52 @@ class _registerState extends State<register> {
                                   const SizedBox(
                                     width: 15,
                                   ),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        Medium = 'english';
+                                      });
+                                    },
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 14,
+                                            width: 14,
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: Colors.blue)),
+                                            child: Medium == 'english'
+                                                ? const Center(
+                                                    child: Icon(
+                                                      Icons.circle,
+                                                      size: 10,
+                                                      color: Colors.blue,
+                                                    ),
+                                                  )
+                                                : const SizedBox(),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: Get.width / 6,
+                                            child: const Text(
+                                              "English",
+                                              style: TextStyle(
+                                                  fontFamily: "popins",
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
                                 ],
                               ),
                               Row(
@@ -428,7 +430,7 @@ class _registerState extends State<register> {
                                   InkWell(
                                     onTap: () {
                                       setState(() {
-                                        group = true;
+                                        group = "A";
                                       });
                                     },
                                     child: Container(
@@ -453,7 +455,7 @@ class _registerState extends State<register> {
                                                   border: Border.all(
                                                       width: 1,
                                                       color: Colors.blue)),
-                                              child: group == true
+                                              child: group == "A"
                                                   ? const Center(
                                                       child: Icon(
                                                         Icons.circle,
@@ -478,13 +480,10 @@ class _registerState extends State<register> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
                                   InkWell(
                                     onTap: () {
                                       setState(() {
-                                        group = false;
+                                        group = "B";
                                       });
                                     },
                                     child: Container(
@@ -498,7 +497,7 @@ class _registerState extends State<register> {
                                                   border: Border.all(
                                                       width: 1,
                                                       color: Colors.blue)),
-                                              child: group == false
+                                              child: group == "B"
                                                   ? const Center(
                                                       child: Icon(
                                                         Icons.circle,
@@ -523,8 +522,47 @@ class _registerState extends State<register> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 15,
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        group = "AB";
+                                      });
+                                    },
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              height: 14,
+                                              width: 14,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.blue)),
+                                              child: group == "AB"
+                                                  ? const Center(
+                                                      child: Icon(
+                                                        Icons.circle,
+                                                        size: 10,
+                                                        color: Colors.blue,
+                                                      ),
+                                                    )
+                                                  : const SizedBox()),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          SizedBox(
+                                            width: Get.width / 6,
+                                            child: const Text(
+                                              "AB",
+                                              style: TextStyle(
+                                                  fontFamily: "popins",
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ],
                               )
@@ -915,7 +953,7 @@ class _registerState extends State<register> {
                             setState(() {
                               loding = false;
                             });
-                            ApiWrapper.fluttertosat('Please chek number');
+                            ApiWrapper.fluttertosat(error.toString());
                           },
                           codeSent: (verificationId, forceResendingToken) {
                             ApiWrapper.fluttertosat('Code sent.');
@@ -925,7 +963,9 @@ class _registerState extends State<register> {
                             });
                             Get.to(() => verification());
                           },
-                          codeAutoRetrievalTimeout: (verificationId) {},
+                          codeAutoRetrievalTimeout: (verificationId) {
+
+                          },
                         );
                       }
                     }
@@ -1029,7 +1069,8 @@ class _registerState extends State<register> {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
         borderSide: BorderSide(
-          width: 1,        color: Colors.blue,
+          width: 1,
+          color: Colors.blue,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(

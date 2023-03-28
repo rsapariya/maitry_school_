@@ -14,28 +14,37 @@ import '../../result/studentwise.dart';
 
 class viewexam extends StatefulWidget {
   const viewexam({Key? key}) : super(key: key);
-
   @override
   State<viewexam> createState() => _viewexamState();
 }
 
 class _viewexamState extends State<viewexam> {
   bool langauge = true;
+  int _selectedMinutes = 0;
   String student = "11";
   String? _selected;
   bool Nagative = false;
   var totel = 0;
   TextEditingController startdate = TextEditingController();
   TextEditingController endtdate = TextEditingController();
+  TextEditingController examname = TextEditingController();
+  TextEditingController inname = TextEditingController();
+  TextEditingController toteltime = TextEditingController();
+  TextEditingController markofqes = TextEditingController();
+  TextEditingController Nagetive = TextEditingController();
+  TextEditingController quesNo = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final _formkey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: appButton(
           onTap: () {
+            // if (_formkey.currentState!.validate()) {
             Get.to(() => const selectchapter(),
                 transition: Transition.leftToRight);
+            // }
           },
           title: "Save and Continue"),
       body: SafeArea(
@@ -43,6 +52,8 @@ class _viewexamState extends State<viewexam> {
           padding: EdgeInsets.symmetric(
               horizontal: Get.width / 30, vertical: Get.height / 80),
           child: SingleChildScrollView(
+              child: Form(
+            key: _formkey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -233,7 +244,12 @@ class _viewexamState extends State<viewexam> {
                   ),
                   // controller: code,
                   autofocus: false,
-
+                  controller: examname,
+                  validator: ((value) {
+                    if (value == null || value.isEmpty) {
+                      return "Enter Exam Name";
+                    }
+                  }),
                   decoration: buildInputDecoration(
                     hintText: "Enter Exam Name",
                     lbltext: "Enter Exam Name",
@@ -248,7 +264,12 @@ class _viewexamState extends State<viewexam> {
                   ),
                   // controller: code,
                   autofocus: false,
-
+                  controller: inname,
+                  validator: ((value) {
+                    if (value == null || value.isEmpty) {
+                      return "Enter Institute Name";
+                    }
+                  }),
                   decoration: buildInputDecoration(
                     hintText: "Enter Institute Name",
                     lbltext: "Enter Institute Name",
@@ -262,6 +283,11 @@ class _viewexamState extends State<viewexam> {
                     fontFamily: "popins",
                   ),
                   controller: startdate,
+                  validator: ((value) {
+                    if (value == null || value.isEmpty) {
+                      return "Select Exam Start Date";
+                    }
+                  }),
                   autofocus: false,
                   readOnly: true,
                   onTap: () async {
@@ -299,6 +325,11 @@ class _viewexamState extends State<viewexam> {
                     fontFamily: "popins",
                   ),
                   controller: endtdate,
+                  validator: ((value) {
+                    if (value == null || value.isEmpty) {
+                      return "Select Exam End Date";
+                    }
+                  }),
                   autofocus: false,
                   readOnly: true,
                   onTap: () async {
@@ -337,9 +368,16 @@ class _viewexamState extends State<viewexam> {
                   style: const TextStyle(
                     fontFamily: "popins",
                   ),
-                  // controller: code,
+                  controller: toteltime,
+                  validator: ((value) {
+                    if (value == null || value.isEmpty) {
+                      return "Select Exam End Date";
+                    } else if (value.isAlphabetOnly) {
+                      return "Enter Only Number";
+                    }
+                  }),
                   autofocus: false,
-
+                  keyboardType: TextInputType.number,
                   decoration: buildInputDecoration(
                     hintText: "Exam Totel Time (in minites)",
                     lbltext: "Exam Totel Time(in minites)",
@@ -352,7 +390,14 @@ class _viewexamState extends State<viewexam> {
                   style: const TextStyle(
                     fontFamily: "popins",
                   ),
-                  // controller: code,
+                  controller: markofqes,
+                  validator: ((value) {
+                    if (value == null || value.isEmpty) {
+                      return "Select Marks of One Qestion";
+                    } else if (value.isAlphabetOnly) {
+                      return "Enter Only Number";
+                    }
+                  }),
                   autofocus: false,
                   decoration: buildInputDecoration(
                     hintText: "Select Marks of One Qestion",
@@ -435,6 +480,14 @@ class _viewexamState extends State<viewexam> {
                     SizedBox(
                       width: Get.width / 2.5,
                       child: TextFormField(
+                        controller: quesNo,
+                        validator: ((value) {
+                          if (value == null || value.isEmpty) {
+                            return "Select No of Qestion";
+                          } else if (value.isAlphabetOnly) {
+                            return "Enter Only Number";
+                          }
+                        }),
                         keyboardType: TextInputType.number,
                         style: const TextStyle(
                           fontFamily: "popins",
@@ -457,7 +510,7 @@ class _viewexamState extends State<viewexam> {
                 ),
               ],
             ),
-          ),
+          )),
         ),
       ),
     );

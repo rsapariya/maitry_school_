@@ -678,11 +678,13 @@ class _homesState extends State<homes> {
         .replaceAll('</tbody>', "");
     jsonString = jsonEncode(val);
     if (response.statusCode == 200) {
+      setState(() {
+        Materialss.clear();
+      });
       val['Result'].forEach((e) {
         Materialss.add(e);
       });
       setState(() {});
-      print(Materialss);
     } else {
       print(val);
     }

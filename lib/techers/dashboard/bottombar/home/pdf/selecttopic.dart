@@ -1,7 +1,13 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
+import 'package:http/http.dart' as http;
+import 'package:schooolapp/student/prectice/prectice.dart';
+import 'package:schooolapp/student/prectice/selectch.dart';
+import '../../../../units/api.dart';
 
-import 'MCOs.dart';
+List<String> selectedToicIds = [];
 
 class selecttopic extends StatefulWidget {
   const selecttopic({Key? key}) : super(key: key);
@@ -12,56 +18,16 @@ class selecttopic extends StatefulWidget {
 
 class _selecttopicState extends State<selecttopic> {
   int selectedindex = 0;
-  List chapter = [
-    {
-      "no": "0.1",
-      "name": "Topic no  01",
-      "topic": "7 topics",
-      "qest": "220 Question"
-    },
-    {
-      "no": "0.2",
-      "name": "Topic no  02",
-      "topic": "19 topics",
-      "qest": "200 Question"
-    },
-    {
-      "no": "0.3",
-      "name": "Topic no  03",
-      "topic": "8 topics",
-      "qest": "210 Question"
-    },
-    {
-      "no": "0.4",
-      "name": "Topic no  04",
-      "topic": "6 topics",
-      "qest": "20 Question"
-    },
-    {
-      "no": "0.5",
-      "name": "Topic no  05",
-      "topic": "7 topics",
-      "qest": "130 Question"
-    },
-    {
-      "no": "0.6",
-      "name": "Topic no  06",
-      "topic": "10 topics",
-      "qest": "100 Question"
-    },
-    {
-      "no": "0.7",
-      "name": "Topic no  07",
-      "topic": "2 topics",
-      "qest": "170 Question"
-    },
-    {
-      "no": " 0.8",
-      "name": "Topic no  08",
-      "topic": "7 topics",
-      "qest": "190 Question"
-    },
-  ];
+  List Topic = [];
+  bool loding = true;
+
+  @override
+  void initState() {
+    Topicapi();
+    selectedToicIds.clear();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,8 +49,8 @@ class _selecttopicState extends State<selecttopic> {
                         Get.back();
                       },
                       child: Container(
-                        height:Get.height/20,
-                        width:Get.width/9,
+                        height: 40,
+                        width: 40,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -96,7 +62,7 @@ class _selecttopicState extends State<selecttopic> {
                         ),
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Select Topic",
                       style: TextStyle(
                           color: Colors.black,
@@ -104,30 +70,31 @@ class _selecttopicState extends State<selecttopic> {
                           fontSize: 18),
                     ),
                     InkWell(
-                      child: SizedBox(
-                        child: Container(
-                          height:Get.height/20,
-                          width:Get.width/9,
-                        ),
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: const SizedBox(
+                        height: 40,
+                        width: 40,
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.to(() => mcqs(),transition:Transition.leftToRight);
+                      // Get.to(()=>)
                     },
                     child: Container(
                       height: Get.height / 25,
                       decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(30)),
-                      child: Center(
+                      child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
@@ -139,19 +106,17 @@ class _selecttopicState extends State<selecttopic> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   InkWell(
-                    onTap: () {
-                      // Get.off(() => pdfgenrat());
-                    },
+                    onTap: () {},
                     child: Container(
                       height: Get.height / 25,
                       decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(30)),
-                      child: Center(
+                      child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
@@ -165,125 +130,175 @@ class _selecttopicState extends State<selecttopic> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
-              SizedBox(
-                height: Get.height / 1.3,
+              const SizedBox(height: 10),
+              Expanded(
+                  child: SizedBox(
                 width: double.infinity,
-                child: ListView.builder(
-                  itemCount: chapter.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) => InkWell(
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      setState(() {
-                        selectedindex = index;
-                      });
-                    },
-                    child: Container(
-                      // height: Get.height / 13,
-                      // width: Get.width / 3.7,
-                      // color: Colors.grey.shade50,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: Get.width / 30,
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(bottom: 12),
-                                    child: Text(
-                                      chapter[index]["no"],
-                                      style: TextStyle(
-                                          color: Colors.blue,
-                                          fontSize: 20,
-                                          fontFamily: 'Gilroy Medium'),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                child: loding == false
+                    ? Topic.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: Topic.length,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) => InkWell(
+                              splashColor: Colors.transparent,
+                              onTap: () {
+                                setState(() {
+                                  if (selectedToicIds.contains(
+                                      Topic[index]["topic_id"].toString())) {
+                                    // If the chapter_id is already in the array, remove it
+                                    selectedToicIds.remove(
+                                        Topic[index]["topic_id"].toString());
+                                  } else {
+                                    // If the chapter_id is not in the array, add it
+                                    selectedToicIds.add(
+                                        Topic[index]["topic_id"].toString());
+                                  }
+                                });
+                              },
+                              child: Container(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        chapter[index]["name"],
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontFamily: 'Gilroy Medium'),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            chapter[index]["qest"],
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 12,
-                                              fontFamily: 'Gilroy Medium',
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: Get.width / 30,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  width: Get.width / 1.2,
+                                                  child: Text(
+                                                    Topic[index]
+                                                            ["topic_name"] ??
+                                                        "",
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            'Gilroy Medium'),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                        ],
+                                            const Spacer(),
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Container(
+                                                height: 15,
+                                                width: 15,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: selectedToicIds
+                                                                .contains(Topic[index]
+                                                                        [
+                                                                        "topic_id"]
+                                                                    .toString())
+                                                            ? Colors.blue
+                                                            : Colors.grey),
+                                                    color: selectedToicIds
+                                                            .contains(Topic[index]
+                                                                    ["topic_id"]
+                                                                .toString())
+                                                        ? Colors.blue
+                                                        : Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(2)),
+                                                child: selectedToicIds.contains(
+                                                        Topic[index]["topic_id"]
+                                                            .toString())
+                                                    ? const Center(
+                                                        child: Icon(
+                                                          Icons.done,
+                                                          size: 12,
+                                                          color: Colors.white,
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      // SizedBox(
-                                      //   height: Get.height / 60,
-                                      // ),
+                                      const Divider(
+                                        thickness: 1,
+                                      )
                                     ],
                                   ),
-                                  Spacer(),
-                                  InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      height: 15,
-                                      width: 15,
-                                      child: selectedindex == index
-                                          ? Center(
-                                              child: Icon(
-                                                Icons.done,
-                                                size: 12,
-                                                color: Colors.white,
-                                              ),
-                                            )
-                                          : SizedBox(),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: selectedindex == index
-                                                  ? Colors.blue
-                                                  : Colors.grey),
-                                          color: selectedindex == index
-                                              ? Colors.blue
-                                              : Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(2)),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
-                            Divider(
-                              indent: 60,
-                              thickness: 1,
-                            )
-                          ],
-                        ),
+                          )
+                        : Center(
+                            child: Text(
+                              "No Data",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 18,
+                                  fontFamily: 'popins'),
+                            ),
+                          )
+                    : Center(
+                        child: const CircularProgressIndicator(strokeWidth: 3),
                       ),
-                    ),
-                  ),
-                ),
-              ),
+              )),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Topicapi() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Tpoic));
+    request.fields.addAll({"chapterids": '$selectedChapterIds'});
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    val = jsonDecode(jsonString);
+
+    if (response.statusCode == 200) {
+      print("----");
+      print(val);
+      if (val['success'] == true) {
+        val['Result'].forEach((e) {
+          Topic.add(e);
+        });
+        selectedToicIds.add(Topic[0]["topic_id"].toString());
+        setState(() {
+          loding = false;
+        });
+      } else {
+        setState(() {
+          loding = false;
+        });
+      }
+    } else {
+      setState(() {
+        loding = false;
+      });
+    }
   }
 }

@@ -1,102 +1,36 @@
+// ignore_for_file: camel_case_types
+
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
+import 'package:http/http.dart' as http;
 import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/selecttopic.dart';
+import '../../../../../student/home.dart';
+import '../../../../units/api.dart';
+import '../../../../units/storage.dart';
+
+List<String> selectedChapterIds = [];
 
 class selectchapter extends StatefulWidget {
   const selectchapter({Key? key}) : super(key: key);
-
   @override
   State<selectchapter> createState() => _selectchapterState();
 }
 
 class _selectchapterState extends State<selectchapter> {
+  @override
+  void initState() {
+    Getchapter();
+
+    selectedChapterIds.clear();
+
+    super.initState();
+  }
+
   int selectedindex = 0;
-  List chapter = [
-    {
-      "no": "0.1",
-      "name": "chapter 01",
-      "topic": "7 topics",
-      "qest": "220 Question"
-    },
-    {
-      "no": "0.2",
-      "name": "chapter 02",
-      "topic": "19 topics",
-      "qest": "200 Question"
-    },
-    {
-      "no": "0.3",
-      "name": "chapter 03",
-      "topic": "8 topics",
-      "qest": "210 Question"
-    },
-    {
-      "no": "0.4",
-      "name": "chapter 04",
-      "topic": "6 topics",
-      "qest": "20 Question"
-    },
-    {
-      "no": "0.5",
-      "name": "chapter 05",
-      "topic": "7 topics",
-      "qest": "130 Question"
-    },
-    {
-      "no": "0.6",
-      "name": "chapter 06",
-      "topic": "10 topics",
-      "qest": "100 Question"
-    },
-    {
-      "no": "0.6",
-      "name": "chapter 06",
-      "topic": "10 topics",
-      "qest": "100 Question"
-    },
-    {
-      "no": "0.6",
-      "name": "chapter 06",
-      "topic": "10 topics",
-      "qest": "100 Question"
-    },
-    {
-      "no": "0.6",
-      "name": "chapter 06",
-      "topic": "10 topics",
-      "qest": "100 Question"
-    },
-    {
-      "no": "0.6",
-      "name": "chapter 06",
-      "topic": "10 topics",
-      "qest": "100 Question"
-    },
-    {
-      "no": "0.6",
-      "name": "chapter 06",
-      "topic": "10 topics",
-      "qest": "100 Question"
-    },
-    {
-      "no": "0.6",
-      "name": "chapter 06",
-      "topic": "10 topics",
-      "qest": "100 Question"
-    },
-    {
-      "no": "0.7",
-      "name": "chapter 07",
-      "topic": "2 topics",
-      "qest": "170 Question"
-    },
-    {
-      "no": " 0.8",
-      "name": "chapter 08",
-      "topic": "7 topics",
-      "qest": "190 Question"
-    },
-  ];
+  List chapter = [];
+  bool loading = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,39 +65,34 @@ class _selectchapterState extends State<selectchapter> {
                         ),
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Select Chapter",
                       style: TextStyle(
                           color: Colors.black,
                           fontFamily: "popins Medium",
                           fontSize: 18),
                     ),
-                    InkWell(
-                      child: SizedBox(
-                        child: Container(
-                          height: Get.height / 20,
-                          width: Get.width / 9,
-                        ),
-                      ),
+                    SizedBox(
+                      height: Get.height / 20,
+                      width: Get.width / 9,
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.to(() => selecttopic(),
-                          transition: Transition.leftToRight);
+                      // Get.to(()=>)
                     },
                     child: Container(
                       height: Get.height / 25,
                       decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(30)),
-                      child: Center(
+                      child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
@@ -175,19 +104,20 @@ class _selectchapterState extends State<selectchapter> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   InkWell(
                     onTap: () {
-                      // Get.off(() => pdfgenrat());
+                      Get.off(() => const selecttopic(),
+                          transition: Transition.leftToRight);
                     },
                     child: Container(
                       height: Get.height / 25,
                       decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(30)),
-                      child: Center(
+                      child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
@@ -201,139 +131,203 @@ class _selectchapterState extends State<selectchapter> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
-              SizedBox(
-                height: Get.height / 1.22,
-                child: ListView.builder(
-                  itemCount: chapter.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) => InkWell(
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      setState(() {
-                        selectedindex = index;
-                        print(selectedindex);
-                      });
-                    },
-                    child: Container(
-                      // height: Get.height / 13,
-                      // width: Get.width / 3.7,
-                      // color: Colors.grey.shade50,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: Get.width / 30,
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(bottom: 12),
-                                    child: Text(
-                                      chapter[index]["no"],
-                                      style: TextStyle(
-                                          color: Colors.blue,
-                                          fontSize: 20,
-                                          fontFamily: 'Gilroy Medium'),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        chapter[index]["name"],
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontFamily: 'Gilroy Medium'),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            chapter[index]["topic"],
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 12,
-                                              fontFamily: 'Gilroy Medium',
-                                            ),
+              const SizedBox(height: 10),
+              loading == false
+                  ? SizedBox(
+                      height: Get.height / 1.3,
+                      width: double.infinity,
+                      child: chapter.isNotEmpty
+                          ? ListView.builder(
+                              itemCount: chapter.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) => InkWell(
+                                splashColor: Colors.transparent,
+                                onTap: () {
+                                  setState(() {
+                                    if (selectedChapterIds.contains(
+                                        chapter[index]["chapter_id"]
+                                            .toString())) {
+                                      // If the chapter_id is already in the array, remove it
+                                      selectedChapterIds.remove(chapter[index]
+                                              ["chapter_id"]
+                                          .toString());
+                                    } else {
+                                      // If the chapter_id is not in the array, add it
+                                      selectedChapterIds.add(chapter[index]
+                                              ["chapter_id"]
+                                          .toString());
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: Get.width / 30,
                                           ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            chapter[index]["qest"],
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 12,
-                                              fontFamily: 'Gilroy Medium',
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(
-                                      //   height: Get.height / 60,
-                                      // ),
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      height: 15,
-                                      width: 15,
-                                      child: selectedindex == index
-                                          ? Center(
-                                              child: Icon(
-                                                Icons.done,
-                                                size: 12,
-                                                color: Colors.white,
+                                          child: Row(
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                    width: Get.width / 1.2,
+                                                    child: Text(
+                                                      chapter[index]
+                                                          ["chapter_name"],
+                                                      style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 18,
+                                                          fontFamily:
+                                                              'Gilroy Medium'),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: Get.width / 1.2,
+                                                    child: Text(
+                                                      chapter[index]
+                                                              ["chapter_id"]
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 18,
+                                                          fontFamily:
+                                                              'Gilroy Medium'),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                ],
                                               ),
-                                            )
-                                          : SizedBox(),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: selectedindex == index
-                                                  ? Colors.blue
-                                                  : Colors.grey),
-                                          color: selectedindex == index
-                                              ? Colors.blue
-                                              : Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(2)),
+                                              const Spacer(),
+                                              InkWell(
+                                                onTap: () {},
+                                                child: Container(
+                                                  height: 15,
+                                                  width: 15,
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: selectedChapterIds
+                                                                  .contains(
+                                                                      chapter[index]["chapter_id"]
+                                                                          .toString())
+                                                              ? Colors.blue
+                                                              : Colors.grey),
+                                                      color: selectedChapterIds
+                                                              .contains(chapter[index]
+                                                                      [
+                                                                      "chapter_id"]
+                                                                  .toString())
+                                                          ? Colors.blue
+                                                          : Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(2)),
+                                                  child: selectedChapterIds
+                                                          .contains(chapter[
+                                                                      index]
+                                                                  ["chapter_id"]
+                                                              .toString())
+                                                      ? const Center(
+                                                          child: Icon(
+                                                            Icons.done,
+                                                            size: 12,
+                                                            color: Colors.white,
+                                                          ),
+                                                        )
+                                                      : const SizedBox(),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const Divider(
+                                          indent: 60,
+                                          thickness: 1,
+                                        )
+                                      ],
                                     ),
                                   ),
-                                ],
+                                ),
+                              ),
+                            )
+                          : const Center(
+                              child: Text(
+                                "No Data",
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 18,
+                                    fontFamily: 'popins'),
                               ),
                             ),
-                            Divider(
-                              indent: 60,
-                              thickness: 1,
-                            )
-                          ],
-                        ),
-                      ),
+                    )
+                  : Padding(
+                      padding: EdgeInsets.only(top: Get.height / 3),
+                      child: const CircularProgressIndicator(strokeWidth: 3),
                     ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Getchapter() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Getchapter));
+    request.fields.addAll({
+      'group_id': '2',
+      'medium': getdata.read('logindata')['Result']['user_medium'].toString(),
+      'subject_name': 'Biology'
+    });
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+
+    if (response.statusCode == 200) {
+      if (val['success'] == true || val['Result'].toString().isNotEmpty) {
+        chapter.clear();
+        setState(() {
+
+        });
+        val['Result'].forEach((e) {
+          chapter.add(e);
+        });
+        selectedChapterIds.add(chapter[0]["chapter_id"].toString());
+
+        setState(() {
+          loading = false;
+        });
+        print(chapter);
+      } else {
+        setState(() {
+          chapter.clear();
+          loading = false;
+        });
+      }
+    } else {
+      print(val);
+      setState(() {
+        loading = false;
+      });
+    }
   }
 }

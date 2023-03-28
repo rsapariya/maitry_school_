@@ -12,11 +12,11 @@ class _viewmcqState extends State<viewmcq> {
   int selectedindex = 0;
   List chapter = [
     {
-      "no": "0.1",
+      "no": " s0.1", 
       "name":
           "Loream ipsum is simply dummy text of the printing and industry ?",
       "mark": "Marks: 4",
-      "qest": "220 Question"
+      "qest": "22x0 Question"
     },
     {
       "no": "0.2",

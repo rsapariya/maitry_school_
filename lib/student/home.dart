@@ -9,6 +9,7 @@ import 'package:schooolapp/student/prectice/selectch.dart';
 import 'package:http/http.dart' as http;
 import 'package:schooolapp/student/viewmacq/onlineexam.dart';
 import 'package:schooolapp/techers/units/storage.dart';
+import '../onbording.dart';
 import '../techers/dashboard/bottombar/home/notification.dart';
 import '../techers/dashboard/bottombar/home/result/studentwise.dart';
 import '../techers/units/api.dart';
@@ -32,6 +33,7 @@ class homes extends StatefulWidget {
 class _homesState extends State<homes> {
   @override
   void initState() {
+    getDocs();
     setState(() {
       Subject.clear();
     });
@@ -684,5 +686,20 @@ class _homesState extends State<homes> {
     } else {
       print(val);
     }
+  }
+
+  Future<void> getDocs() async {
+    try {
+      var response = await firebaseInstance
+          .collection('Version')
+          .doc('nfBoCacw3rO9gMO2DESX')
+          .get();
+      setState(() {});
+      save('varsion', response['versionname']);
+      setState(() {});
+      print(
+          '--------------------------------------------------------------------------------------------------------------');
+      print(getdata.read('varsion'));
+    } catch (e) {}
   }
 }

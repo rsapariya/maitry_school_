@@ -102,8 +102,8 @@ class _TesttopicState extends State<Testtopic> {
                 ),
               ),
               SizedBox(height: Get.height / 40),
-              SizedBox(
-                height: Get.height / 1.3,
+              Expanded(
+                  child: SizedBox(
                 width: double.infinity,
                 child: loding == false
                     ? Topic.isNotEmpty
@@ -223,7 +223,7 @@ class _TesttopicState extends State<Testtopic> {
                     : Center(
                         child: const CircularProgressIndicator(strokeWidth: 3),
                       ),
-              ),
+              )),
             ],
           ),
         ),

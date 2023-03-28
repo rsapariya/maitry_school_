@@ -121,10 +121,7 @@ class _MaterialsState extends State<Materials> {
                           setState(() {
                             Materialss[index]["ref_group_id"] = true;
                           });
-                          downloadAndOpenFile(
-                                  Materialss[index]["materials_filename"],
-                                  Materialss[index]["materials_name"],
-                                  index)
+                          downloadAndOpenFile(index)
                               .then((value) {})
                               .catchError((error) {});
                         },
@@ -140,19 +137,19 @@ class _MaterialsState extends State<Materials> {
     );
   }
 
-  Future<void> downloadAndOpenFile(
-      String url, String fileName, int index) async {
+  Future<void> downloadAndOpenFile(int index) async {
     Dio dio = Dio();
     var directory = await getTemporaryDirectory();
-    var filePath = '${directory.path}/$fileName';
+    var filePath =
+        '${directory.path}/${Materialss[index]["materials_filename"]}';
     try {
-      await dio.download(url, filePath);
+      await dio.download(Materialss[index]["materials_filename"], filePath);
       OpenFilex.open(filePath);
       setState(() {
         Materialss[index]["ref_group_id"] = false;
       });
     } catch (e) {
-      ApiWrapper.fluttertosat('xxx');
+      ApiWrapper.fluttertosat('Something Went Wrong');
       setState(() {
         Materialss[index]["ref_group_id"] = false;
       });

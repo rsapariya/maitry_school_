@@ -251,18 +251,17 @@ class _DatewiseState extends State<Datewise> {
         fontFamily: "popins",
         fontSize: 14,
       ),
-      labelText: lbltext,
       contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-              color: Colors.white,
-              width: 0.5,
-              strokeAlign: StrokeAlign.center)),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(
+            color: Colors.white, width: 0.5, strokeAlign: StrokeAlign.center),
+      ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
         borderSide: BorderSide(
-          width: 1,        color: Colors.blue,
+          width: 1,
+          color: Colors.blue,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(

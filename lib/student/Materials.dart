@@ -1,10 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:open_filex/open_filex.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:schooolapp/student/home.dart';
+import 'package:schooolapp/techers/units/api.dart';
 
 class Materials extends StatefulWidget {
   const Materials({Key? key}) : super(key: key);
-
   @override
   State<Materials> createState() => _MaterialsState();
 }
@@ -12,7 +15,7 @@ class Materials extends StatefulWidget {
 class _MaterialsState extends State<Materials> {
   @override
   bool langauge = true;
-
+  bool loding = false;
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -33,8 +36,9 @@ class _MaterialsState extends State<Materials> {
                       height: 40,
                       width: 40,
                       decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(10)),
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Center(
                         child: Image.asset(
                           "asstes/image/backwrrow.png",
@@ -64,53 +68,69 @@ class _MaterialsState extends State<Materials> {
                 height: 20,
               ),
               Expanded(
-                child: ListView.builder(
-                  // controller: controller,
-                  itemCount: Materialss.length,
-                  itemBuilder: (_, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: Get.width / 40),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
+                child: InkWell(
+                  child: ListView.builder(
+                    itemCount: Materialss.length,
+                    itemBuilder: (_, index) {
+                      return InkWell(
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: Get.width / 40),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: Get.height / 120),
-                                child: Container(
-                                    width: Get.width / 10,
-                                    height: Get.height / 20,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.blue.withOpacity(0.1)),
-                                    child: Center(
-                                        child: Image.asset(
-                                      "asstes/image/PDF.png",
-                                      scale: 5,
-                                    ))),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: Get.height / 120),
+                                    child: Container(
+                                        width: Get.width / 10,
+                                        height: Get.height / 20,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color:
+                                                Colors.blue.withOpacity(0.1)),
+                                        child: Center(
+                                            child: Image.asset(
+                                          "asstes/image/PDF.png",
+                                          scale: 5,
+                                        ))),
+                                  ),
+                                  SizedBox(width: Get.width / 20),
+                                  Text(
+                                    Materialss[index]["materials_name"],
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: "popins Medium",
+                                        fontSize: 14),
+                                  ),
+                                  Spacer(),
+                                  Materialss[index]["ref_group_id"] == true
+                                      ? CircularProgressIndicator(
+                                          strokeWidth: 3,
+                                        )
+                                      : SizedBox()
+                                ],
                               ),
-                              SizedBox(width: Get.width / 20),
-                              Text(
-                                Materialss[index]["materials_name"],
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: "popins Medium",
-                                    fontSize: 14),
-                              ),
-                              Spacer(),
-                              Icon(
-                                Icons.more_vert_outlined,
-                                size: 20,
-                                color: Colors.black.withOpacity(0.6),
-                              )
+                              Divider()
                             ],
                           ),
-                          Divider()
-                        ],
-                      ),
-                    );
-                  },
+                        ),
+                        onTap: () {
+                          setState(() {
+                            Materialss[index]["ref_group_id"] = true;
+                          });
+                          downloadAndOpenFile(
+                                  Materialss[index]["materials_filename"],
+                                  Materialss[index]["materials_name"],
+                                  index)
+                              .then((value) {})
+                              .catchError((error) {});
+                        },
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
@@ -118,5 +138,24 @@ class _MaterialsState extends State<Materials> {
         ),
       ),
     );
+  }
+
+  Future<void> downloadAndOpenFile(
+      String url, String fileName, int index) async {
+    Dio dio = Dio();
+    var directory = await getTemporaryDirectory();
+    var filePath = '${directory.path}/$fileName';
+    try {
+      await dio.download(url, filePath);
+      OpenFilex.open(filePath);
+      setState(() {
+        Materialss[index]["ref_group_id"] = false;
+      });
+    } catch (e) {
+      ApiWrapper.fluttertosat('xxx');
+      setState(() {
+        Materialss[index]["ref_group_id"] = false;
+      });
+    }
   }
 }

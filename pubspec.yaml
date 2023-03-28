@@ -68,6 +68,10 @@ dependencies:
   flutter_html: any
   html: ^0.15.2
   flutter_widget_from_html: any
+  file_picker: ^5.2.5
+  flutter_inappwebview: ^5.7.2+3
+  dio: ^4.0.6
+  open_filex: ^4.3.2
 
 
 dev_dependencies:

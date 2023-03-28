@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
-import 'package:schooolapp/student/prectice/prectice.dart';
 import 'package:schooolapp/student/prectice/selectch.dart';
 import '../../../../units/api.dart';
 
@@ -11,7 +10,6 @@ List<String> selectedToicIds = [];
 
 class selecttopic extends StatefulWidget {
   const selecttopic({Key? key}) : super(key: key);
-
   @override
   State<selecttopic> createState() => _selecttopicState();
 }
@@ -23,7 +21,7 @@ class _selecttopicState extends State<selecttopic> {
 
   @override
   void initState() {
-    Topicapi();
+    Topicapis();
     selectedToicIds.clear();
     super.initState();
   }
@@ -260,9 +258,10 @@ class _selecttopicState extends State<selecttopic> {
     );
   }
 
-  Topicapi() async {
+  Topicapis() async {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Tpoic));
     request.fields.addAll({"chapterids": '$selectedChapterIds'});
+
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
@@ -280,7 +279,6 @@ class _selecttopicState extends State<selecttopic> {
     val = jsonDecode(jsonString);
 
     if (response.statusCode == 200) {
-      print("----");
       print(val);
       if (val['success'] == true) {
         val['Result'].forEach((e) {

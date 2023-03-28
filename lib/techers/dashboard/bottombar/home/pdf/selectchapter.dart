@@ -158,6 +158,7 @@ class _selectchapterState extends State<selectchapter> {
                                           .toString());
                                     }
                                   });
+                                  print(selectedChapterIds);
                                 },
                                 child: Container(
                                   child: Padding(
@@ -184,19 +185,6 @@ class _selectchapterState extends State<selectchapter> {
                                                     child: Text(
                                                       chapter[index]
                                                           ["chapter_name"],
-                                                      style: const TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 18,
-                                                          fontFamily:
-                                                              'Gilroy Medium'),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: Get.width / 1.2,
-                                                    child: Text(
-                                                      chapter[index]
-                                                              ["chapter_id"]
-                                                          .toString(),
                                                       style: const TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 18,
@@ -285,7 +273,7 @@ class _selectchapterState extends State<selectchapter> {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Getchapter));
     request.fields.addAll({
       'group_id': '2',
-      'medium': getdata.read('logindata')['Result']['user_medium'].toString(),
+      'medium': 'Gujarati',
       'subject_name': 'Biology'
     });
     request.headers.addAll(headers);
@@ -303,11 +291,10 @@ class _selectchapterState extends State<selectchapter> {
         .replaceAll('</tbody>', "");
 
     if (response.statusCode == 200) {
-      if (val['success'] == true || val['Result'].toString().isNotEmpty) {
+      if (val['success'] == true) {
         chapter.clear();
-        setState(() {
-
-        });
+        setState(() {});
+        print(val);
         val['Result'].forEach((e) {
           chapter.add(e);
         });
@@ -318,6 +305,7 @@ class _selectchapterState extends State<selectchapter> {
         });
         print(chapter);
       } else {
+        print(val);
         setState(() {
           chapter.clear();
           loading = false;

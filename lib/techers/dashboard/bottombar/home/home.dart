@@ -38,7 +38,6 @@ class _homeState extends State<home> {
       setState(() {
         token = value;
       });
-
     });
     super.initState();
   }
@@ -498,8 +497,7 @@ class _homeState extends State<home> {
     print('------------------- GET ALL EXAM ----------------');
     var request = http.MultipartRequest(
         'GET',
-        Uri.parse(AppUrl.allexamtech +
-            getdata.read('logindata')['Result']['user_id'].toString()));
+        Uri.parse(AppUrl.allexamtech));
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();

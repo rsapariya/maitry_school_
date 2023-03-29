@@ -9,6 +9,7 @@ import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/selecttopic.dart
 import '../../../../../student/prectice/selectch.dart';
 import '../../../../units/api.dart';
 import '../../../../units/storage.dart';
+import '../onlineexam/createxam/viewexam.dart';
 import 'MCOs.dart';
 
 List<String> Selectid = [];
@@ -37,7 +38,7 @@ class _selectchapterState extends State<selectchapter> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(top:Get.height/80),
+          padding: EdgeInsets.only(top: Get.height / 80),
           child: Column(
             children: [
               Padding(
@@ -324,9 +325,12 @@ class _selectchapterState extends State<selectchapter> {
   }
 
   AutoMcqs() async {
-    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Mcqchap));
+    var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+            AppUrl.Mcqchap + getdata.read('Examid')['Result'].toString()));
     request.fields.addAll(
-        {'chapterids': '$selectedChapterIds', 'numberof_question': '10'});
+        {'chapterids': '$selectedChapterIds', 'numberof_question':quesNo.text.toString()});
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
@@ -343,7 +347,7 @@ class _selectchapterState extends State<selectchapter> {
           loading = false;
         });
         print(AutoMcq);
-        Get.to(() => const mcqs(), transition: Transition.leftToRight);
+        Get.off(() => const mcqs(), transition: Transition.leftToRight);
       } else {
         print(val);
         setState(() {

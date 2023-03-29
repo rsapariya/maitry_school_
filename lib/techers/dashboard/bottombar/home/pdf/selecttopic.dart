@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:schooolapp/student/prectice/selectch.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/selectchapter.dart';
 import '../../../../units/api.dart';
+import '../../../../units/storage.dart';
+import '../onlineexam/createxam/viewexam.dart';
 import 'MCOs.dart';
 
 List<String> selectedToicIds = [];
@@ -305,9 +307,14 @@ class _selecttopicState extends State<selecttopic> {
   }
 
   AutoMcqs() async {
-    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Mcqtopic));
-    request.fields
-        .addAll({'topicids': '$selectedToicIds', 'numberof_question': '10'});
+    var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+            AppUrl.Mcqtopic + getdata.read('Examid')['Result'].toString()));
+    request.fields.addAll({
+      'topicids': '$selectedToicIds',
+      'numberof_question': quesNo.text.toString()
+    });
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
@@ -324,7 +331,7 @@ class _selecttopicState extends State<selecttopic> {
           loding = false;
         });
         print(AutoMcq);
-        Get.to(() => const mcqs(), transition: Transition.leftToRight);
+        Get.off(() => const mcqs(), transition: Transition.leftToRight);
       } else {
         print(val);
         setState(() {

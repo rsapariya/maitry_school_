@@ -3,6 +3,8 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/selectchapter.dart';
 
+import '../onlineexam/createxam/viewexam.dart';
+
 class mcqs extends StatefulWidget {
   const mcqs({Key? key}) : super(key: key);
 
@@ -92,9 +94,7 @@ class _mcqsState extends State<mcqs> {
                     width: 20,
                   ),
                   InkWell(
-                    onTap: () {
-                      // Get.off(() => pdfgenrat());
-                    },
+                    onTap: () {},
                     child: Container(
                       height: Get.height / 25,
                       decoration: BoxDecoration(
@@ -115,7 +115,8 @@ class _mcqsState extends State<mcqs> {
                 ],
               ),
               const SizedBox(height: 10),
-              Expanded(child: SizedBox(
+              Expanded(
+                  child: SizedBox(
                 child: ListView.builder(
                   itemCount: AutoMcq.length,
                   scrollDirection: Axis.vertical,
@@ -338,7 +339,7 @@ class _mcqsState extends State<mcqs> {
                             ),
                             const Spacer(),
                             HtmlWidget(
-                              """${AutoMcq[index]["mark"]}""",
+                              """${Markof.toString()}""",
                               textStyle: const TextStyle(
                                   color: Colors.black,
                                   fontFamily: "popins",

@@ -111,7 +111,7 @@ class AppUrl {
   static const String getstudntbyclass = baseurl + '/student_byclass/';
   static const String deletestudent = baseurl + '/stud_delete_inclass/';
   static const String dateresult = baseurl + '/datewise_exam';
-  static const String allexamtech = baseurl + '/allexam_forteacher/';
+  static const String allexamtech = baseurl + '/getexam_teacher';
   static const String CreEAXM = baseurl + '/exam';
   static const String Forgot = baseurl + '/send_otp';
   static const String PostTest = baseurl + '/test';
@@ -119,6 +119,6 @@ class AppUrl {
   static const String Result = baseurl + '/test_result/';
   static const String Getchapter = baseurl + '/chapter';
   static const String Materials = baseurl + '/materials';
-  static const String Mcqchap = baseurl + '/auto_exam_chapter/1053';
-  static const String Mcqtopic = baseurl + '/auto_exam_question/1053';
+  static const String Mcqchap = baseurl + '/auto_exam_chapter/';
+  static const String Mcqtopic = baseurl + '/auto_exam_question/';
 }

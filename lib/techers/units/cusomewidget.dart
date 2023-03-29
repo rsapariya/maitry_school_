@@ -45,7 +45,8 @@ appButton({Function()? onTap, String? title, Color? clr}) {
   return InkWell(
     onTap: onTap,
     child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: Get.width / 10, vertical: 15),
+      padding: EdgeInsets.only(
+          bottom: 10, left: Get.width / 10, right: Get.width / 10),
       child: Container(
         height: Get.height / 16,
         decoration: BoxDecoration(
@@ -59,6 +60,23 @@ appButton({Function()? onTap, String? title, Color? clr}) {
               fontFamily: 'popins Medium',
             ),
           ),
+        ),
+      ),
+    ),
+  );
+}
+
+loding() {
+  return InkWell(
+    child: Padding(
+      padding: EdgeInsets.only(
+          bottom: 10, left: Get.width / 10, right: Get.width / 10),
+      child: Container(
+        height: Get.height / 16,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40), color: Colors.blue),
+        child: Center(
+          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3),
         ),
       ),
     ),

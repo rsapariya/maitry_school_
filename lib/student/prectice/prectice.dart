@@ -6,7 +6,10 @@ import 'package:get/get.dart';
 import 'package:schooolapp/student/prectice/testmcq.dart';
 import 'package:schooolapp/techers/units/api.dart';
 import 'package:schooolapp/techers/units/storage.dart';
-
+List<Map> Mark = [
+  {"ev_title": "1", "ev_id": "01"},
+  {"ev_title": "4", "ev_id": "21"},
+];
 int Count = 1;
 double Nega = 0;
 String? _selected;

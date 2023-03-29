@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:schooolapp/student/prectice/selectch.dart';
+import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/selectchapter.dart';
 import '../../../../units/api.dart';
+import 'MCOs.dart';
 
 List<String> selectedToicIds = [];
 
@@ -22,7 +24,6 @@ class _selecttopicState extends State<selecttopic> {
   @override
   void initState() {
     Topicapis();
-    selectedToicIds.clear();
     super.initState();
   }
 
@@ -32,7 +33,7 @@ class _selecttopicState extends State<selecttopic> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: Get.height / 80),
+          padding: EdgeInsets.only(top: Get.height / 80),
           child: Column(
             children: [
               Padding(
@@ -84,9 +85,7 @@ class _selecttopicState extends State<selecttopic> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () {
-                      // Get.to(()=>)
-                    },
+                    onTap: () {},
                     child: Container(
                       height: Get.height / 25,
                       decoration: BoxDecoration(
@@ -108,7 +107,12 @@ class _selecttopicState extends State<selecttopic> {
                     width: 20,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        loding = true;
+                        AutoMcqs();
+                      });
+                    },
                     child: Container(
                       height: Get.height / 25,
                       decoration: BoxDecoration(
@@ -261,7 +265,7 @@ class _selecttopicState extends State<selecttopic> {
   Topicapis() async {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Tpoic));
     request.fields.addAll({"chapterids": '$selectedChapterIds'});
-
+    print(request.fields);
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
@@ -294,6 +298,42 @@ class _selecttopicState extends State<selecttopic> {
         });
       }
     } else {
+      setState(() {
+        loding = false;
+      });
+    }
+  }
+
+  AutoMcqs() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Mcqtopic));
+    request.fields
+        .addAll({'topicids': '$selectedToicIds', 'numberof_question': '10'});
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        AutoMcq.clear();
+        setState(() {});
+        print(val);
+        val['Result'].forEach((e) {
+          AutoMcq.add(e);
+        });
+        setState(() {
+          loding = false;
+        });
+        print(AutoMcq);
+        Get.to(() => const mcqs(), transition: Transition.leftToRight);
+      } else {
+        print(val);
+        setState(() {
+          AutoMcq.clear();
+          loding = false;
+        });
+      }
+    } else {
+      print(val);
       setState(() {
         loding = false;
       });

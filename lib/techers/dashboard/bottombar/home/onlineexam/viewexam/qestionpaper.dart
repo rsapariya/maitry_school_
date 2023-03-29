@@ -130,9 +130,6 @@ class _qestionpaperState extends State<qestionpaper> {
                   itemBuilder: (context, index) => Padding(
                     padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
                     child: Container(
-                      // height: Get.height / 13,
-                      // width: Get.width / 3.7,
-                      // color: Colors.grey.shade50,
                       child: Column(
                         children: [
                           SizedBox(
@@ -165,13 +162,7 @@ class _qestionpaperState extends State<qestionpaper> {
                             height: 15,
                           ),
                           InkWell(
-                            onTap: () {
-                              // setState(() {
-                              //   ans = "B";
-                              //
-                              //   ans == "A" ? a = true : b = true;
-                              // });
-                            },
+                            onTap: () {},
                             child: Container(
                               // height: Get.height / 20,
                               width: double.infinity,
@@ -198,12 +189,7 @@ class _qestionpaperState extends State<qestionpaper> {
                             height: 15,
                           ),
                           InkWell(
-                            onTap: () {
-                              // setState(() {
-                              //   ans = "B";
-                              //   ans == "B" ? b = true : b = false;
-                              // });
-                            },
+                            onTap: () {},
                             child: Container(
                               // height: Get.height / 20,
                               width: double.infinity,
@@ -231,12 +217,7 @@ class _qestionpaperState extends State<qestionpaper> {
                             height: 15,
                           ),
                           InkWell(
-                            onTap: () {
-                              // setState(() {
-                              //   ans = "B";
-                              //   ans == "C" ? c = true : b = true;
-                              // });
-                            },
+                            onTap: () {},
                             child: Container(
                               // height: Get.height / 20,
                               width: double.infinity,
@@ -262,12 +243,7 @@ class _qestionpaperState extends State<qestionpaper> {
                             height: 15,
                           ),
                           InkWell(
-                            onTap: () {
-                              // setState(() {
-                              //   ans = "B";
-                              //   ans == "D" ? d = true : b = true;
-                              // });
-                            },
+                            onTap: () {},
                             child: Container(
                               // height: Get.height / 20,
                               width: double.infinity,

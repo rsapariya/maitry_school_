@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/selectchapter.dart';
 
 class mcqs extends StatefulWidget {
   const mcqs({Key? key}) : super(key: key);
@@ -10,64 +12,6 @@ class mcqs extends StatefulWidget {
 
 class _mcqsState extends State<mcqs> {
   int selectedindex = 0;
-  List chapter = [
-    {
-      "no": "0.1",
-      "name":
-          "Loream ipsum is simply dummy text of the printing and industry ?",
-      "mark": "Marks: 4",
-      "qest": "220 Question"
-    },
-    {
-      "no": "0.2",
-      "name":
-          "Loream ipsum is simply dummy text of the printing and industry ?",
-      "mark": "Marks: 1",
-      "qest": "200 Question"
-    },
-    {
-      "no": "0.3",
-      "name":
-          "Loream ipsum is simply dummy text of the printing and industry ?",
-      "mark": "Marks: 3",
-      "qest": "210 Question"
-    },
-    {
-      "no": "0.4",
-      "name":
-          "Loream ipsum is simply dummy text of the printing and industry ?",
-      "mark": "Marks: 2",
-      "qest": "20 Question"
-    },
-    {
-      "no": "0.5",
-      "name":
-          "Loream ipsum is simply dummy text of the printing and industry ?",
-      "mark": "Marks: 1",
-      "qest": "130 Question"
-    },
-    {
-      "no": "0.6",
-      "name":
-          "Loream ipsum is simply dummy text of the printing and industry ?",
-      "mark": "Marks: 2",
-      "qest": "100 Question"
-    },
-    {
-      "no": "0.7",
-      "name":
-          "Loream ipsum is simply dummy text of the printing and industry ?",
-      "mark": "Marks: 3 ",
-      "qest": "170 Question"
-    },
-    {
-      "no": " 0.8",
-      "name":
-          "Loream ipsum is simply dummy text of the printing and industry ?",
-      "mark": "Marks: 2",
-      "qest": "190 Question"
-    },
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,8 +33,8 @@ class _mcqsState extends State<mcqs> {
                         Get.back();
                       },
                       child: Container(
-                        height:Get.height/20,
-                        width:Get.width/9,
+                        height: Get.height / 20,
+                        width: Get.width / 9,
                         decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10)),
@@ -102,7 +46,7 @@ class _mcqsState extends State<mcqs> {
                         ),
                       ),
                     ),
-                    Text(
+                    const Text(
                       "MCQs",
                       style: TextStyle(
                           color: Colors.black,
@@ -112,15 +56,15 @@ class _mcqsState extends State<mcqs> {
                     InkWell(
                       child: SizedBox(
                         child: Container(
-                          height:Get.height/20,
-                          width:Get.width/9,
+                          height: Get.height / 20,
+                          width: Get.width / 9,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -132,7 +76,7 @@ class _mcqsState extends State<mcqs> {
                           color: Colors.white,
                           border: Border.all(width: 1, color: Colors.blue),
                           borderRadius: BorderRadius.circular(30)),
-                      child: Center(
+                      child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
@@ -144,7 +88,7 @@ class _mcqsState extends State<mcqs> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   InkWell(
@@ -156,7 +100,7 @@ class _mcqsState extends State<mcqs> {
                       decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(30)),
-                      child: Center(
+                      child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
@@ -170,228 +114,250 @@ class _mcqsState extends State<mcqs> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
-              SizedBox(
-                height: Get.height / 1.25,
-                width: double.infinity,
+              const SizedBox(height: 10),
+              Expanded(child: SizedBox(
                 child: ListView.builder(
-                  itemCount: chapter.length,
+                  itemCount: AutoMcq.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => Padding(
                     padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
-                    child: Container(
-                      // height: Get.height / 13,
-                      // width: Get.width / 3.7,
-                      // color: Colors.grey.shade50,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(chapter[index]["no"],
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("${index + 1}",
+                                style: const TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            SizedBox(
+                              width: Get.width / 1.3,
+                              child: HtmlWidget(
+                                  """${AutoMcq[index]["mcq_question"]}""",
+                                  textStyle: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.normal,
                                   )),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              SizedBox(
-                                width: Get.width / 1.3,
-                                child: Text(chapter[index]["name"],
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.normal,
-                                    )),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              // setState(() {
-                              //   ans = "B";
-                              //
-                              //   ans == "A" ? a = true : b = true;
-                              // });
-                            },
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        InkWell(
+                            onTap: () {},
                             child: Container(
-                              // height: Get.height / 20,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: Colors.transparent)),
+                                color: Colors.grey.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: Get.width / 1.3,
-                                  child: Text("A. loraem ipsum",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                      )),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              // setState(() {
-                              //   ans = "B";
-                              //   ans == "B" ? b = true : b = false;
-                              // });
-                            },
-                            child: Container(
-                              // height: Get.height / 20,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: Colors.transparent)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: Get.width / 1.3,
-                                  child: Text(
-                                      "B. loream ipsum dummy text for editing ",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                      )),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              // setState(() {
-                              //   ans = "B";
-                              //   ans == "C" ? c = true : b = true;
-                              // });
-                            },
-                            child: Container(
-                              // height: Get.height / 20,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: Colors.transparent)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: Get.width / 1.3,
-                                  child: Text("C. The extrims of evil",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                      )),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              // setState(() {
-                              //   ans = "B";
-                              //   ans == "D" ? d = true : b = true;
-                              // });
-                            },
-                            child: Container(
-                              // height: Get.height / 20,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: Colors.transparent)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: Get.width / 1.3,
-                                  child: Text("D. Latin profesor ",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                      )),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  // Get.off(() => pdfgenrat());
-                                },
-                                child: Container(
-                                  height: Get.height / 25,
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: Center(
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 20),
-                                      child: Text(
-                                        "Add +",
-                                        style: TextStyle(
-                                            fontFamily: 'popins',
-                                            color: Colors.white),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                        width: Get.width / 20,
+                                        child: const Text(
+                                          "A",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        )),
+                                    SizedBox(
+                                      width: Get.width / 1.2,
+                                      child: HtmlWidget(
+                                        """${AutoMcq[index]['mcqs_option1']}""",
+                                        textStyle: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal,
+                                        ),
                                       ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        InkWell(
+                            onTap: () {},
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                        width: Get.width / 20,
+                                        child: const Text(
+                                          "B",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        )),
+                                    SizedBox(
+                                      width: Get.width / 1.2,
+                                      child: HtmlWidget(
+                                        """${AutoMcq[index]['mcqs_option2']}""",
+                                        textStyle: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        InkWell(
+                            onTap: () {},
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                        width: Get.width / 20,
+                                        child: const Text(
+                                          "C",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        )),
+                                    SizedBox(
+                                      width: Get.width / 1.2,
+                                      child: HtmlWidget(
+                                        """${AutoMcq[index]['mcqs_option3']}""",
+                                        textStyle: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        InkWell(
+                            onTap: () {},
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                        width: Get.width / 20,
+                                        child: const Text(
+                                          "D",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        )),
+                                    SizedBox(
+                                      width: Get.width / 1.2,
+                                      child: HtmlWidget(
+                                        """${AutoMcq[index]['mcqs_option4']}""",
+                                        textStyle: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            InkWell(
+                              onTap: () {},
+                              child: Container(
+                                height: Get.height / 25,
+                                decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: const Center(
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    child: Text(
+                                      "Add +",
+                                      style: TextStyle(
+                                          fontFamily: 'popins',
+                                          color: Colors.white),
                                     ),
                                   ),
                                 ),
                               ),
-                              Spacer(),
-                              Text(
-                                chapter[index]["mark"],
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: "popins",
-                                    fontSize: 16),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Divider(
-                            color: Colors.blue,
-                            thickness: 1,
-                          )
-                        ],
-                      ),
+                            ),
+                            const Spacer(),
+                            HtmlWidget(
+                              """${AutoMcq[index]["mark"]}""",
+                              textStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "popins",
+                                  fontSize: 16),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const Divider(
+                          color: Colors.blue,
+                          thickness: 1,
+                        )
+                      ],
                     ),
                   ),
                 ),
-              ),
+              )),
             ],
           ),
         ),

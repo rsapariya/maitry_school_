@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 import '../../techers/units/api.dart';
 import '../../techers/units/storage.dart';
 import '../home.dart';
-import '../viewmacq/onlineexam.dart';
 
 List<String> selectedChapterIds = [];
 

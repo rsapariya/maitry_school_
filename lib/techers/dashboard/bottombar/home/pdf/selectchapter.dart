@@ -6,11 +6,13 @@ import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/selecttopic.dart';
-import '../../../../../student/home.dart';
+import '../../../../../student/prectice/selectch.dart';
 import '../../../../units/api.dart';
 import '../../../../units/storage.dart';
+import 'MCOs.dart';
 
-List<String> selectedChapterIds = [];
+List<String> Selectid = [];
+List AutoMcq = [];
 
 class selectchapter extends StatefulWidget {
   const selectchapter({Key? key}) : super(key: key);
@@ -22,9 +24,7 @@ class _selectchapterState extends State<selectchapter> {
   @override
   void initState() {
     Getchapter();
-
     selectedChapterIds.clear();
-
     super.initState();
   }
 
@@ -37,7 +37,7 @@ class _selectchapterState extends State<selectchapter> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: Get.height / 80),
+          padding: EdgeInsets.only(top:Get.height/80),
           child: Column(
             children: [
               Padding(
@@ -68,9 +68,10 @@ class _selectchapterState extends State<selectchapter> {
                     const Text(
                       "Select Chapter",
                       style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "popins Medium",
-                          fontSize: 18),
+                        color: Colors.black,
+                        fontFamily: "popins Medium",
+                        fontSize: 18,
+                      ),
                     ),
                     SizedBox(
                       height: Get.height / 20,
@@ -85,7 +86,8 @@ class _selectchapterState extends State<selectchapter> {
                 children: [
                   InkWell(
                     onTap: () {
-                      // Get.to(()=>)
+                      Get.to(() => selecttopic(),
+                          transition: Transition.leftToRight);
                     },
                     child: Container(
                       height: Get.height / 25,
@@ -109,8 +111,10 @@ class _selectchapterState extends State<selectchapter> {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.off(() => const selecttopic(),
-                          transition: Transition.leftToRight);
+                      setState(() {
+                        loading = true;
+                      });
+                      AutoMcqs();
                     },
                     child: Container(
                       height: Get.height / 25,
@@ -133,9 +137,8 @@ class _selectchapterState extends State<selectchapter> {
               ),
               const SizedBox(height: 10),
               loading == false
-                  ? SizedBox(
-                      height: Get.height / 1.3,
-                      width: double.infinity,
+                  ? Expanded(
+                      child: SizedBox(
                       child: chapter.isNotEmpty
                           ? ListView.builder(
                               itemCount: chapter.length,
@@ -257,7 +260,7 @@ class _selectchapterState extends State<selectchapter> {
                                     fontFamily: 'popins'),
                               ),
                             ),
-                    )
+                    ))
                   : Padding(
                       padding: EdgeInsets.only(top: Get.height / 3),
                       child: const CircularProgressIndicator(strokeWidth: 3),
@@ -274,7 +277,8 @@ class _selectchapterState extends State<selectchapter> {
     request.fields.addAll({
       'group_id': '2',
       'medium': 'Gujarati',
-      'subject_name': 'Biology'
+      'subject_name':
+          getdata.read('logindata')['Result']['ref_subject_name'].toString()
     });
     request.headers.addAll(headers);
     final response = await request.send();
@@ -308,6 +312,42 @@ class _selectchapterState extends State<selectchapter> {
         print(val);
         setState(() {
           chapter.clear();
+          loading = false;
+        });
+      }
+    } else {
+      print(val);
+      setState(() {
+        loading = false;
+      });
+    }
+  }
+
+  AutoMcqs() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Mcqchap));
+    request.fields.addAll(
+        {'chapterids': '$selectedChapterIds', 'numberof_question': '10'});
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        AutoMcq.clear();
+        setState(() {});
+        print(val);
+        val['Result'].forEach((e) {
+          AutoMcq.add(e);
+        });
+        setState(() {
+          loading = false;
+        });
+        print(AutoMcq);
+        Get.to(() => const mcqs(), transition: Transition.leftToRight);
+      } else {
+        print(val);
+        setState(() {
+          AutoMcq.clear();
           loading = false;
         });
       }

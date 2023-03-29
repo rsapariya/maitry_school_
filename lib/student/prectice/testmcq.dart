@@ -5,7 +5,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/student/prectice/prectice.dart';
 import 'package:schooolapp/student/prectice/result.dart';
-import 'package:schooolapp/student/prectice/selecttopic4.dart';
+import '../../techers/dashboard/bottombar/home/pdf/selecttopic.dart';
 import '../../techers/units/api.dart';
 import '../../techers/units/storage.dart';
 import 'package:http/http.dart' as http;

@@ -5,9 +5,8 @@ import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:schooolapp/student/prectice/prectice.dart';
 import 'package:schooolapp/student/prectice/selectch.dart';
+import '../../techers/dashboard/bottombar/home/pdf/selecttopic.dart';
 import '../../techers/units/api.dart';
-
-List<String> selectedToicIds = [];
 
 class Testtopic extends StatefulWidget {
   const Testtopic({Key? key}) : super(key: key);

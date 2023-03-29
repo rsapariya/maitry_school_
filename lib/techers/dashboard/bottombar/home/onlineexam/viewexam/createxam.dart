@@ -3,18 +3,6 @@ import 'package:get/get.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/viewexam/qestionpaper.dart';
 
 List allExam = [
-  // {
-  //   "name": "1st Exam Ravi",
-  //   "date": "20/08/2022",
-  //   "time": "04:30 PM",
-  //   "no": "01."
-  // },
-  // {
-  //   "name": "2nd Exam Ravi",
-  //   "date": "21/08/2022",
-  //   "time": "04:30 PM",
-  //   "no": "02."
-  // },
 ];
 
 class examlist extends StatefulWidget {

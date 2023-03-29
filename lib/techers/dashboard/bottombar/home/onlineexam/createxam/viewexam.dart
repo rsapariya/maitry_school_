@@ -20,8 +20,7 @@ class viewexam extends StatefulWidget {
 
 class _viewexamState extends State<viewexam> {
   bool langauge = true;
-  int _selectedMinutes = 0;
-  String student = "11";
+  String student = "1";
   String? _selected;
   bool Nagative = false;
   var totel = 0;
@@ -110,7 +109,7 @@ class _viewexamState extends State<viewexam> {
                     InkWell(
                       onTap: () {
                         setState(() {
-                          student = "11";
+                          student = "1";
                         });
                       },
                       child: Row(
@@ -122,7 +121,7 @@ class _viewexamState extends State<viewexam> {
                                   shape: BoxShape.circle,
                                   border:
                                       Border.all(width: 1, color: Colors.blue)),
-                              child: student == "11"
+                              child: student == "1"
                                   ? const Center(
                                       child: Icon(
                                         Icons.circle,
@@ -148,7 +147,7 @@ class _viewexamState extends State<viewexam> {
                     InkWell(
                       onTap: () {
                         setState(() {
-                          student = "22";
+                          student = "2";
                         });
                       },
                       child: Container(
@@ -161,7 +160,7 @@ class _viewexamState extends State<viewexam> {
                                     shape: BoxShape.circle,
                                     border: Border.all(
                                         width: 1, color: Colors.blue)),
-                                child: student == "22"
+                                child: student == "2"
                                     ? const Center(
                                         child: Icon(
                                           Icons.circle,
@@ -175,46 +174,6 @@ class _viewexamState extends State<viewexam> {
                             ),
                             const Text(
                               "12",
-                              style:
-                                  TextStyle(fontFamily: "popins", fontSize: 14),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          student = "both";
-                        });
-                      },
-                      child: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                                height: 14,
-                                width: 14,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        width: 1, color: Colors.blue)),
-                                child: student == "both"
-                                    ? const Center(
-                                        child: Icon(
-                                          Icons.circle,
-                                          size: 10,
-                                          color: Colors.blue,
-                                        ),
-                                      )
-                                    : const SizedBox()),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Text(
-                              "Both",
                               style:
                                   TextStyle(fontFamily: "popins", fontSize: 14),
                             ),
@@ -332,29 +291,10 @@ class _viewexamState extends State<viewexam> {
                   }),
                   autofocus: false,
                   readOnly: true,
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(
-                            2000), //DateTime.now() - not to allow to choose before today.
-                        lastDate: DateTime(2101));
-                    if (pickedDate != null) {
-                      //pickedDate output format => 2021-03-10 00:00:00.000
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
-                      //formatted date output using intl package =>  2021-03-16
-                      //you can implement different kind of Date Format here according to your requirement
-
-                      setState(() {
-                        endtdate.text =
-                            formattedDate; //set output date to TextField value.
-                      });
-                    } else {}
-                  },
+                  onTap: () async {},
                   decoration: buildInputDecoration(
-                    hintText: "Select Exam End Date",
-                    lbltext: "Select Exam End Date",
+                    hintText: "Exam Time",
+                    lbltext: "Exam Time",
                     surfix: const Icon(
                       Icons.calendar_month_sharp,
                       color: Colors.blue,
@@ -575,14 +515,21 @@ class _viewexamState extends State<viewexam> {
   CreateExam() async {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.CreEAXM));
     request.fields.addAll({
-      'class_id': "",
-      'exam_group_id': "",
-      'exam_name': "",
-      'exam_institute_name': "",
-      'exam_group_id': "",
-      'exam_group_id': "",
-      'exam_group_id': "",
-      'exam_group_id': "",
+      'exam_mark': '10',
+      'exam_group_id': student.toString(),
+      'class_id': _selected.toString(),
+      'exam_name': examname.text,
+      'exam_institute_name': inname.text,
+      'exam_date': startdate.text,
+      'exam_time': '10:15',
+      'exam_totaltimetime': toteltime.text,
+      'exam_markofques': '10',
+      'exam_mcqs_1': '0',
+      'exam_ques_1': '0',
+      'exam_ques_2': '0',
+      'exam_ques_3': '0',
+      'exam_ques_4': '0',
+      'exam_ques_5': '0'
     });
     request.headers.addAll(headers);
     final response = await request.send();

@@ -55,25 +55,27 @@ class _bottomstState extends State<bottoms> {
           ),
           actions: [
             TextButton(
-                onPressed: () {
-                  setState(() {});
-                  Get.back();
-                },
-                child: const Text(
-                  'Later',
-                  style: TextStyle(fontFamily: "popins", color: Colors.black),
-                )),
+              onPressed: () {
+                setState(() {});
+                Get.back();
+              },
+              child: const Text(
+                'Later',
+                style: TextStyle(fontFamily: "popins", color: Colors.black),
+              ),
+            ),
             TextButton(
-                onPressed: () {
-                  setState(() {
-                    LaunchReview.launch(androidAppId: "com.jciindiazone8.app");
-                    Get.back();
-                  });
-                },
-                child: const Text(
-                  'Update Now',
-                  style: TextStyle(color: Colors.blue, fontFamily: "popins"),
-                )),
+              onPressed: () {
+                setState(() {
+                  LaunchReview.launch(androidAppId: "com.schooolapp.zresthin");
+                  Get.back();
+                });
+              },
+              child: const Text(
+                'Update Now',
+                style: TextStyle(color: Colors.blue, fontFamily: "popins"),
+              ),
+            ),
           ],
         );
       },

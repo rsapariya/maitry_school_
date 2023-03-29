@@ -164,7 +164,7 @@ class _examlistState extends State<examlist> {
                                   ),
                                   const Divider(
                                     thickness: 1,
-                                  )
+                                  ),
                                 ],
                               ),
                             ),

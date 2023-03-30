@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,7 +17,7 @@ class Datewise extends StatefulWidget {
 
 class _DatewiseState extends State<Datewise> {
   bool loding = false;
-  List Student = [];
+  List<dynamic> Student = [];
 
   @override
   void initState() {
@@ -291,34 +290,20 @@ class _DatewiseState extends State<Datewise> {
   }
 
   GetExam() async {
-    print('------------ Get Exam -----------');
-    print(startdate.text);
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.dateresult));
     request.fields.addAll({"date": startdate.text.toString()});
+    print(request.fields);
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
-    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
-    String jsonString = jsonEncode(val);
-    jsonString = jsonString
-        .replaceAll('</p>', "")
-        .replaceAll('</span>', "")
-        .replaceAll('</td>', "")
-        .replaceAll('</tr>', "")
-        .replaceAll('</o:p>', "")
-        .replaceAll('</table>', "")
-        .replaceAll('</tbody>', "");
-
-    val = jsonDecode(jsonString);
+    var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
-      print("----");
-      print(val);
+      print("-------- -->>> $val");
       if (val['success'] == true) {
-        val['Result'].forEach((e) {
-          Student.addAll(e);
-        });
-
+        for (var item in val['Result']) {
+          Student.add(item);
+        }
         setState(() {
           loding = false;
         });
@@ -326,13 +311,59 @@ class _DatewiseState extends State<Datewise> {
         setState(() {
           loding = false;
         });
+        print("---else 2 -->>> $val");
       }
     } else {
-      ApiWrapper.fluttertosat(val['message'].toString());
-      print("---else-->>> ${val}");
+      print("---else-->>> $val");
       setState(() {
         loding = false;
       });
     }
   }
+
+  // GetExam() async {
+  //   print('------------ Get Exam -----------');
+  //   var request = http.MultipartRequest('POST', Uri.parse(AppUrl.dateresult));
+  //   request.fields.addAll({"date": startdate.text.toString()});
+  //   request.headers.addAll(headers);
+  //   final response = await request.send();
+  //   final respStr = await response.stream.bytesToString();
+  //   var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+  //   String jsonString = jsonEncode(val);
+  //   jsonString = jsonString
+  //       .replaceAll('</p>', "")
+  //       .replaceAll('</span>', "")
+  //       .replaceAll('</td>', "")
+  //       .replaceAll('</tr>', "")
+  //       .replaceAll('</o:p>', "")
+  //       .replaceAll('</table>', "")
+  //       .replaceAll('</tbody>', "");
+  //
+  //   val = jsonDecode(jsonString);
+  //
+  //   if (response.statusCode == 200) {
+  //     print("----");
+  //     print(val);
+  //     if (val['success'] == true) {
+  //       setState(() {
+  //         Student.clear();
+  //         loding = false;
+  //       });
+  //       val['Result'].forEach((e) {
+  //         Student.addAll(e);
+  //       });
+  //       setState(() {});
+  //     } else {
+  //       setState(() {
+  //         loding = false;
+  //       });
+  //     }
+  //   } else {
+  //     ApiWrapper.fluttertosat(val['message'].toString());
+  //     print("---else-->>> ${val}");
+  //     setState(() {
+  //       loding = false;
+  //     });
+  //   }
+  // }
 }

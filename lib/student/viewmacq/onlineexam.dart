@@ -120,77 +120,170 @@ class _selectchaptersState extends State<selectchapters> {
                         height: Get.height / 1.3,
                         width: double.infinity,
                         child: chapter.isNotEmpty
-                            ? ListView.builder(
-                                itemCount: chapter.length,
-                                scrollDirection: Axis.vertical,
-                                itemBuilder: (context, index) => InkWell(
-                                  splashColor: Colors.transparent,
-                                  onTap: () {
-                                    setState(() {
-                                      setState(() {
-                                        save('chepterid',
-                                            chapter[index]["chapter_id"]);
-                                      });
-                                      Get.to(selecttopics(),
-                                          transition: Transition.leftToRight);
-                                    });
-                                  },
-                                  child: Container(
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 5),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: Get.width / 30,
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                            ? getdata.read('logindata')['Result']
+                                        ['user_payment'] !=
+                                    0
+                                ? ListView.builder(
+                                    itemCount: chapter.length,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (context, index) => InkWell(
+                                      splashColor: Colors.transparent,
+                                      onTap: () {
+                                        setState(() {
+                                          setState(() {
+                                            save('chepterid',
+                                                chapter[index]["chapter_id"]);
+                                          });
+                                          Get.to(selecttopics(),
+                                              transition:
+                                                  Transition.leftToRight);
+                                        });
+                                      },
+                                      child: Container(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsets.symmetric(vertical: 5),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: Get.width / 30,
+                                                ),
+                                                child: Row(
                                                   children: [
-                                                    SizedBox(
-                                                      width: Get.width / 1.2,
-                                                      child: Text(
-                                                        chapter[index][
-                                                                "chapter_name"] ??
-                                                            "",
-                                                        maxLines: 5,
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 18,
-                                                            fontFamily:
-                                                                'Gilroy Medium'),
-                                                      ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        SizedBox(
+                                                          width:
+                                                              Get.width / 1.2,
+                                                          child: Text(
+                                                            chapter[index][
+                                                                    "chapter_name"] ??
+                                                                "",
+                                                            maxLines: 5,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 18,
+                                                                fontFamily:
+                                                                    'Gilroy Medium'),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                      ],
                                                     ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
+                                                    Spacer(),
+                                                    Icon(
+                                                      Icons.navigate_next,
+                                                      color: Colors.grey,
+                                                    )
                                                   ],
                                                 ),
-                                                Spacer(),
-                                                Icon(
-                                                  Icons.navigate_next,
-                                                  color: Colors.grey,
-                                                )
-                                              ],
-                                            ),
+                                              ),
+                                              Divider(
+                                                thickness: 1,
+                                              )
+                                            ],
                                           ),
-                                          Divider(
-                                            thickness: 1,
-                                          )
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              )
+                                  )
+                                : ListView.builder(
+                                    itemCount: chapter.length,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (context, index) => InkWell(
+                                      splashColor: Colors.transparent,
+                                      onTap: () {
+                                        if (index < 2) {
+                                          setState(() {
+                                            setState(() {
+                                              save('chepterid',
+                                                  chapter[index]["chapter_id"]);
+                                            });
+                                            Get.to(selecttopics(),
+                                                transition:
+                                                    Transition.leftToRight);
+                                          });
+                                        }
+                                      },
+                                      child: Container(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsets.symmetric(vertical: 5),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: Get.width / 30,
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        SizedBox(
+                                                          width:
+                                                              Get.width / 1.2,
+                                                          child: Text(
+                                                            chapter[index][
+                                                                    "chapter_name"] ??
+                                                                "",
+                                                            maxLines: 5,
+                                                            style: TextStyle(
+                                                                color: index < 2
+                                                                    ? Colors
+                                                                        .black
+                                                                    : Colors
+                                                                        .grey,
+                                                                fontSize: 18,
+                                                                fontFamily:
+                                                                    'Gilroy Medium'),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Spacer(),
+                                                    index < 2
+                                                        ? Icon(
+                                                            Icons.navigate_next,
+                                                            color: Colors.grey,
+                                                          )
+                                                        : SizedBox(
+                                                            width: 1,
+                                                          )
+                                                  ],
+                                                ),
+                                              ),
+                                              Divider(
+                                                thickness: 1,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
                             : Center(
                                 child: Text(
                                   "No Data",
@@ -236,15 +329,23 @@ class _selectchaptersState extends State<selectchapters> {
         .replaceAll('</table>', "")
         .replaceAll('</tbody>', "");
     jsonString = jsonEncode(val);
+    print(request.fields);
     if (response.statusCode == 200) {
-      val['Result'].forEach((e) {
-        chapter.add(e);
-      });
-      setState(() {
-        loding = false;
-      });
-      print(chapter);
+      if (val['success'] != false) {
+        val['Result'].forEach((e) {
+          chapter.add(e);
+        });
+        setState(() {
+          loding = false;
+        });
+        print(chapter);
+      } else {
+        setState(() {
+          loding = false;
+        });
+      }
     } else {
+      chapter.clear();
       print(val);
       setState(() {
         loding = false;

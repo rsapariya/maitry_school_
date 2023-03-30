@@ -121,4 +121,5 @@ class AppUrl {
   static const String Materials = baseurl + '/materials';
   static const String Mcqchap = baseurl + '/auto_exam_chapter/';
   static const String Mcqtopic = baseurl + '/auto_exam_question/';
+  static const String Getmcq = baseurl + '/getexam_mcqs/';
 }

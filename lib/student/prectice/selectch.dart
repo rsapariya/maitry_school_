@@ -141,129 +141,249 @@ class _precticechapterState extends State<precticechapter> {
                       height: Get.height / 1.3,
                       width: double.infinity,
                       child: chapter.isNotEmpty
-                          ? ListView.builder(
-                              itemCount: chapter.length,
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (context, index) => InkWell(
-                                splashColor: Colors.transparent,
-                                onTap: () {
-                                  setState(() {
-                                    if (selectedChapterIds.contains(
-                                        chapter[index]["chapter_id"]
-                                            .toString())) {
-                                      // If the chapter_id is already in the array, remove it
-                                      selectedChapterIds.remove(chapter[index]
-                                              ["chapter_id"]
-                                          .toString());
-                                    } else {
-                                      // If the chapter_id is not in the array, add it
-                                      selectedChapterIds.add(chapter[index]
-                                              ["chapter_id"]
-                                          .toString());
-                                    }
-                                  });
-                                },
-                                child: Container(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 5),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: Get.width / 30,
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  SizedBox(
-                                                    width: Get.width / 1.2,
-                                                    child: Text(
-                                                      chapter[index]
-                                                          ["chapter_name"],
-                                                      style: const TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 18,
-                                                          fontFamily:
-                                                              'Gilroy Medium'),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: Get.width / 1.2,
-                                                    child: Text(
-                                                      chapter[index]
-                                                              ["chapter_id"]
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 18,
-                                                          fontFamily:
-                                                              'Gilroy Medium'),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                ],
+                          ? getdata.read('logindata')['Result']
+                                      ['user_payment'] !=
+                                  0
+                              ? ListView.builder(
+                                  itemCount: chapter.length,
+                                  scrollDirection: Axis.vertical,
+                                  itemBuilder: (context, index) => InkWell(
+                                    splashColor: Colors.transparent,
+                                    onTap: () {
+                                      setState(() {
+                                        if (selectedChapterIds.contains(
+                                            chapter[index]["chapter_id"]
+                                                .toString())) {
+                                          // If the chapter_id is already in the array, remove it
+                                          selectedChapterIds.remove(
+                                              chapter[index]["chapter_id"]
+                                                  .toString());
+                                        } else {
+                                          // If the chapter_id is not in the array, add it
+                                          selectedChapterIds.add(chapter[index]
+                                                  ["chapter_id"]
+                                              .toString());
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 5),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: Get.width / 30,
                                               ),
-                                              const Spacer(),
-                                              InkWell(
-                                                onTap: () {},
-                                                child: Container(
-                                                  height: 15,
-                                                  width: 15,
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
+                                              child: Row(
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      SizedBox(
+                                                        width: Get.width / 1.2,
+                                                        child: Text(
+                                                          chapter[index]
+                                                              ["chapter_name"],
+                                                          style: const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 18,
+                                                              fontFamily:
+                                                                  'Gilroy Medium'),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: Get.width / 1.2,
+                                                        child: Text(
+                                                          chapter[index]
+                                                                  ["chapter_id"]
+                                                              .toString(),
+                                                          style: const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 18,
+                                                              fontFamily:
+                                                                  'Gilroy Medium'),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const Spacer(),
+                                                  InkWell(
+                                                    onTap: () {},
+                                                    child: Container(
+                                                      height: 15,
+                                                      width: 15,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: selectedChapterIds.contains(
+                                                                      chapter[index]["chapter_id"]
+                                                                          .toString())
+                                                                  ? Colors.blue
+                                                                  : Colors
+                                                                      .grey),
                                                           color: selectedChapterIds
                                                                   .contains(
                                                                       chapter[index]["chapter_id"]
                                                                           .toString())
                                                               ? Colors.blue
-                                                              : Colors.grey),
-                                                      color: selectedChapterIds
-                                                              .contains(chapter[index]
+                                                              : Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(2)),
+                                                      child: selectedChapterIds
+                                                              .contains(chapter[
+                                                                          index]
                                                                       [
                                                                       "chapter_id"]
                                                                   .toString())
-                                                          ? Colors.blue
-                                                          : Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(2)),
-                                                  child: selectedChapterIds
-                                                          .contains(chapter[
-                                                                      index]
-                                                                  ["chapter_id"]
-                                                              .toString())
-                                                      ? const Center(
-                                                          child: Icon(
-                                                            Icons.done,
-                                                            size: 12,
-                                                            color: Colors.white,
-                                                          ),
-                                                        )
-                                                      : const SizedBox(),
-                                                ),
+                                                          ? const Center(
+                                                              child: Icon(
+                                                                Icons.done,
+                                                                size: 12,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            )
+                                                          : const SizedBox(),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                            const Divider(
+                                              thickness: 1,
+                                            )
+                                          ],
                                         ),
-                                        const Divider(
-                                          indent: 60,
-                                          thickness: 1,
-                                        )
-                                      ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            )
+                                )
+                              : ListView.builder(
+                                  itemCount: chapter.length,
+                                  scrollDirection: Axis.vertical,
+                                  itemBuilder: (context, index) => InkWell(
+                                    splashColor: Colors.transparent,
+                                    onTap: () {
+                                      if (index < 2) {
+                                        setState(() {
+                                          if (selectedChapterIds.contains(
+                                              chapter[index]["chapter_id"]
+                                                  .toString())) {
+                                            // If the chapter_id is already in the array, remove it
+                                            selectedChapterIds.remove(
+                                                chapter[index]["chapter_id"]
+                                                    .toString());
+                                          } else {
+                                            // If the chapter_id is not in the array, add it
+                                            selectedChapterIds.add(
+                                                chapter[index]["chapter_id"]
+                                                    .toString());
+                                          }
+                                        });
+                                      }
+                                    },
+                                    child: Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 5),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: Get.width / 30,
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      SizedBox(
+                                                        width: Get.width / 1.2,
+                                                        child: Text(
+                                                          chapter[index]
+                                                              ["chapter_name"],
+                                                          style: TextStyle(
+                                                              color: index < 2
+                                                                  ? Colors.black
+                                                                  : Colors.grey,
+                                                              fontSize: 18,
+                                                              fontFamily:
+                                                                  'Gilroy Medium'),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const Spacer(),
+                                                  Container(
+                                                    height: 15,
+                                                    width: 15,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: selectedChapterIds.contains(
+                                                                    chapter[index]["chapter_id"]
+                                                                        .toString())
+                                                                ? Colors.blue
+                                                                : Colors.grey),
+                                                        color: selectedChapterIds
+                                                                .contains(chapter[index][
+                                                                        "chapter_id"]
+                                                                    .toString())
+                                                            ? Colors.blue
+                                                            : Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                2)),
+                                                    child: selectedChapterIds
+                                                            .contains(chapter[
+                                                                        index][
+                                                                    "chapter_id"]
+                                                                .toString())
+                                                        ? const Center(
+                                                            child: Icon(
+                                                              Icons.done,
+                                                              size: 12,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          )
+                                                        : const SizedBox(),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            const Divider(
+                                              thickness: 1,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
                           : Center(
                               child: Text(
                                 "No Data",
@@ -307,16 +427,22 @@ class _precticechapterState extends State<precticechapter> {
         .replaceAll('</tbody>', "");
 
     if (response.statusCode == 200) {
-      print(val);
-      val['Result'].forEach((e) {
-        chapter.add(e);
-      });
-      selectedChapterIds.add(chapter[0]["chapter_id"].toString());
+      if (val['success'] != false) {
+        print(val);
+        val['Result'].forEach((e) {
+          chapter.add(e);
+        });
+        selectedChapterIds.add(chapter[0]["chapter_id"].toString());
 
-      setState(() {
-        loading = false;
-      });
-      print(chapter);
+        setState(() {
+          loading = false;
+        });
+        print(chapter);
+      } else {
+        setState(() {
+          loading = false;
+        });
+      }
     } else {
       print(val);
       setState(() {

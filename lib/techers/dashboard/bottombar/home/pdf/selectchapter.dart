@@ -329,8 +329,10 @@ class _selectchapterState extends State<selectchapter> {
         'POST',
         Uri.parse(
             AppUrl.Mcqchap + getdata.read('Examid')['Result'].toString()));
-    request.fields.addAll(
-        {'chapterids': '$selectedChapterIds', 'numberof_question':quesNo.text.toString()});
+    request.fields.addAll({
+      'chapterids': '$selectedChapterIds',
+      'numberof_question': quesNo.text.toString()
+    });
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();

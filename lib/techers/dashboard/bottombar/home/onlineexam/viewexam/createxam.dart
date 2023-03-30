@@ -1,19 +1,16 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/onlineexam/viewexam/qestionpaper.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:schooolapp/techers/units/storage.dart';
 import '../../../../../units/api.dart';
-import '../../../../../units/storage.dart';
 
 List allExam = [];
 
 class examlist extends StatefulWidget {
   const examlist({Key? key}) : super(key: key);
-
   @override
   State<examlist> createState() => _examlistState();
 }
@@ -91,6 +88,10 @@ class _examlistState extends State<examlist> {
                           itemBuilder: (context, index) => InkWell(
                             splashColor: Colors.transparent,
                             onTap: () {
+                              setState(() {
+                                save("Examid",
+                                    allExam[index]['exam_id'].toString());
+                              });
                               Get.to(() => const qestionpaper(),
                                   transition: Transition.leftToRight);
                             },

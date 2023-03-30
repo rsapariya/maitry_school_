@@ -16,6 +16,7 @@ import 'getx.dart';
 
 int Markof = 0;
 bool lodinexam = false;
+RxInt count = 0.obs;
 TextEditingController quesNo = TextEditingController();
 
 class viewexam extends StatefulWidget {
@@ -448,7 +449,8 @@ class _viewexamState extends State<viewexam> {
                                   }
                                 }),
                                 onChanged: (value) {
-                                  controller.Totel();
+                                  int number = int.tryParse(value) ?? 0;
+                                  count.value = number * Markof;
                                 },
                                 keyboardType: TextInputType.number,
                                 style: const TextStyle(
@@ -461,15 +463,20 @@ class _viewexamState extends State<viewexam> {
                                 ),
                               ),
                             ),
-                            Obx(
-                              () => Text(
-                                "   =  ${controller.totelmark.value}",
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: "popins",
-                                    fontSize: 16),
+                            SizedBox(
+                              width: Get.width / 4,
+                              child: Obx(
+                                () => Text(
+                                  "   =  ${count.value}",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: "popins",
+                                      fontSize: 16),
+                                ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ],
@@ -543,7 +550,7 @@ class _viewexamState extends State<viewexam> {
   CreateExam() async {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.CreEAXM));
     request.fields.addAll({
-      'exam_mark': "10",
+      'exam_mark': count.value.toString(),
       'exam_group_id': student.toString(),
       'class_id': _selected.toString(),
       'exam_name': examname.text,

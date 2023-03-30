@@ -84,8 +84,6 @@ class _bottomstState extends State<bottoms> {
 
   @override
   Widget build(BuildContext context) {
-    // notifire = Provider.of<ColorNotifire>(context, listen: true);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: screens.elementAt(selectedIndex),
@@ -190,6 +188,7 @@ class _bottomstState extends State<bottoms> {
               label: "profile".tr,
             ),
           ],
+          //
           onTap: (index) {
             // setState(() {});
             // if (getdata.read('logindata') != null) {
@@ -210,7 +209,6 @@ class _bottomstState extends State<bottoms> {
       selectedIndex = index;
     });
   }
-//
 // getdarkmodepreviousstate() async {
 //   final prefs = await SharedPreferences.getInstance();
 //   bool? previusstate = prefs.getBool("setIsDark");

@@ -1,10 +1,16 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:schooolapp/student/home.dart';
 import 'package:schooolapp/techers/units/api.dart';
+import 'package:http/http.dart' as http;
+
+import '../techers/units/storage.dart';
 
 class Materials extends StatefulWidget {
   const Materials({Key? key}) : super(key: key);
@@ -15,7 +21,14 @@ class Materials extends StatefulWidget {
 class _MaterialsState extends State<Materials> {
   @override
   bool langauge = true;
-  bool loding = false;
+  bool loding = true;
+
+  @override
+  void initState() {
+    GetMaterials();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -47,7 +60,7 @@ class _MaterialsState extends State<Materials> {
                       ),
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Short Material",
                     style: TextStyle(
                         color: Colors.black,
@@ -64,71 +77,93 @@ class _MaterialsState extends State<Materials> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Expanded(
-                child: InkWell(
-                  child: ListView.builder(
-                    itemCount: Materialss.length,
-                    itemBuilder: (_, index) {
-                      return InkWell(
-                        child: Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: Get.width / 40),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: Get.height / 120),
-                                    child: Container(
-                                        width: Get.width / 10,
-                                        height: Get.height / 20,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color:
-                                                Colors.blue.withOpacity(0.1)),
-                                        child: Center(
-                                            child: Image.asset(
-                                          "asstes/image/PDF.png",
-                                          scale: 5,
-                                        ))),
-                                  ),
-                                  SizedBox(width: Get.width / 20),
-                                  Text(
-                                    Materialss[index]["materials_name"],
+                child: loding == false
+                    ? InkWell(
+                        child: Materialss.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: Materialss.length,
+                                itemBuilder: (_, index) {
+                                  return InkWell(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: Get.width / 40),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: Get.height / 120),
+                                                child: Container(
+                                                  width: Get.width / 10,
+                                                  height: Get.height / 20,
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.blue
+                                                          .withOpacity(0.1)),
+                                                  child: Center(
+                                                    child: Image.asset(
+                                                      "asstes/image/PDF.png",
+                                                      scale: 5,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(width: Get.width / 20),
+                                              Text(
+                                                Materialss[index]
+                                                    ["materials_name"],
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontFamily: "popins Medium",
+                                                    fontSize: 14),
+                                              ),
+                                              const Spacer(),
+                                              Materialss[index]["ref_group_id"] == true
+                                                  ? const CircularProgressIndicator(
+                                                      strokeWidth: 3)
+                                                  : const SizedBox()
+                                            ],
+                                          ),
+                                          const Divider()
+                                        ],
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        Materialss[index]["ref_group_id"] =
+                                            true;
+                                      });
+                                      downloadAndOpenFile(index)
+                                          .then((value) {})
+                                          .catchError((error) {});
+                                    },
+                                  );
+                                },
+                              )
+                            : const SizedBox(
+                                child: Center(
+                                  child: Text(
+                                    "No Data",
                                     style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: "popins Medium",
-                                        fontSize: 14),
+                                        color: Colors.blue,
+                                        fontSize: 18,
+                                        fontFamily: "popins"),
                                   ),
-                                  Spacer(),
-                                  Materialss[index]["ref_group_id"] == true
-                                      ? CircularProgressIndicator(
-                                          strokeWidth: 3,
-                                        )
-                                      : SizedBox()
-                                ],
+                                ),
                               ),
-                              Divider()
-                            ],
-                          ),
+                      )
+                    : const Center(
+                        child: SizedBox(
+                          child: CircularProgressIndicator(strokeWidth: 3),
                         ),
-                        onTap: () {
-                          setState(() {
-                            Materialss[index]["ref_group_id"] = true;
-                          });
-                          downloadAndOpenFile(index)
-                              .then((value) {})
-                              .catchError((error) {});
-                        },
-                      );
-                    },
-                  ),
-                ),
+                      ),
               ),
             ],
           ),
@@ -153,6 +188,50 @@ class _MaterialsState extends State<Materials> {
       setState(() {
         Materialss[index]["ref_group_id"] = false;
       });
+    }
+  }
+
+  GetMaterials() async {
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Materials));
+    request.fields.addAll({
+      'group_id': groupid.toString(),
+      'medium': getdata.read('logindata')['Result']['user_medium'].toString(),
+      'subject_name': selectedItem2.toString()
+    });
+    print(request.fields);
+    request.headers.addAll(headers);
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
+    String jsonString = jsonEncode(val);
+    print(val);
+    jsonString = jsonString
+        .replaceAll('</p>', "")
+        .replaceAll('</span>', "")
+        .replaceAll('</td>', "")
+        .replaceAll('</tr>', "")
+        .replaceAll('</o:p>', "")
+        .replaceAll('</table>', "")
+        .replaceAll('</tbody>', "");
+    jsonString = jsonEncode(val);
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          Materialss.clear();
+        });
+        val['Result'].forEach((e) {
+          Materialss.add(e);
+        });
+        setState(() {});
+        loding = false;
+      } else {
+        Materialss.clear();
+        loding = false;
+        setState(() {});
+      }
+    } else {
+      setState(() {});
+      loding = false;
     }
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:launch_review/launch_review.dart';

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
-import 'package:html/parser.dart' as htmlparser;
-import 'package:html/dom.dart' as dom;
 
 class Gujcetpaper extends StatefulWidget {
   const Gujcetpaper({Key? key}) : super(key: key);
@@ -12,7 +9,6 @@ class Gujcetpaper extends StatefulWidget {
 }
 
 class _GujcetpaperState extends State<Gujcetpaper> {
-  @override
   bool langauge = true;
   List notifi = [
     {"a": "Loream ipsum", "b": "About 1 min ago"},
@@ -23,6 +19,7 @@ class _GujcetpaperState extends State<Gujcetpaper> {
     {"a": "Loream ipsum doller", "b": "8 August"},
   ];
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -53,24 +50,20 @@ class _GujcetpaperState extends State<Gujcetpaper> {
                       ),
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Gujcet Paper List",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: "popins Medium",
                         fontSize: 18),
                   ),
-                  InkWell(
-                    child: SizedBox(
-                      child: Container(
-                        height: Get.height / 20,
-                        width: Get.width / 9,
-                      ),
-                    ),
+                  SizedBox(
+                    height: Get.height / 20,
+                    width: Get.width / 9,
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Expanded(
@@ -107,7 +100,7 @@ class _GujcetpaperState extends State<Gujcetpaper> {
                                 children: [
                                   Text(
                                     notifi[index]["a"],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.black,
                                         fontFamily: "popins Medium",
                                         fontSize: 14),
@@ -118,7 +111,7 @@ class _GujcetpaperState extends State<Gujcetpaper> {
                                       notifi[index]["b"],
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.grey,
                                           fontFamily: "popins",
                                           fontSize: 12),
@@ -126,7 +119,7 @@ class _GujcetpaperState extends State<Gujcetpaper> {
                                   )
                                 ],
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Icon(
                                 Icons.more_vert_outlined,
                                 size: 20,
@@ -134,7 +127,7 @@ class _GujcetpaperState extends State<Gujcetpaper> {
                               )
                             ],
                           ),
-                          Divider(),
+                          const Divider(),
                         ],
                       ),
                     );

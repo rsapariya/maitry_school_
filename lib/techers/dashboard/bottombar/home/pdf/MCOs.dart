@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, unnecessary_string_interpolations
+
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
@@ -55,13 +57,9 @@ class _mcqsState extends State<mcqs> {
                           fontFamily: "popins Medium",
                           fontSize: 18),
                     ),
-                    InkWell(
-                      child: SizedBox(
-                        child: Container(
-                          height: Get.height / 20,
-                          width: Get.width / 9,
-                        ),
-                      ),
+                    SizedBox(
+                      height: Get.height / 20,
+                      width: Get.width / 9,
                     ),
                   ],
                 ),

@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -16,7 +18,6 @@ class Jointeacher extends StatefulWidget {
 }
 
 class _JointeacherState extends State<Jointeacher> {
-  @override
   bool langauge = true;
   List notifi = ['11', '22'];
   int sselectedindex = 0;
@@ -25,10 +26,12 @@ class _JointeacherState extends State<Jointeacher> {
   TextEditingController surname = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController fatherfname = TextEditingController();
+  // ignore: non_constant_identifier_names
   TextEditingController Std = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -37,7 +40,7 @@ class _JointeacherState extends State<Jointeacher> {
               horizontal: Get.width / 30, vertical: Get.height / 80),
           child: SingleChildScrollView(
             child: Form(
-              key: _formKey,
+              key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -69,13 +72,9 @@ class _JointeacherState extends State<Jointeacher> {
                             fontFamily: "popins Medium",
                             fontSize: 18),
                       ),
-                      InkWell(
-                        child: SizedBox(
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                          ),
-                        ),
+                      const SizedBox(
+                        height: 40,
+                        width: 40,
                       ),
                     ],
                   ),
@@ -117,7 +116,9 @@ class _JointeacherState extends State<Jointeacher> {
                     validator: (value) {
                       if (surname.text.isEmpty) {
                         return "Enter username";
-                      } else {}
+                      } else {
+                        return null;
+                      }
                     },
                     autofocus: false,
                     decoration: buildInputDecoration(
@@ -139,7 +140,9 @@ class _JointeacherState extends State<Jointeacher> {
                     validator: (value) {
                       if (name.text.isEmpty) {
                         return "Enter studentname";
-                      } else {}
+                      } else {
+                        return null;
+                      }
                     },
                     autofocus: false,
                     decoration: buildInputDecoration(
@@ -161,7 +164,9 @@ class _JointeacherState extends State<Jointeacher> {
                     validator: (value) {
                       if (fatherfname.text.isEmpty) {
                         return "Enter fathername";
-                      } else {}
+                      } else {
+                        return null;
+                      }
                     },
                     autofocus: false,
                     decoration: buildInputDecoration(
@@ -183,7 +188,9 @@ class _JointeacherState extends State<Jointeacher> {
                     validator: (value) {
                       if (Std.text.isEmpty) {
                         return "Enter standard";
-                      } else {}
+                      } else {
+                        return null;
+                      }
                     },
                     autofocus: false,
                     keyboardType: TextInputType.number,
@@ -200,7 +207,7 @@ class _JointeacherState extends State<Jointeacher> {
                   ),
                   InkWell(
                       onTap: () async {
-                        if (_formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate()) {
                           setState(() {
                             loding = true;
                           });
@@ -215,8 +222,8 @@ class _JointeacherState extends State<Jointeacher> {
                                 decoration: BoxDecoration(
                                     color: Colors.blue,
                                     borderRadius: BorderRadius.circular(30)),
-                                child: Center(
-                                  child: const Text(
+                                child: const Center(
+                                  child: Text(
                                     "Request to Join with Teacher",
                                     style: TextStyle(
                                         fontFamily: 'popins',
@@ -224,7 +231,7 @@ class _JointeacherState extends State<Jointeacher> {
                                   ),
                                 ),
                               )
-                            : CircularProgressIndicator(
+                            : const CircularProgressIndicator(
                                 strokeWidth: 3,
                                 color: Colors.blue,
                               ),
@@ -248,135 +255,75 @@ class _JointeacherState extends State<Jointeacher> {
             child: Dialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: Get.height / 30,
-                    ),
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.blue.withOpacity(0.2),
-                      child: const Center(
-                        child: Icon(
-                          Icons.done_all,
-                          size: 50,
-                          color: Colors.blue,
-                        ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: Get.height / 30,
+                  ),
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundColor: Colors.blue.withOpacity(0.2),
+                    child: const Center(
+                      child: Icon(
+                        Icons.done_all,
+                        size: 50,
+                        color: Colors.blue,
                       ),
                     ),
-                    SizedBox(
-                      height: Get.height / 30,
-                    ),
-                    const Text(
-                      "Congratulations!",
+                  ),
+                  SizedBox(
+                    height: Get.height / 30,
+                  ),
+                  const Text(
+                    "Congratulations!",
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontFamily: "popins Bold",
+                        fontSize: 18),
+                  ),
+                  SizedBox(
+                    width: Get.width / 1.5,
+                    child: const Text(
+                      "Your request has send to your teacher.",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.blue,
-                          fontFamily: "popins Bold",
-                          fontSize: 18),
+                          fontFamily: "popins",
+                          fontSize: 14),
                     ),
-                    SizedBox(
-                      width: Get.width / 1.5,
-                      child: const Text(
-                        "Your request has send to your teacher.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontFamily: "popins",
-                            fontSize: 14),
-                      ),
-                    ),
-                    SizedBox(
-                      height: Get.height / 40,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          Get.back();
-                          Get.off(() => const bottoms(),
-                              transition: Transition.leftToRight);
-                        });
-                      },
-                      child: Container(
-                        height: Get.height / 25,
-                        width: Get.width / 4,
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: const Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              "Done",
-                              style: TextStyle(
-                                  fontFamily: 'popins', color: Colors.white),
-                            ),
+                  ),
+                  SizedBox(
+                    height: Get.height / 40,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        Get.back();
+                        Get.off(() => const bottoms(),
+                            transition: Transition.leftToRight);
+                      });
+                    },
+                    child: Container(
+                      height: Get.height / 25,
+                      width: Get.width / 4,
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            "Done",
+                            style: TextStyle(
+                                fontFamily: 'popins', color: Colors.white),
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ));
-      },
-    );
-  }
-
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Select Class'),
-          content: SingleChildScrollView(
-            child: ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {});
-                        Navigator.of(context).pop();
-                        sselectedindex == index;
-                      },
-                      child: Row(
-                        children: [
-                          Container(
-                              height: 14,
-                              width: 14,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border:
-                                      Border.all(width: 1, color: Colors.blue)),
-                              child: sselectedindex == index
-                                  ? const Center(
-                                      child: Icon(
-                                        Icons.circle,
-                                        size: 10,
-                                        color: Colors.blue,
-                                      ),
-                                    )
-                                  : const SizedBox()),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(notifi[index]),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const Divider(
-                    color: Colors.white,
-                  );
-                },
-                itemCount: notifi.length),
-          ),
-        );
       },
     );
   }
@@ -392,7 +339,7 @@ class _JointeacherState extends State<Jointeacher> {
       suffixIcon: surfix,
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: TextStyle(
+      labelStyle: const TextStyle(
         fontFamily: "popins",
         fontSize: 14,
       ),
@@ -406,8 +353,9 @@ class _JointeacherState extends State<Jointeacher> {
               strokeAlign: StrokeAlign.center)),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
-        borderSide: BorderSide(
-          width: 1,        color: Colors.blue,
+        borderSide: const BorderSide(
+          width: 1,
+          color: Colors.blue,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(

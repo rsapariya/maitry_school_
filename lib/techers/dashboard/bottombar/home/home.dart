@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names
+
 import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:schooolapp/techers/dashboard/bottombar/home/pdf/PDFpaper.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/pendingreqest/pendingreqeust.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/result/results.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/result/studentwise.dart';
+import '../../../../student/home.dart';
 import '../../../units/api.dart';
 import '../../../units/cusomewidget.dart';
 import '../../../units/storage.dart';
@@ -30,10 +33,10 @@ class _homeState extends State<home> {
   @override
   void initState() {
     Getallexam();
+    GetNoti();
     Getclass();
     getsubsribtion();
     getallreq();
-    request();
     FirebaseMessaging.instance.getToken().then((value) {
       setState(() {
         token = value;
@@ -42,21 +45,8 @@ class _homeState extends State<home> {
     super.initState();
   }
 
-  void request() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      provisional: false,
-      sound: true,
-    );
-  }
-
-  @override
   bool langauge = true;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -169,7 +159,7 @@ class _homeState extends State<home> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: Get.width / 1.85),
-                          child: Container(
+                          child: SizedBox(
                             height: Get.height / 2,
                             width: Get.width / 1.5,
                             child: Image.asset(
@@ -206,8 +196,8 @@ class _homeState extends State<home> {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
+                                  children: const [
+                                    Text(
                                       "Read more",
                                       style: TextStyle(
                                           color: Colors.blue, fontSize: 16),
@@ -445,15 +435,10 @@ class _homeState extends State<home> {
             requestlist.add(e);
           });
         });
-        print('--sssss->>$val');
         setState(() {});
-      } else {
-        print('--sssss->>$val');
-      }
+      } else {}
       // print('--->>$val');
-    } else {
-      print('--sssss->>$val');
-    }
+    } else {}
   }
 
   getsubsribtion() async {
@@ -482,22 +467,14 @@ class _homeState extends State<home> {
             subscibePlan.add(e);
           });
         });
-        print('--000000000000000000000000000000000->>$val');
         setState(() {});
-      } else {
-        print('--0000->>$val');
-      }
+      } else {}
       // print('--->>$val');
-    } else {
-      print('--00000->>$val');
-    }
+    } else {}
   }
 
   Getallexam() async {
-    print('------------------- GET ALL EXAM ----------------');
-    var request = http.MultipartRequest(
-        'GET',
-        Uri.parse(AppUrl.allexamtech));
+    var request = http.MultipartRequest('GET', Uri.parse(AppUrl.allexamtech));
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
@@ -521,14 +498,38 @@ class _homeState extends State<home> {
           val['Result'].forEach((e) {
             allExam.add(e);
           });
-          print('-- GET ALL EXAM->>$val');
+        });
+        setState(() {});
+      } else {}
+    } else {}
+  }
+
+  GetNoti() async {
+    print("_____________________________________________))))))))))))))))))");
+    var request =
+        http.MultipartRequest('POST', Uri.parse(AppUrl.GetNotification));
+    request.headers.addAll(headers);
+    request.fields.addAll({
+      'send_to': getdata.read('logindata')['Result']['user_type'].toString()
+    });
+    final response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    var val = jsonDecode(respStr);
+    print(val);
+    if (response.statusCode == 200) {
+      if (val['success'] == true) {
+        setState(() {
+          Notifications.clear();
+        });
+        val['Result'].forEach((e) {
+          Notifications.add(e);
         });
         setState(() {});
       } else {
-        print('-- GET ALL EXAM->>$val');
+        setState(() {});
       }
     } else {
-      print('-- GET ALL EXAM->>$val');
+      setState(() {});
     }
   }
 }

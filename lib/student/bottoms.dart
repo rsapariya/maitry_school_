@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:launch_review/launch_review.dart';
@@ -51,7 +53,7 @@ class _bottomstState extends State<bottoms> {
         return AlertDialog(
           title: Text(
             'Maitry App New version 0.0.${getdata.read('varsion')} is available',
-            style: TextStyle(fontFamily: "popins"),
+            style: const TextStyle(fontFamily: "popins"),
           ),
           actions: [
             TextButton(
@@ -122,7 +124,7 @@ class _bottomstState extends State<bottoms> {
                   ),
                 ],
               ),
-              label: "home".tr,
+              label: "home",
             ),
             BottomNavigationBarItem(
               icon: Column(
@@ -164,7 +166,7 @@ class _bottomstState extends State<bottoms> {
                   ),
                 ],
               ),
-              label: "order".tr,
+              label: "order",
             ),
             BottomNavigationBarItem(
               icon: Column(
@@ -185,17 +187,11 @@ class _bottomstState extends State<bottoms> {
                   ),
                 ],
               ),
-              label: "profile".tr,
+              label: "profile",
             ),
           ],
           //
           onTap: (index) {
-            // setState(() {});
-            // if (getdata.read('logindata') != null) {
-            //   selectedIndex = index;
-            // } else {
-            //   index != 0 ? Get.to(home()) : SizedBox();
-            // }
             setState(() {});
             selectedIndex = index;
           },
@@ -209,13 +205,4 @@ class _bottomstState extends State<bottoms> {
       selectedIndex = index;
     });
   }
-// getdarkmodepreviousstate() async {
-//   final prefs = await SharedPreferences.getInstance();
-//   bool? previusstate = prefs.getBool("setIsDark");
-//   if (previusstate == null) {
-//     notifire.setIsDark = false;
-//   } else {
-//     notifire.setIsDark = previusstate;
-//   }
-// }
 }

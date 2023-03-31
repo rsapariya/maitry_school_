@@ -54,7 +54,7 @@ appButton({Function()? onTap, String? title, Color? clr}) {
         child: Center(
           child: Text(
             title!,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
               fontFamily: 'popins Medium',
@@ -75,7 +75,7 @@ loding() {
         height: Get.height / 16,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40), color: Colors.blue),
-        child: Center(
+        child: const Center(
           child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3),
         ),
       ),
@@ -312,7 +312,7 @@ Buttenn({IconData? icon, String? txt, void Function()? onTap}) {
         children: [
           Text(
             txt!,
-            style: TextStyle(
+            style: const TextStyle(
                 fontFamily: "Gilroy Bold", color: Colors.white, fontSize: 16),
           ),
           SizedBox(width: width / 20),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/result/datewise.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/result/studentwise.dart';
 
@@ -18,6 +17,7 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
@@ -55,13 +55,9 @@ class _ResultState extends State<Result> with SingleTickerProviderStateMixin {
                         fontFamily: "popins Medium",
                         fontSize: 18),
                   ),
-                  InkWell(
-                    child: SizedBox(
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                      ),
-                    ),
+                  SizedBox(
+                    height: 40,
+                    width: 40,
                   ),
                 ],
               ),

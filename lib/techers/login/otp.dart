@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, non_constant_identifier_names
 
 import 'dart:convert';
 
@@ -23,9 +23,9 @@ class verification extends StatefulWidget {
 
 class _verificationState extends State<verification> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  @override
   var SMS = "";
   bool loding = false;
+  @override
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,6 +148,11 @@ class _verificationState extends State<verification> {
                   }
                 },
                 child: Container(
+                  height: Get.height / 15,
+                  width: Get.width / 1.8,
+                  decoration: BoxDecoration(
+                      color: Colors.blueAccent,
+                      borderRadius: BorderRadius.circular(40)),
                   child: loding == false
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -168,17 +173,12 @@ class _verificationState extends State<verification> {
                             ),
                           ],
                         )
-                      : Center(
+                      : const Center(
                           child: CircularProgressIndicator(
                             color: Colors.white,
                             strokeWidth: 3,
                           ),
                         ),
-                  height: Get.height / 15,
-                  width: Get.width / 1.8,
-                  decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(40)),
                 ),
               ),
               SizedBox(

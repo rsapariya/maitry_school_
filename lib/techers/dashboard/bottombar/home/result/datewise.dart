@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -32,7 +34,7 @@ class _DatewiseState extends State<Datewise> {
       Padding(
         padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
         child: TextFormField(
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: "popins",
           ),
           controller: startdate,
@@ -53,13 +55,12 @@ class _DatewiseState extends State<Datewise> {
               });
               GetExam();
             } else {
-              print("Date is not selected");
             }
           },
           decoration: buildInputDecoration(
             hintText: "Select Exam Start Date",
             lbltext: "Select Exam Start Date",
-            surfix: Icon(
+            surfix: const Icon(
               Icons.calendar_month_sharp,
               color: Colors.blue,
             ),
@@ -136,7 +137,7 @@ class _DatewiseState extends State<Datewise> {
                                     fontFamily: "popins",
                                     fontSize: 14))))
                   ]))),
-      SizedBox(
+      const SizedBox(
         height: 10,
       ),
       loding == false
@@ -210,12 +211,12 @@ class _DatewiseState extends State<Datewise> {
                                       ),
                                     ],
                                   ),
-                                  Divider()
+                                  const Divider()
                                 ]));
                       }))
               : Padding(
                   padding: EdgeInsets.only(top: Get.height / 3.5),
-                  child: Text(
+                  child: const Text(
                     'No Record Found!',
                     style: TextStyle(
                         color: Colors.black,
@@ -225,7 +226,7 @@ class _DatewiseState extends State<Datewise> {
                 )
           : Padding(
               padding: EdgeInsets.only(top: Get.height / 3),
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(
                   color: Colors.blue,
                   strokeWidth: 3,
@@ -246,7 +247,7 @@ class _DatewiseState extends State<Datewise> {
       suffixIcon: surfix,
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: TextStyle(
+      labelStyle: const TextStyle(
         fontFamily: "popins",
         fontSize: 14,
       ),
@@ -258,7 +259,7 @@ class _DatewiseState extends State<Datewise> {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           width: 1,
           color: Colors.blue,
         ),
@@ -292,14 +293,12 @@ class _DatewiseState extends State<Datewise> {
   GetExam() async {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.dateresult));
     request.fields.addAll({"date": startdate.text.toString()});
-    print(request.fields);
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
     var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
-      print("-------- -->>> $val");
       if (val['success'] == true) {
         for (var item in val['Result']) {
           Student.add(item);
@@ -311,10 +310,8 @@ class _DatewiseState extends State<Datewise> {
         setState(() {
           loding = false;
         });
-        print("---else 2 -->>> $val");
       }
     } else {
-      print("---else-->>> $val");
       setState(() {
         loding = false;
       });

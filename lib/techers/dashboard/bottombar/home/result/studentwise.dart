@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -129,7 +131,7 @@ class _StudentwiseState extends State<Studentwise> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Expanded(
@@ -201,7 +203,7 @@ class _StudentwiseState extends State<Studentwise> {
                               )),
                         ],
                       ),
-                      Divider()
+                      const Divider()
                     ],
                   ),
                 );

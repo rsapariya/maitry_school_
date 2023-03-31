@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -19,7 +21,7 @@ class _forgetState extends State<forget> {
   TextEditingController number = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +61,7 @@ class _forgetState extends State<forget> {
         padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
         child: SingleChildScrollView(
           child: Form(
-              key: _formKey,
+              key: formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,7 +119,7 @@ class _forgetState extends State<forget> {
                   loding == false
                       ? InkWell(
                           onTap: () {
-                            if (_formKey.currentState!.validate()) {
+                            if (formKey.currentState!.validate()) {
                               setState(() {
                                 loding = true;
                               });
@@ -211,7 +213,7 @@ class _forgetState extends State<forget> {
           loding = false;
         });
         ApiWrapper.fluttertosat(val['message'].toString());
-        Get.off(() => mainscreen(), transition: Transition.leftToRight);
+        Get.off(() => const mainscreen(), transition: Transition.leftToRight);
       } else {
         setState(() {
           loding = false;
@@ -237,7 +239,7 @@ class _forgetState extends State<forget> {
       suffixIcon: surfix,
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: TextStyle(
+      labelStyle: const TextStyle(
         fontFamily: "popins",
         fontSize: 14,
       ),
@@ -251,7 +253,7 @@ class _forgetState extends State<forget> {
               strokeAlign: StrokeAlign.center)),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           width: 1,
           color: Colors.blue,
         ),

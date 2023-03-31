@@ -476,11 +476,14 @@ class _TestMcqsState extends State<TestMcqs> {
         });
       } else {
         setState(() {
+          chapters.clear();
+
           loding = false;
         });
       }
     } else {
       setState(() {
+        chapters.clear();
         loding = false;
       });
     }

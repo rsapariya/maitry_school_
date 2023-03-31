@@ -19,7 +19,6 @@ class Materials extends StatefulWidget {
 }
 
 class _MaterialsState extends State<Materials> {
-  @override
   bool langauge = true;
   bool loding = true;
 
@@ -29,6 +28,7 @@ class _MaterialsState extends State<Materials> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -67,12 +67,10 @@ class _MaterialsState extends State<Materials> {
                         fontFamily: "popins Medium",
                         fontSize: 18),
                   ),
-                  InkWell(
+                  const InkWell(
                     child: SizedBox(
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                      ),
+                      height: 40,
+                      width: 40,
                     ),
                   ),
                 ],
@@ -82,83 +80,106 @@ class _MaterialsState extends State<Materials> {
               ),
               Expanded(
                 child: loding == false
-                    ? InkWell(
-                        child: Materialss.isNotEmpty
-                            ? ListView.builder(
-                                itemCount: Materialss.length,
-                                itemBuilder: (_, index) {
-                                  return InkWell(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: Get.width / 40),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: Get.height / 120),
-                                                child: Container(
-                                                  width: Get.width / 10,
-                                                  height: Get.height / 20,
-                                                  decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: Colors.blue
-                                                          .withOpacity(0.1)),
-                                                  child: Center(
-                                                    child: Image.asset(
-                                                      "asstes/image/PDF.png",
-                                                      scale: 5,
+                    ? RefreshIndicator(
+                        onRefresh: Regresg,
+                        child: InkWell(
+                          child: Materialss.isNotEmpty
+                              ? ListView.builder(
+                                  itemCount: Materialss.length,
+                                  itemBuilder: (_, index) {
+                                    return InkWell(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: Get.width / 40),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical:
+                                                          Get.height / 120),
+                                                  child: Container(
+                                                    width: Get.width / 10,
+                                                    height: Get.height / 20,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Colors.blue
+                                                            .withOpacity(0.1)),
+                                                    child: Center(
+                                                      child: Image.asset(
+                                                        "asstes/image/PDF.png",
+                                                        scale: 5,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              SizedBox(width: Get.width / 20),
-                                              Text(
+                                                SizedBox(width: Get.width / 20),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      Materialss[index][
+                                                              "materials_name"] ??
+                                                          "",
+                                                      style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontFamily:
+                                                              "popins Medium",
+                                                          fontSize: 14),
+                                                    ),
+                                                    Text(
+                                                      Materialss[index][
+                                                              "chapter_name"] ??
+                                                          "",
+                                                      style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontFamily:
+                                                              "popins Medium",
+                                                          fontSize: 12),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const Spacer(),
                                                 Materialss[index]
-                                                    ["materials_name"],
-                                                style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontFamily: "popins Medium",
-                                                    fontSize: 14),
-                                              ),
-                                              const Spacer(),
-                                              Materialss[index]["ref_group_id"] == true
-                                                  ? const CircularProgressIndicator(
-                                                      strokeWidth: 3)
-                                                  : const SizedBox()
-                                            ],
-                                          ),
-                                          const Divider()
-                                        ],
+                                                            ["ref_group_id"] ==
+                                                        true
+                                                    ? const CircularProgressIndicator(
+                                                        strokeWidth: 3)
+                                                    : const SizedBox()
+                                              ],
+                                            ),
+                                            const Divider()
+                                          ],
+                                        ),
                                       ),
+                                      onTap: () {
+                                        setState(() {
+                                          Materialss[index]["ref_group_id"] =
+                                              true;
+                                        });
+                                        downloadAndOpenFile(index)
+                                            .then((value) {})
+                                            .catchError((error) {});
+                                      },
+                                    );
+                                  },
+                                )
+                              : const SizedBox(
+                                  child: Center(
+                                    child: Text(
+                                      "No Data",
+                                      style: TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 18,
+                                          fontFamily: "popins"),
                                     ),
-                                    onTap: () {
-                                      setState(() {
-                                        Materialss[index]["ref_group_id"] =
-                                            true;
-                                      });
-                                      downloadAndOpenFile(index)
-                                          .then((value) {})
-                                          .catchError((error) {});
-                                    },
-                                  );
-                                },
-                              )
-                            : const SizedBox(
-                                child: Center(
-                                  child: Text(
-                                    "No Data",
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 18,
-                                        fontFamily: "popins"),
                                   ),
                                 ),
-                              ),
-                      )
+                        ))
                     : const Center(
                         child: SizedBox(
                           child: CircularProgressIndicator(strokeWidth: 3),
@@ -191,6 +212,11 @@ class _MaterialsState extends State<Materials> {
     }
   }
 
+  Future<void> Regresg() async {
+    GetMaterials();
+  }
+
+  // ignore: non_constant_identifier_names
   GetMaterials() async {
     var request = http.MultipartRequest('POST', Uri.parse(AppUrl.Materials));
     request.fields.addAll({
@@ -198,13 +224,11 @@ class _MaterialsState extends State<Materials> {
       'medium': getdata.read('logindata')['Result']['user_medium'].toString(),
       'subject_name': selectedItem2.toString()
     });
-    print(request.fields);
     request.headers.addAll(headers);
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
     var val = jsonDecode(parse(respStr).documentElement?.text ?? '');
     String jsonString = jsonEncode(val);
-    print(val);
     jsonString = jsonString
         .replaceAll('</p>', "")
         .replaceAll('</span>', "")
@@ -224,6 +248,7 @@ class _MaterialsState extends State<Materials> {
         });
         setState(() {});
         loding = false;
+        print(val);
       } else {
         Materialss.clear();
         loding = false;

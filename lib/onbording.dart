@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -33,16 +35,11 @@ class _BoardingPageState extends State<BoardingPage> {
 
   @override
   void initState() {
-    print(
-        '--------------------------------------------------------------------1111');
     FirebaseMessaging.instance.getToken().then((value) {
       setState(() {
-        print(
-            '--------------------------------------------------------------------');
         token = value;
         save('token', value);
         save('Open', true);
-        print('---------------${getdata.read('token')}-----------');
       });
     });
 
@@ -78,6 +75,7 @@ class _BoardingPageState extends State<BoardingPage> {
           .get();
       setState(() {});
       save('varsion', response['versionname']);
+      save('Policy', response['Privacy']);
     } catch (e) {}
   }
 
@@ -171,20 +169,16 @@ class _BoardingPageState extends State<BoardingPage> {
                 ),
               ),
             )
-
-            //
           ],
         ),
       ),
     );
   }
 
-  // handling the on page changed
   void _handlingOnPageChanged(int page) {
     setState(() => _currentPage = page);
   }
 
-  // building page indicator
   Widget _buildPageIndicator() {
     Row row = Row(mainAxisAlignment: MainAxisAlignment.center, children: []);
     for (int i = 0; i < _slides.length; i++) {
@@ -253,8 +247,8 @@ class _BoardingPageState extends State<BoardingPage> {
                               child: Center(
                                   child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
+                                children: const [
+                                  Text(
                                     "Get Started",
                                     style: TextStyle(
                                         fontFamily: "popins",

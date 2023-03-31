@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, unrelated_type_equality_checks, non_constant_identifier_names, sized_box_for_whitespace, override_on_non_overriding_member
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -18,7 +20,6 @@ class pendingreqest extends StatefulWidget {
 }
 
 class _pendingreqestState extends State<pendingreqest> {
-  @override
   bool langauge = true;
   int sselectedindex = 0;
   bool loding = false;
@@ -28,6 +29,7 @@ class _pendingreqestState extends State<pendingreqest> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -298,29 +300,23 @@ class _pendingreqestState extends State<pendingreqest> {
             requestlist.add(e);
           });
         });
-        print('--sssss->>$val');
         setState(() {
           loding = false;
         });
-        print('-------------------- GET ALL REQ _______________$val');
       } else {
-        print('-ELSE 1 ----------- GET ALL REQ __________________$val');
 
         setState(() {
           loding = false;
           requestlist.clear();
         });
-        print('--sssss->>$val');
       }
       // print('--->>$val');
     } else {
-      print('-ELSE 2 ----------- GET ALL REQ __________________$val');
 
       setState(() {
         loding = false;
         requestlist.clear();
       });
-      print('--sssss->>$val');
     }
   }
 
@@ -336,8 +332,6 @@ class _pendingreqestState extends State<pendingreqest> {
     var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
-      print("----");
-      print(val);
       if (val['success'].toString() == true) {
         setState(() {});
         getallreq();
@@ -351,7 +345,6 @@ class _pendingreqestState extends State<pendingreqest> {
       }
     } else {
       ApiWrapper.fluttertosat(val['message'].toString());
-      print("---else-->>> ${val}");
       setState(() {
         loding = false;
       });
@@ -371,25 +364,19 @@ class _pendingreqestState extends State<pendingreqest> {
     var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
-      print("----");
-      print(val);
       if (val['success'] == true) {
         setState(() {});
-        print('--------------------ACCEPT ______________$val');
 
         getallreq();
         ApiWrapper.fluttertosat(val['message'].toString());
       } else {
         ApiWrapper.fluttertosat(val['message'].toString());
-        print('-----ELSE 1 --------ACCEPT _____________${val['success']}');
         setState(() {
           loding = false;
         });
       }
     } else {
-      print('--ELSE 2 ----------ACCEPT _______________$val');
       ApiWrapper.fluttertosat(val['message'].toString());
-      print("---else-->>> ${val}");
       setState(() {
         loding = false;
       });
@@ -410,27 +397,21 @@ class _pendingreqestState extends State<pendingreqest> {
     var val = jsonDecode(respStr);
 
     if (response.statusCode == 200) {
-      print("----");
-      print(val);
       if (val['success'] == true) {
         setState(() {});
-        print('--------------------ADD IN CLASS _______________$val');
         acceptrequest();
 
         ApiWrapper.fluttertosat(val['message'].toString());
       } else {
         ApiWrapper.fluttertosat(val['message'].toString());
-        print('--ELSE 1 ------------ADD IN CLASS ______________$val');
 
         setState(() {
           loding = false;
         });
       }
     } else {
-      print('--ELSE 2 ------------ADD IN CLASS ______________$val');
 
       ApiWrapper.fluttertosat(val['message'].toString());
-      print("---else-->>> ${val}");
       setState(() {
         loding = false;
       });
@@ -447,94 +428,93 @@ class _pendingreqestState extends State<pendingreqest> {
             child: Dialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                  child: Padding(
+              child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "Warning",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "popins medium",
+                      fontSize: 20),
+                ),
+                SizedBox(
+                  height: Get.height / 40,
+                ),
+                const Text(
+                  "Are you sure you want to Cancel this Request ?",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "popins",
+                      fontSize: 16),
+                ),
+                SizedBox(
+                  height: Get.height / 40,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      "Warning",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "popins medium",
-                          fontSize: 20),
-                    ),
-                    SizedBox(
-                      height: Get.height / 40,
-                    ),
-                    const Text(
-                      "Are you sure you want to Cancel this Request ?",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "popins",
-                          fontSize: 16),
-                    ),
-                    SizedBox(
-                      height: Get.height / 40,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              Get.back();
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width / 20,
-                                    vertical: Get.height / 120),
-                                child: const Text(
-                                  "Cancel",
-                                  style: TextStyle(
-                                      fontFamily: 'popins',
-                                      color: Colors.black),
-                                ),
-                              ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          Get.back();
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Get.width / 20,
+                                vertical: Get.height / 120),
+                            child: const Text(
+                              "Cancel",
+                              style: TextStyle(
+                                  fontFamily: 'popins',
+                                  color: Colors.black),
                             ),
                           ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              loding = true;
-                              Cancelrequest();
-                              Get.back();
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blue),
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width / 20,
-                                    vertical: Get.height / 120),
-                                child: const Text(
-                                  "Yes i'am sure",
-                                  style: TextStyle(
-                                      fontFamily: 'popins', color: Colors.blue),
-                                ),
-                              ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          loding = true;
+                          Cancelrequest();
+                          Get.back();
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blue),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Get.width / 20,
+                                vertical: Get.height / 120),
+                            child: const Text(
+                              "Yes i'am sure",
+                              style: TextStyle(
+                                  fontFamily: 'popins', color: Colors.blue),
                             ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
-              )),
+              ],
+                ),
+              ),
             ));
       },
     );
@@ -550,97 +530,95 @@ class _pendingreqestState extends State<pendingreqest> {
             child: Dialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                  child: Padding(
+              child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      "Select class",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "popins medium",
-                          fontSize: 20),
-                    ),
-                    SizedBox(
-                      height: Get.height / 40,
-                    ),
-                    Class.isNotEmpty
-                        ? SizedBox(
-                            height: Get.height / 3.5,
-                            child: ListView.builder(
-                              // controller: controller,
-                              itemCount: Class.length,
-                              itemBuilder: (_, index) {
-                                return Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: Get.width / 40),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            loding = true;
-                                            print("--------ONTAP________");
-                                            save(
-                                                'classid',
-                                                Class[index]
-                                                    ['student_class_id']);
-                                            Addinclass();
-                                          });
-                                          Get.back();
-                                        },
-                                        child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "Select class",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "popins medium",
+                      fontSize: 20),
+                ),
+                SizedBox(
+                  height: Get.height / 40,
+                ),
+                Class.isNotEmpty
+                    ? SizedBox(
+                        height: Get.height / 3.5,
+                        child: ListView.builder(
+                          // controller: controller,
+                          itemCount: Class.length,
+                          itemBuilder: (_, index) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width / 40),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        loding = true;
+                                        save(
+                                            'classid',
+                                            Class[index]
+                                                ['student_class_id']);
+                                        Addinclass();
+                                      });
+                                      Get.back();
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  Class[index]
-                                                      ["student_class_name"],
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontFamily:
-                                                          "popins Medium",
-                                                      fontSize: 16),
-                                                ),
-                                              ],
+                                            Text(
+                                              Class[index]
+                                                  ["student_class_name"],
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontFamily:
+                                                      "popins Medium",
+                                                  fontSize: 16),
                                             ),
-                                            const Spacer(),
                                           ],
                                         ),
-                                      ),
-                                      const Divider(
-                                        color: Colors.blue,
-                                        thickness: 1,
-                                      )
-                                    ],
+                                        const Spacer(),
+                                      ],
+                                    ),
                                   ),
-                                );
-                              },
-                            ),
-                          )
-                        : Padding(
-                            padding: EdgeInsets.only(top: Get.height / 8),
-                            child: const Center(
-                              child: Text(
-                                "Class not found",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: "popins Medium",
-                                    fontSize: 18),
+                                  const Divider(
+                                    color: Colors.blue,
+                                    thickness: 1,
+                                  )
+                                ],
                               ),
-                            ),
+                            );
+                          },
+                        ),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.only(top: Get.height / 8),
+                        child: const Center(
+                          child: Text(
+                            "Class not found",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "popins Medium",
+                                fontSize: 18),
                           ),
-                  ],
+                        ),
+                      ),
+              ],
                 ),
-              )),
+              ),
             ));
       },
     );

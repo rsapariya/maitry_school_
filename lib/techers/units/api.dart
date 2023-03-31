@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, empty_catches, constant_identifier_names
 
 import 'dart:convert';
 import 'dart:developer';
@@ -38,14 +38,10 @@ class ApiWrapper {
   static dataPost(appUrl, method) async {
     try {
       var url = Uri.parse(appUrl);
-      print(url);
-      print(method);
       var request =
           await http.post(url, headers: headers, body: jsonEncode(method));
       var response = jsonDecode(request.body);
-      print("response----- $response");
       if (request.statusCode == 200) {
-        print(response);
         return response;
       } else {
         return response;
@@ -63,7 +59,6 @@ class ApiWrapper {
       if (request.statusCode == 200) {
         return response;
       } else {
-        print(request.reasonPhrase);
       }
     } catch (e) {
       return e;
@@ -77,49 +72,48 @@ class ApiWrapper {
       if (request.statusCode == 200) {
         return response;
       } else {
-        print(request.reasonPhrase);
       }
     } catch (e) {
-      print("Exeption----- $e");
     }
   }
 }
 
 class AppUrl {
   static const String baseurl = 'https://maitriapp.in/api_new/v1';
-  static const String login = baseurl + '/login';
-  static const String Signup = baseurl + '/signup';
-  static const String Chapter = baseurl + '/chapter/1';
-  static const String Tpoic = baseurl + '/topic';
-  static const String MCqs = baseurl + '/mcqs';
-  static const String Sendrequest = baseurl + '/send_request';
-  static const String getrequest = baseurl + '/allrequest';
-  static const String chagepass = baseurl + '/change_password';
-  static const String decline = baseurl + '/request_decline';
+  static const String login = '$baseurl/login';
+  static const String Signup = '$baseurl/signup';
+  static const String Chapter = '$baseurl/chapter/1';
+  static const String Tpoic = '$baseurl/topic';
+  static const String MCqs = '$baseurl/mcqs';
+  static const String Sendrequest = '$baseurl/send_request';
+  static const String getrequest = '$baseurl/allrequest';
+  static const String chagepass = '$baseurl/change_password';
+  static const String decline = '$baseurl/request_decline';
   static const String getsubscribeT =
-      baseurl + '/getsubscriptionplan?type=Teacher';
+      '$baseurl/getsubscriptionplan?type=Teacher';
   static const String getsubscribeS =
-      baseurl + '/getsubscriptionplan?type=Student';
-  static const String getclass = baseurl + '/allclass';
-  static const String Creatclass = baseurl + '/create_class';
-  static const String Deleteclass = baseurl + '/class_delete/';
-  static const String Aboutapp = baseurl + '/aboutapp';
-  static const String Acceptrequets = baseurl + '/request_accept';
-  static const String addstuclass = baseurl + '/addstudent_inclass';
-  static const String getoffers = baseurl + '/getoffers';
-  static const String getexam = baseurl + '/allexam_bystudent/';
-  static const String getstudntbyclass = baseurl + '/student_byclass/';
-  static const String deletestudent = baseurl + '/stud_delete_inclass/';
-  static const String dateresult = baseurl + '/datewise_exam';
-  static const String allexamtech = baseurl + '/getexam_teacher';
-  static const String CreEAXM = baseurl + '/exam';
-  static const String Forgot = baseurl + '/send_otp';
-  static const String PostTest = baseurl + '/test';
-  static const String AllTestApi = baseurl + '/alltest';
-  static const String Result = baseurl + '/test_result/';
-  static const String Getchapter = baseurl + '/chapter';
-  static const String Materials = baseurl + '/materials';
-  static const String Mcqchap = baseurl + '/auto_exam_chapter/';
-  static const String Mcqtopic = baseurl + '/auto_exam_question/';
-  static const String Getmcq = baseurl + '/getexam_mcqs/';
+      '$baseurl/getsubscriptionplan?type=Student';
+  static const String getclass = '$baseurl/allclass';
+  static const String Creatclass = '$baseurl/create_class';
+  static const String Deleteclass = '$baseurl/class_delete/';
+  static const String Aboutapp = '$baseurl/aboutapp';
+  static const String Acceptrequets = '$baseurl/request_accept';
+  static const String addstuclass = '$baseurl/addstudent_inclass';
+  static const String getoffers = '$baseurl/getoffers';
+  static const String getexam = '$baseurl/allexam_bystudent/';
+  static const String getstudntbyclass = '$baseurl/student_byclass/';
+  static const String deletestudent = '$baseurl/stud_delete_inclass/';
+  static const String dateresult = '$baseurl/datewise_exam';
+  static const String allexamtech = '$baseurl/getexam_teacher';
+  static const String CreEAXM = '$baseurl/exam';
+  static const String Forgot = '$baseurl/send_otp';
+  static const String PostTest = '$baseurl/test';
+  static const String AllTestApi = '$baseurl/alltest';
+  static const String Result = '$baseurl/test_result/';
+  static const String Getchapter = '$baseurl/chapter';
+  static const String Materials = '$baseurl/materials';
+  static const String Mcqchap = '$baseurl/auto_exam_chapter/';
+  static const String Mcqtopic = '$baseurl/auto_exam_question/';
+  static const String Getmcq = '$baseurl/getexam_mcqs/';
+  static const String GetNotification = '$baseurl/notifications';
 }

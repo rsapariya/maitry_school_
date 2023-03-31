@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -26,6 +28,7 @@ class _walletsState extends State<wallets> {
   bool langauge = true;
   var options;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -33,6 +36,7 @@ class _walletsState extends State<wallets> {
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: Get.height / 80),
           child: RefreshIndicator(
+            onRefresh: regresher,
             child: Column(
               children: [
                 Row(
@@ -51,14 +55,10 @@ class _walletsState extends State<wallets> {
                           fontFamily: "popins Medium",
                           fontSize: 18),
                     ),
-                    InkWell(
-                      child: SizedBox(
-                        child: Container(
+                    const SizedBox(
                           height: 40,
                           width: 40,
                         ),
-                      ),
-                    ),
                   ],
                 ),
                 subscribplanse.isNotEmpty
@@ -92,17 +92,17 @@ class _walletsState extends State<wallets> {
                                       ),
                                       Row(
                                         children: [
-                                          Text(
+                                          const Text(
                                             "Sr.Number",
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 18,
                                                 fontFamily: "popins Medium"),
                                           ),
-                                          Spacer(),
+                                          const Spacer(),
                                           Text(
                                             index.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14,
                                                 fontFamily: "popins"),
@@ -139,7 +139,7 @@ class _walletsState extends State<wallets> {
                                             subscribplanse[index]
                                                     ['payment_name']
                                                 .toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14,
                                                 fontFamily: "popins"),
@@ -174,7 +174,7 @@ class _walletsState extends State<wallets> {
                                           const Spacer(),
                                           Text(
                                             "₹ ${subscribplanse[index]['amount'].toString()}",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14,
                                                 fontFamily: "popins"),
@@ -234,7 +234,6 @@ class _walletsState extends State<wallets> {
                                                 'email': 'test@razorpay.com'
                                               }
                                             };
-                                            print(options);
                                             try {
                                               _razorpay.open(options);
                                             } catch (e) {
@@ -274,7 +273,7 @@ class _walletsState extends State<wallets> {
                       )
                     : Padding(
                         padding: EdgeInsets.only(top: Get.height / 2.2),
-                        child: Text(
+                        child: const Text(
                           "No data",
                           style: TextStyle(
                               color: Colors.black,
@@ -284,7 +283,6 @@ class _walletsState extends State<wallets> {
                       ),
               ],
             ),
-            onRefresh: regresher,
           ),
         ),
       ),
@@ -310,32 +308,23 @@ class _walletsState extends State<wallets> {
             subscribplanse.add(e);
           });
         });
-        print('--000000000000000000000000000000000->>$val');
         setState(() {});
       } else {
-        print('--0000->>$val');
       }
       // print('--->>$val');
     } else {
-      print('--00000->>$val');
     }
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    print("Payment SUCSEES @@@@@@@@@@@@@@@@@@@@@@@");
-    print(response);
-    print(options.toString());
-    print(response.paymentId);
     _dialogBuilder(context);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    print("Payment FAILES @@@@@@@@@@@@@@@@@@@@@@@@");
     dialogBuilder(context);
   }
 
   void _handleExternalWallet(PaymentSuccessResponse response) {
-    print("Payment WALLET @@@@@@@@@@@@@@@@@@@@@@@@");
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
@@ -348,72 +337,70 @@ class _walletsState extends State<wallets> {
             child: Dialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: Get.height / 30,
-                    ),
-                    CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.green.withOpacity(0.2),
-                        child: const Center(
-                          child: Icon(
-                            Icons.done_all,
-                            size: 50,
-                            color: Colors.green,
-                          ),
-                        )),
-                    SizedBox(
-                      height: Get.height / 30,
-                    ),
-                    const Text(
-                      "SUCCESS",
-                      style: TextStyle(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: Get.height / 30,
+                  ),
+                  CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.green.withOpacity(0.2),
+                      child: const Center(
+                        child: Icon(
+                          Icons.done_all,
+                          size: 50,
                           color: Colors.green,
-                          fontFamily: "popins Bold",
-                          fontSize: 18),
+                        ),
+                      )),
+                  SizedBox(
+                    height: Get.height / 30,
+                  ),
+                  const Text(
+                    "SUCCESS",
+                    style: TextStyle(
+                        color: Colors.green,
+                        fontFamily: "popins Bold",
+                        fontSize: 18),
+                  ),
+                  SizedBox(
+                    width: Get.width / 1.5,
+                    child: const Text(
+                      "Dear Saumil Vekariya your STD 11&12 Neet 2022 subscription has been subscribed.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: "popins",
+                          fontSize: 12),
                     ),
-                    SizedBox(
-                      width: Get.width / 1.5,
-                      child: const Text(
-                        "Dear Saumil Vekariya your STD 11&12 Neet 2022 subscription has been subscribed.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: "popins",
-                            fontSize: 12),
-                      ),
-                    ),
-                    SizedBox(
-                      height: Get.height / 40,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          Get.back();
-                        });
-                      },
-                      child: Container(
-                        height: Get.height / 25,
-                        width: Get.width / 4,
-                        decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: const Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              "Done",
-                              style: TextStyle(
-                                  fontFamily: 'popins', color: Colors.white),
-                            ),
+                  ),
+                  SizedBox(
+                    height: Get.height / 40,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        Get.back();
+                      });
+                    },
+                    child: Container(
+                      height: Get.height / 25,
+                      width: Get.width / 4,
+                      decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            "Done",
+                            style: TextStyle(
+                                fontFamily: 'popins', color: Colors.white),
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ));
       },
@@ -430,106 +417,104 @@ class _walletsState extends State<wallets> {
             child: Dialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: Icon(Icons.close))
-                      ],
-                    ),
-                    Image.asset(
-                      'asstes/image/payment_fail_icon.png',
-                      scale: 4.5,
-                      color: Colors.red,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      "Payment Failed",
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontFamily: "popins Bold",
-                          fontSize: 20),
-                    ),
-                    // SizedBox(
-                    //   width: Get.width / 1.5,
-                    //   child: const Text(
-                    //     "Sorry your payment is failed",
-                    //     textAlign: TextAlign.center,
-                    //     style: TextStyle(
-                    //         color: Colors.grey,
-                    //         fontFamily: "popins",
-                    //         fontSize: 12),
-                    //   ),
-                    // ),
-                    SizedBox(
-                      height: Get.height / 40,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          Get.back();
-                          try {
-                            _razorpay.open(options);
-                          } catch (e) {
-                            debugPrint(e.toString());
-                          }
-                        });
-                      },
-                      child: Container(
-                        height: Get.height / 25,
-                        width: Get.width / 3,
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: const Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              "Try again",
-                              style: TextStyle(
-                                  fontFamily: 'popins', color: Colors.white),
-                            ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: const Icon(Icons.close))
+                    ],
+                  ),
+                  Image.asset(
+                    'asstes/image/payment_fail_icon.png',
+                    scale: 4.5,
+                    color: Colors.red,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "Payment Failed",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontFamily: "popins Bold",
+                        fontSize: 20),
+                  ),
+                  // SizedBox(
+                  //   width: Get.width / 1.5,
+                  //   child: const Text(
+                  //     "Sorry your payment is failed",
+                  //     textAlign: TextAlign.center,
+                  //     style: TextStyle(
+                  //         color: Colors.grey,
+                  //         fontFamily: "popins",
+                  //         fontSize: 12),
+                  //   ),
+                  // ),
+                  SizedBox(
+                    height: Get.height / 40,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        Get.back();
+                        try {
+                          _razorpay.open(options);
+                        } catch (e) {
+                          debugPrint(e.toString());
+                        }
+                      });
+                    },
+                    child: Container(
+                      height: Get.height / 25,
+                      width: Get.width / 3,
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            "Try again",
+                            style: TextStyle(
+                                fontFamily: 'popins', color: Colors.white),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: Get.height / 40,
-                    ),
-                    // InkWell(
-                    //   onTap: () {
-                    //     setState(() {
-                    //       Get.back();
-                    //     });
-                    //   },
-                    //   child: Container(
-                    //     height: Get.height / 25,
-                    //     width: Get.width / 3,
-                    //     decoration: BoxDecoration(
-                    //         color: Colors.grey.withOpacity(0.2),
-                    //         borderRadius: BorderRadius.circular(30)),
-                    //     child: const Center(
-                    //       child: Padding(
-                    //         padding: EdgeInsets.symmetric(horizontal: 20),
-                    //         child: Text(
-                    //           "Try Later",
-                    //           style: TextStyle(
-                    //               fontFamily: 'popins', color: Colors.black),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: Get.height / 40,
+                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     setState(() {
+                  //       Get.back();
+                  //     });
+                  //   },
+                  //   child: Container(
+                  //     height: Get.height / 25,
+                  //     width: Get.width / 3,
+                  //     decoration: BoxDecoration(
+                  //         color: Colors.grey.withOpacity(0.2),
+                  //         borderRadius: BorderRadius.circular(30)),
+                  //     child: const Center(
+                  //       child: Padding(
+                  //         padding: EdgeInsets.symmetric(horizontal: 20),
+                  //         child: Text(
+                  //           "Try Later",
+                  //           style: TextStyle(
+                  //               fontFamily: 'popins', color: Colors.black),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                ],
               ),
             ));
       },

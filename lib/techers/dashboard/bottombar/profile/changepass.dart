@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class _changepasswoedState extends State<changepasswoed> {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
@@ -32,7 +34,7 @@ class _changepasswoedState extends State<changepasswoed> {
             horizontal: Get.width / 30, vertical: Get.height / 80),
         child: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,9 +67,9 @@ class _changepasswoedState extends State<changepasswoed> {
                           fontFamily: "popins Medium",
                           fontSize: 18),
                     ),
-                    InkWell(
+                    const InkWell(
                       child: SizedBox(
-                        child: Container(
+                        child: SizedBox(
                           height: 40,
                           width: 40,
                         ),
@@ -183,7 +185,7 @@ class _changepasswoedState extends State<changepasswoed> {
                 InkWell(
                   onTap: () async {
                     if (loding == false) {
-                      if (_formKey.currentState!.validate()) {
+                      if (formKey.currentState!.validate()) {
                         setState(() {
                           loding = true;
                         });
@@ -217,7 +219,7 @@ class _changepasswoedState extends State<changepasswoed> {
                               ),
                             ],
                           )
-                        : Center(
+                        : const Center(
                             child: CircularProgressIndicator(
                               color: Colors.white, strokeWidth:3,
                             ),
@@ -246,7 +248,7 @@ class _changepasswoedState extends State<changepasswoed> {
       suffixIcon: surfix,
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: TextStyle(
+      labelStyle: const TextStyle(
         fontFamily: "popins",
         fontSize: 14,
       ),
@@ -260,7 +262,7 @@ class _changepasswoedState extends State<changepasswoed> {
               strokeAlign: StrokeAlign.center)),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           width: 1,
           color: Colors.blue,
         ),
@@ -302,15 +304,11 @@ class _changepasswoedState extends State<changepasswoed> {
     final response = await request.send();
     final respStr = await response.stream.bytesToString();
     var val = jsonDecode(respStr);
-    print(Oldpass.text.toString());
-    print(Npass.text.toString());
-    print(Cpass.text.toString());
     if (response.statusCode == 200) {
       if (val['success'] == true) {
         setState(() {
           loding = false;
         });
-        print('--sssss->>$val');
 
         ApiWrapper.fluttertosat(val['message'].toString());
       } else {
@@ -318,7 +316,6 @@ class _changepasswoedState extends State<changepasswoed> {
           loding = false;
         });
         ApiWrapper.fluttertosat(val['message'].toString());
-        print('--sssss->>$val');
       }
       // print('--->>$val');
     } else {
@@ -326,7 +323,6 @@ class _changepasswoedState extends State<changepasswoed> {
         loding = false;
       });
       ApiWrapper.fluttertosat(val['message'].toString());
-      print('--sssss->>$val');
     }
   }
 }

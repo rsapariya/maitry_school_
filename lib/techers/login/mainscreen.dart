@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -257,7 +259,7 @@ class _mainscreenState extends State<mainscreen> {
       suffixIcon: surfix,
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: TextStyle(
+      labelStyle: const TextStyle(
         fontFamily: "popins",
         fontSize: 14,
       ),
@@ -271,7 +273,7 @@ class _mainscreenState extends State<mainscreen> {
               strokeAlign: StrokeAlign.center)),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           width: 1,
           color: Colors.blue,
         ),

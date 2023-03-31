@@ -1,5 +1,10 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+
+import '../../../../student/home.dart';
 
 class notification extends StatefulWidget {
   const notification({Key? key}) : super(key: key);
@@ -9,17 +14,9 @@ class notification extends StatefulWidget {
 }
 
 class _notificationState extends State<notification> {
-  @override
   bool langauge = true;
-  List notifi = [
-    {"a": "Loream ipsum", "b": "About 1 min ago"},
-    {"a": "Ralaable contante page", "b": "About 12 min ago"},
-    {"a": "Loream ipsum is not a contant", "b": "About 29 min ago"},
-    {"a": "Browse other questions tagged", "b": "29 August"},
-    {"a": "Empowering the world", "b": "16 August"},
-    {"a": "Loream ipsum doller", "b": "8 August"},
-  ];
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -50,93 +47,92 @@ class _notificationState extends State<notification> {
                       ),
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Notification",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: "popins Medium",
                         fontSize: 18),
                   ),
-                  InkWell(
-                    child: SizedBox(
-                      child: Container(
-                        height: Get.height / 20,
-                        width: Get.width / 9,
-                      ),
-                    ),
+                  SizedBox(
+                    height: Get.height / 20,
+                    width: Get.width / 9,
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Expanded(
-                child: ListView.builder(
-                  // controller: controller,
-                  itemCount: notifi.length,
-                  itemBuilder: (_, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: Get.width / 40),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
+                child: Notifications.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: Notifications.length,
+                        itemBuilder: (_, index) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: Get.height / 120),
-                                child: Container(
-                                    width: Get.width / 10,
-                                    height: Get.height / 20,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.blue.withOpacity(0.1)),
-                                    child: Center(
-                                        child: Image.asset(
-                                      "asstes/image/Ticket Star.png",
-                                      scale: 3,
-                                    ))),
-                              ),
-                              SizedBox(width: Get.width / 20),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
                                 children: [
-                                  Text(
-                                    notifi[index]["a"],
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: "popins Medium",
-                                        fontSize: 14),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: Get.height / 120),
+                                    child: Container(
+                                        width: Get.width / 10,
+                                        height: Get.height / 20,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color:
+                                                Colors.blue.withOpacity(0.1)),
+                                        child: Center(
+                                            child: Image.asset(
+                                          "asstes/image/Ticket Star.png",
+                                          scale: 3,
+                                        ))),
                                   ),
-                                  SizedBox(
-                                    width: Get.width / 1.7,
-                                    child: Text(
-                                      notifi[index]["b"],
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          color: Colors.grey,
-                                          fontFamily: "popins",
-                                          fontSize: 12),
-                                    ),
-                                  )
+                                  SizedBox(width: Get.width / 20),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      HtmlWidget(
+                                        Notifications[index]["title"] ?? "",
+                                        textStyle: const TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "popins Medium",
+                                            fontSize: 14),
+                                      ),
+                                      SizedBox(
+                                        width: Get.width / 1.3,
+                                        child: HtmlWidget(
+                                          Notifications[index]["description"] ??
+                                              "",
+                                          textStyle: const TextStyle(
+                                              color: Colors.grey,
+                                              fontFamily: "popins",
+                                              fontSize: 12),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ],
                               ),
-                              Spacer(),
-                              Icon(
-                                Icons.more_vert_outlined,
-                                size: 20,
-                                color: Colors.black.withOpacity(0.6),
-                              )
+                              const Divider()
                             ],
+                          );
+                        },
+                      )
+                    : SizedBox(
+                        child: Center(
+                          child: Text(
+                            'No Data',
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 18,
+                                fontFamily: "popins"),
                           ),
-                          Divider()
-                        ],
+                        ),
                       ),
-                    );
-                  },
-                ),
               ),
             ],
           ),

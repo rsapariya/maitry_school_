@@ -37,10 +37,10 @@ class provider extends StatelessWidget {
       ],
       child: GetMaterialApp(
         home: getdata.read('islogin') != true
-            ? BoardingPage()
+            ? const BoardingPage()
             : getdata.read('logindata')['Result']['user_type'] == "Student"
-                ? bottoms()
-                : bottomt(),
+                ? const bottoms()
+                : const bottomt(),
         debugShowCheckedModeBanner: false,
       ),
     );

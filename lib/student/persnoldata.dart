@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,7 +39,7 @@ class _EditproState extends State<Editpro> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -61,7 +63,7 @@ class _EditproState extends State<Editpro> {
                     ),
                   ),
                 ),
-                Text(
+                const Text(
                   "Edit Profile",
                   style: TextStyle(
                       color: Colors.black,
@@ -70,11 +72,9 @@ class _EditproState extends State<Editpro> {
                 ),
                 InkWell(
                   child: SizedBox(
-                    child: Container(
                       height: Get.height / 20,
                       width: Get.width / 9,
                     ),
-                  ),
                 ),
               ],
             ),
@@ -91,7 +91,7 @@ class _EditproState extends State<Editpro> {
                         CircleAvatar(
                           backgroundColor: Colors.grey.withOpacity(0.1),
                           radius: 50,
-                          backgroundImage: AssetImage(
+                          backgroundImage: const AssetImage(
                             'asstes/image/profile1.jpg',
                           ),
                         ),
@@ -257,8 +257,8 @@ class _EditproState extends State<Editpro> {
                             borderRadius: BorderRadius.circular(40)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
+                          children:const [
+                             Text(
                               "Update",
                               style: TextStyle(
                                   color: Colors.white,
@@ -293,7 +293,7 @@ class _EditproState extends State<Editpro> {
       suffixIcon: surfix,
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: TextStyle(
+      labelStyle: const TextStyle(
         fontFamily: "popins",
         fontSize: 14,
       ),
@@ -306,7 +306,7 @@ class _EditproState extends State<Editpro> {
               strokeAlign: StrokeAlign.center)),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           width: 1,
           color: Colors.transparent,
         ),

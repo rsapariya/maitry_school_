@@ -1,15 +1,17 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Databasehalper {
-  static final _databasename = 'persnol.db';
-  static final _databaseversion = 1;
-  static final table = "my_table";
-  static final columnID = "id";
-  static final columnName = "name";
-  static final columnage = "age";
+  static const _databasename = 'persnol.db';
+  static const _databaseversion = 1;
+  static const table = "my_table";
+  static const columnID = "id";
+  static const columnName = "name";
+  static const columnage = "age";
   static Database? _database;
 
   Databasehalper._privateConstructor();

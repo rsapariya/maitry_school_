@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables, avoid_unnecessary_containers
 
 import 'dart:convert';
 
@@ -28,7 +28,7 @@ class _walletState extends State<wallet> {
 
   bool langauge = true;
   var options;
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -238,8 +238,6 @@ class _walletState extends State<wallet> {
                                                 'email': 'test@razorpay.com'
                                               }
                                             };
-                                            print("))))))))))))))))))");
-                                            print(options);
                                             try {
                                               _razorpay.open(options);
                                             } catch (e) {
@@ -279,7 +277,7 @@ class _walletState extends State<wallet> {
                       )
                     : Padding(
                         padding: EdgeInsets.only(top: Get.height / 2.2),
-                        child: Text(
+                        child: const Text(
                           "No data",
                           style: TextStyle(
                               color: Colors.black,
@@ -296,20 +294,14 @@ class _walletState extends State<wallet> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    print("Payment SUCSEES @@@@@@@@@@@@@@@@@@@@@@@");
-    print(response);
-    print(options.toString());
-    print(response.paymentId);
     _dialogBuilder(context);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    print("Payment FAILES @@@@@@@@@@@@@@@@@@@@@@@@");
     dialogBuilder(context);
   }
 
   void _handleExternalWallet(PaymentSuccessResponse response) {
-    print("Payment WALLET @@@@@@@@@@@@@@@@@@@@@@@@");
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
@@ -411,14 +403,11 @@ class _walletState extends State<wallet> {
             subscibePlan.add(e);
           });
         });
-        print('--000000000000000000000000000000000->>$val');
         setState(() {});
       } else {
-        print('--0000->>$val');
       }
       // print('--->>$val');
     } else {
-      print('--00000->>$val');
     }
   }
 

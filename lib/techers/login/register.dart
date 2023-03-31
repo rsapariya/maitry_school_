@@ -1,11 +1,13 @@
-// ignore_for_file: equal_keys_in_map
+// ignore_for_file: equal_keys_in_map, non_constant_identifier_names, camel_case_types, avoid_unnecessary_containers
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/onbording.dart';
 import 'package:schooolapp/techers/login/otp.dart';
 import 'package:schooolapp/techers/units/storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../units/api.dart';
 
@@ -30,7 +32,6 @@ class _registerState extends State<register> {
   TextEditingController district = TextEditingController();
   TextEditingController taluko = TextEditingController();
 
-  @override
   String OTPnum = '';
   bool npaas = true;
   bool cpaas = true;
@@ -41,16 +42,16 @@ class _registerState extends State<register> {
   String gender = "male";
   String usertype = "Student";
   bool loding = false;
-
+  @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: Get.width / 30),
         child: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -876,6 +877,7 @@ class _registerState extends State<register> {
                         setState(() {
                           turms = !turms;
                         });
+                        print(turms);
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8),
@@ -906,14 +908,39 @@ class _registerState extends State<register> {
                     ),
                     SizedBox(
                       width: Get.width / 1.3,
-                      child: const Text(
-                        "By Countinuing you accept our Privecy policy and turms of use.",
-                        maxLines: 2,
-                        style: TextStyle(
-                          fontFamily: "popins",
-                          fontSize: 12,
-                        ),
-                      ),
+                      child: RichText(
+                          text: TextSpan(
+                              text: "By Countinuing you accept our ",
+                              style: TextStyle(
+                                  fontFamily: "popins",
+                                  fontSize: 12,
+                                  color: Colors.black),
+                              children: [
+                            TextSpan(
+                              text: 'Privacy Policy ',
+                              style: TextStyle(
+                                  fontFamily: "popins",
+                                  decoration: TextDecoration.underline,
+                                  fontSize: 12,
+                                  color: Colors.blue),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () async {
+                                  var url = Uri.parse(getdata.read('Policy'));
+                                  if (await canLaunchUrl(url)) {
+                                    await launchUrl(url);
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                },
+                            ),
+                            TextSpan(
+                              text: 'terms of use.',
+                              style: TextStyle(
+                                  fontFamily: "popins",
+                                  fontSize: 12,
+                                  color: Colors.black),
+                            )
+                          ])),
                     )
                   ],
                 ),
@@ -923,49 +950,53 @@ class _registerState extends State<register> {
                 InkWell(
                   onTap: () async {
                     if (loding == false) {
-                      if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          if (phonenumber.text.length == 10) {
-                            OTPnum = "+91" + phonenumber.text.toString();
-                          } else {
-                            OTPnum = phonenumber.text.toString();
-                          }
-                          var data = {
-                            "fullname": fullname.text.toString(),
-                            "phonenumber": OTPnum.toString(),
-                            "password": password.text.toString(),
-                            "cpassword": cpassword.text.toString(),
-                            "cpassword": cpassword.text.toString(),
-                            "schoolname": schoolname.text.toString(),
-                            "city": city.text.toString(),
-                            "district": district.text.toString(),
-                            "taluko": taluko.text.toString(),
-                            "usertype": usertype.toString(),
-                            "token": token.toString(),
-                          };
-                          save('Register', data);
-                          loding = true;
-                        });
-                        await FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: OTPnum,
-                          verificationCompleted: (phoneAuthCredential) {},
-                          verificationFailed: (error) {
-                            setState(() {
-                              loding = false;
-                            });
-                            ApiWrapper.fluttertosat(error.toString());
-                            ApiWrapper.fluttertosat('Chek Number');
-                          },
-                          codeSent: (verificationId, forceResendingToken) {
-                            ApiWrapper.fluttertosat('Code sent.');
-                            setState(() {
-                              save("verification", verificationId);
-                              loding = false;
-                            });
-                            Get.to(() => verification());
-                          },
-                          codeAutoRetrievalTimeout: (verificationId) {},
-                        );
+                      if (formKey.currentState!.validate()) {
+                        if (turms == true) {
+                          setState(() {
+                            if (phonenumber.text.length == 10) {
+                              OTPnum = "+91${phonenumber.text}";
+                            } else {
+                              OTPnum = phonenumber.text.toString();
+                            }
+                            var data = {
+                              "fullname": fullname.text.toString(),
+                              "phonenumber": OTPnum.toString(),
+                              "password": password.text.toString(),
+                              "cpassword": cpassword.text.toString(),
+                              "cpassword": cpassword.text.toString(),
+                              "schoolname": schoolname.text.toString(),
+                              "city": city.text.toString(),
+                              "district": district.text.toString(),
+                              "taluko": taluko.text.toString(),
+                              "usertype": usertype.toString(),
+                              "token": token.toString(),
+                            };
+                            save('Register', data);
+                            loding = true;
+                          });
+                          await FirebaseAuth.instance.verifyPhoneNumber(
+                            phoneNumber: OTPnum,
+                            verificationCompleted: (phoneAuthCredential) {},
+                            verificationFailed: (error) {
+                              setState(() {
+                                loding = false;
+                              });
+                              ApiWrapper.fluttertosat(error.toString());
+                              ApiWrapper.fluttertosat('Chek Number');
+                            },
+                            codeSent: (verificationId, forceResendingToken) {
+                              ApiWrapper.fluttertosat('Code sent.');
+                              setState(() {
+                                save("verification", verificationId);
+                                loding = false;
+                              });
+                              Get.to(() => const verification());
+                            },
+                            codeAutoRetrievalTimeout: (verificationId) {},
+                          );
+                        } else {
+                          ApiWrapper.fluttertosat("Accept Privacy Policy");
+                        }
                       }
                     }
                   },
@@ -995,7 +1026,7 @@ class _registerState extends State<register> {
                               ),
                             ],
                           )
-                        : Center(
+                        : const Center(
                             child: CircularProgressIndicator(
                               color: Colors.white,
                               strokeWidth: 3,
@@ -1053,7 +1084,7 @@ class _registerState extends State<register> {
       suffixIcon: surfix,
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: TextStyle(
+      labelStyle: const TextStyle(
         fontFamily: "popins",
         fontSize: 14,
       ),
@@ -1067,7 +1098,7 @@ class _registerState extends State<register> {
               strokeAlign: StrokeAlign.center)),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           width: 1,
           color: Colors.blue,
         ),

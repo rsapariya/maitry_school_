@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,9 +11,10 @@ class newpass extends StatefulWidget {
 }
 
 class _newpassState extends State<newpass> {
-  @override
   bool pass = true;
   bool npass = true;
+  @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -118,6 +121,11 @@ class _newpassState extends State<newpass> {
               InkWell(
                 onTap: () {},
                 child: Container(
+                  height: Get.height / 15,
+                  width: Get.width / 1.8,
+                  decoration: BoxDecoration(
+                      color: Colors.blueAccent,
+                      borderRadius: BorderRadius.circular(40)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -137,11 +145,6 @@ class _newpassState extends State<newpass> {
                       ),
                     ],
                   ),
-                  height: Get.height / 15,
-                  width: Get.width / 1.8,
-                  decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(40)),
                 ),
               ),
               SizedBox(
@@ -166,7 +169,7 @@ class _newpassState extends State<newpass> {
       suffixIcon: InkWell(onTap:onTap, child: surfix),
       hintText: hintText,
       hintStyle: const TextStyle(fontFamily: "popins", fontSize: 14),
-      labelStyle: TextStyle(
+      labelStyle: const TextStyle(
         fontFamily: "popins",
         fontSize: 14,
       ),
@@ -180,7 +183,7 @@ class _newpassState extends State<newpass> {
               strokeAlign: StrokeAlign.center)),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           width: 1,        color: Colors.blue,
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:http/http.dart' as http;
+import '../../../login/mainscreen.dart';
 import '../../../units/api.dart';
 import '../home/home.dart';
 
@@ -406,7 +407,6 @@ class _walletState extends State<wallet> {
         setState(() {});
       } else {
       }
-      // print('--->>$val');
     } else {
     }
   }

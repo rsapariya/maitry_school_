@@ -7,8 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 import '../../student/bottoms.dart';
+import '../login/mainscreen.dart';
 
-var headers = {'X-Authorization': Xapi.toString()};
 
 class ApiWrapper {
   static fluttertosat(msj) async {

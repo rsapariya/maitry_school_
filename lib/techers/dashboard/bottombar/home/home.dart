@@ -10,6 +10,7 @@ import 'package:schooolapp/techers/dashboard/bottombar/home/pendingreqest/pendin
 import 'package:schooolapp/techers/dashboard/bottombar/home/result/results.dart';
 import 'package:schooolapp/techers/dashboard/bottombar/home/result/studentwise.dart';
 import '../../../../student/home.dart';
+import '../../../login/mainscreen.dart';
 import '../../../units/api.dart';
 import '../../../units/cusomewidget.dart';
 import '../../../units/storage.dart';
@@ -382,9 +383,7 @@ class _homeState extends State<home> {
         .replaceAll('</o:p>', "")
         .replaceAll('</table>', "")
         .replaceAll('</tbody>', "");
-
     val = jsonDecode(jsonString);
-
     if (response.statusCode == 200) {
       if (val['success'] == true) {
         setState(
@@ -426,6 +425,9 @@ class _homeState extends State<home> {
         .replaceAll('</tbody>', "");
 
     val = jsonDecode(jsonString);
+    print("----->>>... REQUEST $val");
+    print(getdata.read('logindata')['Result']['user_api'].toString());
+    print(request.headers);
 
     if (response.statusCode == 200) {
       if (val['success'] == true) {

@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import '../../student/bottoms.dart';
 import '../dashboard/bottombar/bottombar.dart';
 import '../units/api.dart';
+import 'mainscreen.dart';
 
 class verification extends StatefulWidget {
   const verification({Key? key}) : super(key: key);
@@ -26,7 +27,6 @@ class _verificationState extends State<verification> {
   var SMS = "";
   bool loding = false;
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -262,6 +262,9 @@ class _verificationState extends State<verification> {
           save('islogin', true);
           save('logindata', val);
         });
+        Xapi = getdata.read('logindata')['Result']['user_api'].toString();
+        headers = {'X-Authorization': Xapi.toString()};
+        setState(() {});
         ApiWrapper.fluttertosat(val['message'].toString());
         val['Result']['user_type'] == 'Teacher'
             ? Get.offAll(() => const bottomt(),

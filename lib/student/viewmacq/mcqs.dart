@@ -4,6 +4,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:schooolapp/techers/units/storage.dart';
 import 'package:http/http.dart' as http;
+import '../../techers/login/mainscreen.dart';
 import '../../techers/units/api.dart';
 import 'onemcq.dart';
 
@@ -103,7 +104,7 @@ class _viewmcqsState extends State<viewmcqs> {
                                               width: 10,
                                             ),
                                             SizedBox(
-                                              width: Get.width / 1.4,
+                                              width: Get.width / 1.15,
                                               child: HtmlWidget(
                                                 """${MCqlist[index]["mcq_question"]}""",
                                                 textStyle: TextStyle(

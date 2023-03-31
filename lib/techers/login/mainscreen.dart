@@ -15,6 +15,8 @@ import '../units/api.dart';
 import '../units/storage.dart';
 import 'forgot.dart';
 
+var headers;
+
 class mainscreen extends StatefulWidget {
   const mainscreen({Key? key}) : super(key: key);
 
@@ -324,6 +326,9 @@ class _mainscreenState extends State<mainscreen> {
         setState(() {
           save('logindata', val);
         });
+        Xapi = getdata.read('logindata')['Result']['user_api'].toString();
+        headers = {'X-Authorization': Xapi.toString()};
+
         setState(() {
           Subject.clear();
         });

@@ -53,7 +53,7 @@ class _onlinetestState extends State<onlinetest> {
                     ),
                   ),
                   Text(
-                    "Online test",
+                    "Online Test",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: "poppoins Medium",

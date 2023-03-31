@@ -12,6 +12,7 @@ import 'package:schooolapp/techers/units/storage.dart';
 import '../onbording.dart';
 import '../techers/dashboard/bottombar/home/notification.dart';
 import '../techers/dashboard/bottombar/home/result/studentwise.dart';
+import '../techers/login/mainscreen.dart';
 import '../techers/units/api.dart';
 import 'Materials.dart';
 import 'Onlinetest/test.dart';
@@ -551,7 +552,8 @@ class _homesState extends State<homes> {
         .replaceAll('</tbody>', "");
 
     val = jsonDecode(jsonString);
-
+    print('--------------ccccccccccccccccc');
+    print(val);
     if (response.statusCode == 200) {
       if (val['success'] == true) {
         setState(() {

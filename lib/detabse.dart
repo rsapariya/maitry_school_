@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages
-
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,13 +12,11 @@ class Databasehalper {
   static const columnName = "name";
   static const columnage = "age";
   static Database? _database;
-
   Databasehalper._privateConstructor();
   static final Databasehalper instance = Databasehalper._privateConstructor();
 
   Future<Database?> get database async {
     if (_database != null) return _database;
-
     _database = await _initDatabase();
     return _database;
   }
@@ -31,7 +28,7 @@ class Databasehalper {
         version: _databaseversion, onCreate: _onCreate);
   }
 
-  Future _onCreate(Database db, int version) async {
+  Future _onCreate(Database db, intversion) async {
     await db.execute('''
       CREATE TABLE $table(
       $columnID INTEGER PRIMARY KEY,
